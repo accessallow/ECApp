@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+    <head>
+        <meta charset="UTF-8">
+        <title>ECApp Inventory</title>
+        <script src="<?php echo URL; ?>assets/angularjs/angular.min.js"></script>
+        <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/style.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Engineering Electronics</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Products 
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'Product/'; ?>">List all products</a></li>
+                            <li><a href="<?php echo URL_X . 'Product/add_new'; ?>">Add new product</a></li>  
+                            <li class="divider"></li>
+                            <li><a href="<?php echo URL_X . 'Product_category/'; ?>">Categories</a></li>
+                            <li><a href="<?php echo URL_X . 'Product_category/add_new'; ?>">Add new category</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">SVN</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Seller 
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'Seller/'; ?>">List all sellers</a></li>
+                            <li><a href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new</a></li>
+
+                            <!--                            <li class="divider"></li>
+                                                        <li><a href="#">Separated link</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">One more separated link</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">

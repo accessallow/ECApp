@@ -1,0 +1,7 @@
+.parsley-required{
+    display:none;
+}
+.parsley-error{
+    border-color: #FF3333;
+    background-color: #FFCCCC;
+}

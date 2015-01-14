@@ -1,0 +1,16 @@
+[   
+    {
+        "id": "1",
+        "product_name": "IC-555",
+        "product_brand": "IC-555",
+        "product_category": "4",
+        "product_description": "IC high wattage"
+    },
+    {
+        "id": "2",
+        "product_name": "Potentione",
+        "product_brand": "Omega",
+        "product_category": "6",
+        "product_description": ""
+    }
+]
