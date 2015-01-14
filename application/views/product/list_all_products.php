@@ -5,8 +5,18 @@ foreach ($categories as $c) {
     $assoc_array[$c->id] = $c->product_category_name;
 }
 ?>
-<div class="row" style="text-align: right;">
-    <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
+
+<div class="row">
+    <div class="col-md-7">
+        <form class="form-inline">
+            <div class="form-group">
+                <input class="form-control" type="text" ng-model="m"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5" style="text-align: right;">
+         <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
+    </div>
 </div>
 <br/>
 <?php /* ?>
