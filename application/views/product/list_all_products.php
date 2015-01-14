@@ -1,9 +1,9 @@
 <!--DONE-->
 <?php
-$assoc_array = NULL;
-foreach ($categories as $c) {
-    $assoc_array[$c->id] = $c->product_category_name;
-}
+//$assoc_array = NULL;
+//foreach ($categories as $c) {
+//    $assoc_array[$c->id] = $c->product_category_name;
+//}
 ?>
 
 <div class="row">

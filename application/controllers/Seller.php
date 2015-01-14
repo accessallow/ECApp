@@ -11,7 +11,13 @@ class Seller extends CI_Controller {
         $this->load->model("seller_model");
         $data["sellers"] = $this->seller_model->get_all_entries();
         $this->load->view("template/header");
-        $this->load->view("seller/list_all_1", $data);
+        $this->load->view("seller/list_all", $data);
+        $this->load->view("template/footer");
+    }
+     public function index_angular() {
+       
+        $this->load->view("template/header");
+        $this->load->view("seller/list_all_sellers");
         $this->load->view("template/footer");
     }
     public function index_json(){

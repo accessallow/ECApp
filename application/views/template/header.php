@@ -34,7 +34,7 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo URL_X . 'Seller/'; ?>">List all sellers</a></li>
+                            <li><a href="<?php echo URL_X . 'Seller/index_angular'; ?>">List all sellers</a></li>
                             <li><a href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new</a></li>
 
                             <!--                            <li class="divider"></li>
