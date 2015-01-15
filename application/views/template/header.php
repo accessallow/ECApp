@@ -27,20 +27,27 @@
                             <li><a href="<?php echo URL_X . 'Product_category/add_new'; ?>">Add new category</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">SVN</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Inventory
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'Inventory/'; ?>">Inventory List</a></li>
+                            <li><a href="<?php echo URL_X . 'Inventory/add_new'; ?>">Add new purchase</a></li>  
+                            
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Seller 
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo URL_X . 'Seller/index_angular'; ?>">List all sellers</a></li>
+                            <li><a href="<?php echo URL_X . 'Seller/'; ?>">List all sellers</a></li>
                             <li><a href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new</a></li>
 
-                            <!--                            <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">One more separated link</a></li>-->
+                           
                         </ul>
                     </li>
                 </ul>

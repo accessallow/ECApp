@@ -7,14 +7,16 @@ class Seller extends CI_Controller {
         parent::__construct();
     }
 
-    public function index() {
+    public function index_old() {
         $this->load->model("seller_model");
         $data["sellers"] = $this->seller_model->get_all_entries();
         $this->load->view("template/header");
         $this->load->view("seller/list_all", $data);
         $this->load->view("template/footer");
     }
-     public function index_angular() {
+    
+    // now this is new and current
+     public function index() {
        
         $this->load->view("template/header");
         $this->load->view("seller/list_all_sellers");
