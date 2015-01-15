@@ -1,9 +1,9 @@
 <!--DONE-->
 <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Product/add_new'; ?>" method="POST">
     <div class="form-group">
-        <label for="product_name" class="col-sm-2 control-label">Product Name</label>
+        <label class="col-sm-2 control-label">Product Name</label>
         <div class="col-sm-4">
-            <select name="product_category" class="form-control"  required>
+            <select name="product_id" class="form-control"  required>
                 <option value="" selected>Choose a product</option>
                 <?php foreach ($products as $p) { ?>
                     <option value="<?php echo $p->id ?>"> <?php echo $p->product_name; ?> </option>
@@ -11,34 +11,23 @@
             </select>
         </div>
     </div>
-<!--    <div class="form-group">
-        <label for="product_category" class="col-sm-2 control-label">Category</label>
-        <div class="col-sm-4">
-
-            <select name="product_category" class="form-control"  required>
-                <option value="" selected>Choose a category</option>
-                <?php foreach ($categories as $c) { ?>
-                    <option value="<?php echo $c->id ?>"><?php echo $c->product_category_name; ?></option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>-->
-     <div class="form-group">
-        <label for="product_name" class="col-sm-2 control-label">Quantity</label>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Quantity</label>
         <div class="col-sm-4">
             <input type="text" class="form-control" required name="quantity" placeholder=""/> 
         </div>
     </div>
-     <div class="form-group">
-        <label for="product_name" class="col-sm-2 control-label">Payment</label>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Payment</label>
         <div class="col-sm-4">
             <input type="text" class="form-control" required name="payment" placeholder=""/> 
         </div>
     </div>
-     <div class="form-group">
-        <label for="product_name" class="col-sm-2 control-label">Seller</label>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Seller</label>
         <div class="col-sm-4">
-           <select name="seller" class="form-control"  required>
+            <select name="seller_id" class="form-control"  required>
                 <option value="" selected>Choose a seller</option>
                 <?php foreach ($sellers as $s) { ?>
                     <option value="<?php echo $s->id ?>"><?php echo $s->seller_name; ?></option>
@@ -47,16 +36,25 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="product_brand" class="col-sm-2 control-label">Company/Brand</label>
+        <label class="col-sm-2 control-label">Date</label>
+
         <div class="col-sm-4">
-            <input type="text" class="form-control" required name="product_brand" placeholder=""/> 
+            <div class='input-group date' id='datetimepicker1'>
+
+                <input type="text" data-date-format="DD/MM/YYYY" class="form-control" name="date" placeholder=""/> 
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
         </div>
+
     </div>
-    
+
+   
+
     <div class="form-group">
-        <label for="product_description" class="col-sm-2 control-label"> Description </label>
+        <label class="col-sm-2 control-label"> Description </label>
         <div class="col-sm-4">
-            <textarea class="form-control"  name="inventory_description" placeholder=""></textarea>
+            <textarea class="form-control"  name="description" placeholder=""></textarea>
         </div>
     </div>
     <div class="form-group">
