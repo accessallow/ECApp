@@ -1,6 +1,11 @@
 <?php
 //done 
-class Product_model extends CI_Model {
+class InventoryTags {
+    public static $deleted = 0;
+    public static $available = 1;
+}
+
+class Inventory_model extends CI_Model {
 
     var $product_id = "";
     var $quantity = "";
@@ -20,7 +25,7 @@ class Product_model extends CI_Model {
         $this->payment= $payment;
         $this->seller_id = $seller_id;
         $this->date = $date;
-        $this->product_description = $description;
+        $this->description = $description;
         $this->tag = InventoryTags::$available;
         
         $this->db->insert("inventory", $this);
@@ -49,6 +54,15 @@ class Product_model extends CI_Model {
         // selecting records whose tag is set to available
         // those will be our active records
         $query = $this->db->get_where('inventory',array('tag'=>  InventoryTags::$available));
+        return $query->result();
+    }
+    function get_all_entries_joined(){
+        $queryString = "select i.id,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+from inventory i,products p,seller s
+where (i.product_id = p.id and 
+i.seller_id = s.id
+and i.tag = 1); ";
+        $query = $this->db->query($queryString);
         return $query->result();
     }
     
