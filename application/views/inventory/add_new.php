@@ -1,5 +1,5 @@
 <!--DONE-->
-<form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Product/add_new'; ?>" method="POST">
+<form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Inventory/add_new'; ?>" method="POST">
     <div class="form-group">
         <label class="col-sm-2 control-label">Product Name</label>
         <div class="col-sm-4">
@@ -61,7 +61,7 @@
         <div class="col-sm-offset-2 col-sm-10">
             <input type="submit" class="btn btn-success" value="Save"/>
             <input type="reset" class="btn" value="Clear"/>
-            <a href="<?php echo URL_X . 'Product/'; ?>" class="btn btn-primary">Back</a>
+            <a href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Back</a>
         </div>
     </div>
 </form>

@@ -24,15 +24,21 @@ class Inventory extends CI_Controller {
     
 
     public function add_new() {
-        if($this->input->post('product_name')) {
+        if($this->input->post('product_id')) {
             
             $this->load->model("inventory_model");
             
-            $this->inventory_model->insert($this->input->post("product_name"),
-                    $this->input->post("product_brand"),
-                    $this->input->post("product_category"),
-                    $this->input->post("product_description")
+            
+            
+            $this->inventory_model->insert(
+                    $this->input->post("product_id"),
+                    $this->input->post("quantity"),
+                    $this->input->post("payment"),
+                    $this->input->post("seller_id"),
+                    $this->input->post("date"),
+                    $this->input->post("description")
                     );
+            
             $this->index();
         } else {
             $this->load->model("seller_model");
