@@ -37,7 +37,8 @@ class Inventory_model extends CI_Model {
         $this->payment= $payment;
         $this->seller_id = $seller_id;
         $this->date = $date;
-        $this->product_description = $description;
+        $this->description = $description;
+        $this->tag = InventoryTags::$available;
 
         $this->db->update('inventory', $this, array('id' => $id));
     }
@@ -61,7 +62,7 @@ class Inventory_model extends CI_Model {
 from inventory i,products p,seller s
 where (i.product_id = p.id and 
 i.seller_id = s.id
-and i.tag = 1); ";
+and i.tag = 1) order by i.id desc; ";
         $query = $this->db->query($queryString);
         return $query->result();
     }
@@ -69,7 +70,7 @@ and i.tag = 1); ";
 
     function get_one_inventory($id) {
 
-        $query = $this->db->get_where('products', array('id' => $id,'tag'=>  InventoryTags::$available));
+        $query = $this->db->get_where('inventory', array('id' => $id,'tag'=>  InventoryTags::$available));
         return $query->result();
     }
 
