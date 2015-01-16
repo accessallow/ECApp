@@ -82,8 +82,8 @@ and i.tag = 1) order by i.id desc; ";
 from inventory i,products p,seller s
 where (i.product_id = p.id and 
 i.seller_id = s.id
-and i.id = 1
-and i.tag = 1); 
+and i.id = $id
+and i.tag = ".InventoryTags::$available."); 
 ";
         $query = $this->db->query($fetchString);
         return $query->result();

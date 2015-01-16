@@ -12,7 +12,7 @@
             Seller : <?php echo $seller_name;?>,<br/>
             Description : <?php echo $description;?> <br/><hr/>
         
-        <strong>    Are you sure want to delete it? <strong>
+        <strong>    Are you sure want to delete it? </strong>
 
         </p>
         <p>
