@@ -1,17 +1,28 @@
-<?php 
-if(isset($product)){
-    
-$product = $product[0];
-?>
-<form action="<?php echo URL_X.'Product/delete';?>" method="POST">
-    <input type="hidden" name="id" value="<?php echo $product->id;?>">
-<p>Are you sure want to delete <strong><?php echo $product->product_name;?></strong>?</p>
-<p>
-    <input type="submit" class="btn btn-danger" value="Delete"/>
-    <a href="<?php echo URL_X.'Product/';?>" class="btn btn-primary">Cancel</a>
-</p>
-</form>
+<?php if (isset($product_name)) { ?>
 
-<?php 
+
+    <form action="<?php echo URL_X . 'Inventory/delete'; ?>" method="POST">
+        <input type="hidden" name="inventory_id" value="<?php echo $inventory_id; ?>"/>
+        <p>
+            Inventory entry id : <?php echo $inventory_id;?>,<br/>
+            Product : <?php echo $product_name;?>,<br/>
+            Quantity : <?php echo $quantity;?>,<br/>
+            Payment : Rs.<?php echo $payment;?>/-,<br/>
+            Date : <?php echo $date;?>,<br/>
+            Seller : <?php echo $seller_name;?>,<br/>
+            Description : <?php echo $description;?> <br/><hr/>
+        
+        <strong>    Are you sure want to delete it? <strong>
+
+        </p>
+        <p>
+            <input type="submit" class="btn btn-danger" value="Delete"/>
+            <a href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Cancel</a>
+        </p>
+    </form>
+
+    <?php
+} else {
+    echo "Something gone errored!!!Dont worry our data is always safe...its just a script error";
 }
 ?>

@@ -54,16 +54,25 @@ class Inventory extends CI_Controller {
     }
 
     public function delete($id = NULL) {
-        if ($this->input->post('id')) {
-            $this->load->model("product_model");
-            $this->product_model->delete($this->input->post('id'));
+        if ($this->input->post('inventory_id')) {
+            $this->load->model("inventory_model");
+            $this->inventory_model->delete($this->input->post('inventory_id'));
             $this->index();
         } else {
-            $this->load->model("product_model");
-            $data['product'] = $this->product_model->get_one_product($id);
+            
+            $this->load->model("inventory_model");
+            $inventoryObject = $this->inventory_model->get_one_inventory_joined($id)[0];
+            
+            $data['inventory_id'] = $inventoryObject->id;
+            $data['product_name'] = $inventoryObject->product_name;
+            $data['seller_name'] = $inventoryObject->seller_name;
+            $data['date'] = $inventoryObject->date;
+            $data['quantity'] = $inventoryObject->quantity;
+            $data['payment'] = $inventoryObject->payment;
+            $data['description'] = $inventoryObject->description;
 
             $this->load->view("template/header");
-            $this->load->view("product/delete", $data);
+            $this->load->view("inventory/delete_inventory", $data);
             $this->load->view("template/footer");
         }
     }
