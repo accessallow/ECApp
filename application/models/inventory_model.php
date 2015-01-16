@@ -1,12 +1,13 @@
 <?php
 
-//done 
+
 class InventoryTags {
 
     public static $deleted = 0;
     public static $available = 1;
 
-}
+}  
+
 
 class Inventory_model extends CI_Model {
 
