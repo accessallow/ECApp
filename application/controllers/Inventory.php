@@ -84,11 +84,13 @@ class Inventory extends CI_Controller {
             $data['inventory'] = $this->inventory_model->get_one_inventory($id);
 
             // now sending product_list
+            // ghost alert : using witchcraft spell
             $this->load->model("product_model");
-            $data['products'] = $this->product_model->get_all_entries();
+            $data['products'] = $this->product_model->get_all_entries_no_matter_what();
             
+            // ghost alert : using witchcraft spell
             $this->load->model("seller_model");
-            $data["sellers"] = $this->seller_model->get_all_entries();
+            $data["sellers"] = $this->seller_model->get_all_entries_no_matter_what();
             
             
             $this->load->view("template/header");

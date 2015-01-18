@@ -51,7 +51,7 @@ class Product_model extends CI_Model {
         $query = $this->db->get_where('products',array('tag'=>  ProductTags::$available));
         return $query->result();
     }
-    function get_really_all_entries() {
+    function get_all_entries_no_matter_what() {
         /* 
          * this function will return all the product records whether
          * they are deleted or available not does not matter..
