@@ -1,5 +1,5 @@
 <?php
-//done
+
 class Product extends CI_Controller {
     public function __construct(){
     

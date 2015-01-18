@@ -51,10 +51,27 @@ class Product_model extends CI_Model {
         $query = $this->db->get_where('products',array('tag'=>  ProductTags::$available));
         return $query->result();
     }
+    function get_really_all_entries() {
+        /* 
+         * this function will return all the product records whether
+         * they are deleted or available not does not matter..
+         * use it with caution
+         * it is returning dead-products...you will not want to mess with
+         * dead things   
+         */
+        $query = $this->db->get_where('products');
+        return $query->result();
+    }
 
     function get_all_entries_joined() {
         $query = $this->db->query('SELECT p.id,p.product_name,p.product_brand,c.product_category_name as \'product_category\','
                 . 'p.product_description FROM products p,product_category c WHERE p.product_category = c.id and p.tag = '.ProductTags::$available.';');
+        return $query->result();
+    }
+    
+    function get_all_entries_joined_no_matter_what() {
+        $query = $this->db->query('SELECT p.id,p.product_name,p.product_brand,c.product_category_name as \'product_category\','
+                . 'p.product_description FROM products p,product_category c WHERE p.product_category = c.id;');
         return $query->result();
     }
 
@@ -63,5 +80,13 @@ class Product_model extends CI_Model {
         $query = $this->db->get_where('products', array('id' => $id,'tag'=>  ProductTags::$available));
         return $query->result();
     }
+    
+    function get_one_product_no_matter_what($id) {
+
+        $query = $this->db->get_where('products', array('id' => $id));
+        return $query->result();
+    }
+    
+    
 
 }

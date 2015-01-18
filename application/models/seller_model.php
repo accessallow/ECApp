@@ -48,13 +48,30 @@ var $tag = NULL;
          $query = $this->db->get_where('seller',array('tag'=>  SellerTags::$available));
          return $query->result();
     }
+    
+    function get_all_entries_no_matter_what(){
+         $query = $this->db->get_where('seller');
+         return $query->result();
+    }
     function get_one_seller($id){
         
         $query = $this->db->get_where('seller',array('id'=>$id,'tag'=> SellerTags::$available));
         return $query->result();
     }
+    
+    function get_one_seller_no_matter_what($id){
+        
+        $query = $this->db->get_where('seller',array('id'=>$id));
+        return $query->result();
+    }
+    
     function get_all_other_entries($product_id){
+        // get all the selle
         $query = $this->db->query("SELECT * FROM seller WHERE id not in (select seller_id as id from product_seller_mapping where product_id=$product_id)and tag=".SellerTags::$available.";");
+        return $query->result();
+    }
+    function get_all_other_entries_no_matter_what($product_id){
+        $query = $this->db->query("SELECT * FROM seller WHERE id not in (select seller_id as id from product_seller_mapping where product_id=$product_id);");
         return $query->result();
     }
     
