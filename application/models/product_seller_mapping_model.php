@@ -1,5 +1,14 @@
 <?php
-//done 
+
+
+
+class ProductSellerMappingTags {
+
+    public static $deleted = 0;
+    public static $available = 1;
+
+}
+
 class Product_seller_mapping_model extends CI_Model {
 
     var $product_id = "";
