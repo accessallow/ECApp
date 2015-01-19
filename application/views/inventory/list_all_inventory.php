@@ -31,6 +31,7 @@
                 <td>Seller</td>
                 <td>Date</td>
                 <td>Description</td>
+                <td>Action</td>
             </tr>
         </thead>
         <tbody>

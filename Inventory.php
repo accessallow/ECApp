@@ -61,9 +61,7 @@ class Inventory extends CI_Controller {
         } else {
             
             $this->load->model("inventory_model");
-   //  $inventoryObject = $this->inventory_model->get_one_inventory_joined($id)[0];
-	$r = $this->inventory_model->get_one_inventory_joined($id);
-	$inventoryObject = $r[0];
+            $inventoryObject = $this->inventory_model->get_one_inventory_joined($id)[0];
             
             $data['inventory_id'] = $inventoryObject->id;
             $data['product_name'] = $inventoryObject->product_name;

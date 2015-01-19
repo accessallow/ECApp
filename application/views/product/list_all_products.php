@@ -15,29 +15,39 @@
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-         <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
+        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
     </div>
 </div>
 <br/>
 
 <div ng-controller="ProductController">
     <table class="table table-hover table-striped">
-        
-        <tr ng-repeat="product in products|filter:m">
-            <td>
-                <a href="<?php echo URL_X . 'Product_seller_mapping/sellers/'; ?>{{product.id}}">
-                    {{product.product_name}}
-                </a>
-            </td>
-            <td> {{product.product_brand}}</td>
-            <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
-            <td> {{product.product_category}}</td>
-            <td> {{product.product_description}}</td>
-            <td>
-                <a href="<?php echo URL_X . 'Product/edit/';?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
-                <a href="<?php echo URL_X . 'Product/delete/';?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <td>Product</td>
+                <td>Brand</td>
+                <td>Category</td>
+                <td>Description</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products|filter:m">
+                <td>
+                    <a href="<?php echo URL_X . 'Product_seller_mapping/sellers/'; ?>{{product.id}}">
+                        {{product.product_name}}
+                    </a>
+                </td>
+                <td> {{product.product_brand}}</td>
+                <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
+                <td> {{product.product_category}}</td>
+                <td> {{product.product_description}}</td>
+                <td>
+                    <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
+                    <a href="<?php echo URL_X . 'Product/delete/'; ?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
 <script>
