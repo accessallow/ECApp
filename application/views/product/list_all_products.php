@@ -49,7 +49,7 @@
         <tbody>
             <tr ng-repeat="product in products|filter:m">
                 <td>
-                    <a href="<?php echo URL_X . 'Product_seller_mapping/sellers/'; ?>{{product.id}}">
+                    <a href="<?php echo URL_X . 'Inventory?product_id='; ?>{{product.id}}">
                         {{product.product_name}}
                     </a>
                 </td>
