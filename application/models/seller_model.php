@@ -74,6 +74,16 @@ var $tag = NULL;
         $query = $this->db->query("SELECT * FROM seller WHERE id not in (select seller_id as id from product_seller_mapping where product_id=$product_id);");
         return $query->result();
     }
+    ///////////////////////////////////////////////
+    ///////////////METADATA QUERIES////////////////
+    ///////////////////////////////////////////////
+    function get_total_number_of_sellers($whereArray){
+        $this->db->where($whereArray);
+        $this->db->from('seller');
+        $q = $this->db->count_all_results();
+
+        return $q;
+    }
     
 
 }

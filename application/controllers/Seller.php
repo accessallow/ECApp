@@ -17,9 +17,11 @@ class Seller extends CI_Controller {
     
     // now this is new and current
      public function index() {
-       
+         $this->load->model("seller_model");
+       $data['total_sellers_alive'] = 
+               $this->seller_model->get_total_number_of_sellers(array("tag"=>  SellerTags::$available));
         $this->load->view("template/header");
-        $this->load->view("seller/list_all_sellers");
+        $this->load->view("seller/list_all_sellers",$data);
         $this->load->view("template/footer");
     }
     public function index_json(){

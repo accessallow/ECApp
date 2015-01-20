@@ -13,8 +13,13 @@
     </div>
 </div>
 
+<div class="row well">
+    <h4>All sellers</h4>
+    <p>
+        <span class="badge">Total sellers : <?php echo $total_sellers_alive;?></span>
+    </p>
+</div>
 
-<br/>
 <div ng-controller="SellerController">
     <table class="table table-hover table-striped">
         <thead>
@@ -28,7 +33,11 @@
 
         <tbody>
             <tr ng-repeat="seller in sellers|filter:s">
-                <td>{{seller.seller_name}}</td>
+                <td>
+                    <a href="<?php echo URL_X;?>/Inventory?seller_id={{seller.id}}">
+                    {{seller.seller_name}}
+                    </a>
+                </td>
                 <td>{{seller.seller_phone_number}}</td>
                 <td>{{seller.seller_address}}</td>
                 <td>
