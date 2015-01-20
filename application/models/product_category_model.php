@@ -70,5 +70,17 @@ class Product_category_model extends CI_Model {
         $a = $this->get_one_category($id);
         return $a[0]->product_category_name;
     }
+    
+    ///////////////////////////////////////////////////////////
+    /////////////// METADATA QUERY FUNCTIONS //////////////////
+    ///////////////////////////////////////////////////////////
+    
+    function get_total_categories() {
+        $q = $this->db->count_all('products');
+
+        return $q;
+    }
+
+    
 
 }

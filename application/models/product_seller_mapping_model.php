@@ -45,6 +45,17 @@ class Product_seller_mapping_model extends CI_Model {
         $query = $this->db->get('product_seller_mapping');
         return $query->result();
     }
+    function get_all_entries_joined_extended($product_id,$seller_id){
+        if($product_id){
+            //send all sellers who sell product of $product_id
+            //in ascending order of price
+        }elseif($seller_id){
+            //send all products who are sold by seller $seller_id
+            //in ascending order of alphabets in product
+        }else{
+            //send all the mappings in ascending order of product,price
+        }
+    }
 
     function get_one_mapping($id) {
 

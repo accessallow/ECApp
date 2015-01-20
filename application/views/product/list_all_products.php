@@ -18,7 +18,22 @@
         <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
     </div>
 </div>
-<br/>
+<div class="row well">
+    <h4><?php echo $label; ?>
+    <?php
+        if(isset($get_all_link)){
+            echo $get_all_link;
+        }
+     ?>
+    </h4>
+    <p>
+        <span class="badge">Total products: <?php echo $total_products;?></span>
+        <?php if(isset($total_products_under_this_category)){ ?>
+        <span class="badge">Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category;?></span>
+        <?php } ?>
+        <span class="badge">Total uncategorized products: <?php echo $total_uncategorized_products;?></span>
+    </p>
+</div>
 
 <div ng-controller="ProductController">
     <table class="table table-hover table-striped">
@@ -40,7 +55,11 @@
                 </td>
                 <td> {{product.product_brand}}</td>
                 <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
-                <td> {{product.product_category}}</td>
+                <td> 
+                    <a href="<?php echo URL_X.'Product?product_category_id=';?>{{product.product_category_id}}">
+                    {{product.product_category}}
+                    </a>
+                </td>
                 <td> {{product.product_description}}</td>
                 <td>
                     <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
@@ -53,18 +72,10 @@
 <script>
     var app = angular.module('myapp', []);
     app.controller('ProductController', ['$scope', '$http', function ($scope, $http) {
-            $http.get('<?php echo URL_X . 'Product/index_json'; ?>').success(function (data) {
+            $http.get('<?php echo $json_fetch_link; ?>').success(function (data) {
                 $scope.products = data;
                 console.log(data);
             });
-//                    $http.get('<?php echo URL_X . 'Product_category/index_json'; ?>').success(function(data){
-//                      //  $scope.categories = data;
-//                      var categoryAssociatedArray={};
-//                       data.forEach(function(val){
-//                           categoryAssociatedArray[val['id']]=val['product_category_name'];
-//                       });
-//                        console.log(categoryAssociatedArray);
-//                        $scope.categories = categoryAssociatedArray;
-//                    });
+
         }]);
 </script>

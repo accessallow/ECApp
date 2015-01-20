@@ -9,14 +9,54 @@ class Inventory extends CI_Controller {
     }
 
     public function index() {
+        $data=null;
+        if($this->input->get('product_id')){
+            $product_id = $this->input->get('product_id');
+            
+            $this->load->model('product_model');
+            $productObject = $this->product_model->get_one_product_no_matter_what($product_id);
+            
+            $this->load->model('inventory_model');
+            $sum =$this->inventory_model->get_sum_of_payments($product_id,NULL);
+            $data['sum'] = $sum[0]->payment;
+            
+            $data['product_id'] = $product_id;
+            $data['product_name'] = $productObject[0]->product_name;
+            
+        }elseif($this->input->get('seller_id')){
+            $seller_id = $this->input->get('seller_id');
+            
+            $this->load->model('seller_model');
+            $sellerObject = $this->seller_model->get_one_seller_no_matter_what($seller_id);
+            
+            $this->load->model('inventory_model');
+            $sum =$this->inventory_model->get_sum_of_payments(NULL,$seller_id);
+            $data['sum'] = $sum[0]->payment;
+            
+            
+            $data['seller_id'] = $this->input->get('seller_id');
+            $data['seller_name'] = $sellerObject[0]->seller_name;
+        }else{
+            $this->load->model('inventory_model');
+            $sum =$this->inventory_model->get_sum_of_payments(null,null);
+            $data['sum'] = $sum[0]->payment;
+        }
         $this->load->view("template/header");
-        $this->load->view("inventory/list_all_inventory");
+        $this->load->view("inventory/list_all_inventory",$data);
         $this->load->view("template/footer");
     }
 
     public function index_json() {
         $this->load->model("inventory_model");
-        $products = $this->inventory_model->get_all_entries_joined();
+        $products=NULL;
+        
+        if ($this->input->get('product_id')) {
+            $products = $this->inventory_model->get_all_entries_joined_extended($this->input->get('product_id'),NULL);
+        } else if ($this->input->get('seller_id')) {
+            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,$this->input->get('seller_id'));
+        }else{
+            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,NULL);
+        }
 
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($products));
@@ -30,12 +70,7 @@ class Inventory extends CI_Controller {
 
 
             $this->inventory_model->insert(
-                    $this->input->post("product_id"), 
-                    $this->input->post("quantity"), 
-                    $this->input->post("payment"), 
-                    $this->input->post("seller_id"),
-                    $this->input->post("date"),
-                    $this->input->post("description")
+                    $this->input->post("product_id"), $this->input->post("quantity"), $this->input->post("payment"), $this->input->post("seller_id"), $this->input->post("date"), $this->input->post("description")
             );
 
             $this->index();
@@ -59,12 +94,12 @@ class Inventory extends CI_Controller {
             $this->inventory_model->delete($this->input->post('inventory_id'));
             $this->index();
         } else {
-            
+
             $this->load->model("inventory_model");
-   //  $inventoryObject = $this->inventory_model->get_one_inventory_joined($id)[0];
-	$r = $this->inventory_model->get_one_inventory_joined($id);
-	$inventoryObject = $r[0];
-            
+            //  $inventoryObject = $this->inventory_model->get_one_inventory_joined($id)[0];
+            $r = $this->inventory_model->get_one_inventory_joined($id);
+            $inventoryObject = $r[0];
+
             $data['inventory_id'] = $inventoryObject->id;
             $data['product_name'] = $inventoryObject->product_name;
             $data['seller_name'] = $inventoryObject->seller_name;
@@ -89,38 +124,26 @@ class Inventory extends CI_Controller {
             // ghost alert : using witchcraft spell
             $this->load->model("product_model");
             $data['products'] = $this->product_model->get_all_entries_no_matter_what();
-            
+
             // ghost alert : using witchcraft spell
             $this->load->model("seller_model");
             $data["sellers"] = $this->seller_model->get_all_entries_no_matter_what();
-            
-            
+
+
             $this->load->view("template/header");
             $this->load->view("inventory/edit_inventory", $data);
             $this->load->view("template/footer");
-            
-            
-            
         } else if ($this->input->post('product_id')) {
-            
+
             // this will execute if post data is sent to this function : updating the data
             $this->load->model("inventory_model");
 
-            $this->inventory_model->edit($this->input->post("inventory_id"),
-                    $this->input->post("product_id"), 
-                    $this->input->post("quantity"), 
-                    $this->input->post("payment"), 
-                    $this->input->post("seller_id"),
-                    $this->input->post("date"),
-                    $this->input->post("description")
+            $this->inventory_model->edit($this->input->post("inventory_id"), $this->input->post("product_id"), $this->input->post("quantity"), $this->input->post("payment"), $this->input->post("seller_id"), $this->input->post("date"), $this->input->post("description")
             );
             $this->index();
-            
-            
-            
         } else {
-            
-            
+
+
             //this wont execute just wrote is for fun
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();

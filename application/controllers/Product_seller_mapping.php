@@ -7,7 +7,7 @@ class Product_seller_mapping extends CI_Controller {
         parent::__construct();
     }
 
-    public function Sellers($product_id) {
+    public function SellersOfAProduct($product_id) {
         //unleashing the dragons
         $this->load->model('product_model');
         $this->load->model('product_seller_mapping_model');
@@ -26,7 +26,13 @@ class Product_seller_mapping extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function add_new($product_id) {
+    public function ProductsByASeller($seller_id){
+        
+    }
+    public function All(){
+        
+    }
+    public function add_new_seller_to_a_product($product_id) {
         if ($this->input->post('product_id')) {
 
             $this->load->model("product_seller_mapping_model");
@@ -50,7 +56,7 @@ class Product_seller_mapping extends CI_Controller {
         }
     }
 
-    public function edit($mapping_id) {
+    public function edit_a_mapping($mapping_id) {
          if(isset($mapping_id)&& !$this->input->post('mapping_id')){
             $this->load->model("product_seller_mapping_model");
             $data['mapping'] = $this->product_seller_mapping_model->get_one_mapping($mapping_id);
@@ -81,7 +87,7 @@ class Product_seller_mapping extends CI_Controller {
         }
     }
     
-    public function edit_price($mapping_id=NULL){
+    public function edit_price_of_a_mapping($mapping_id=NULL){
         if($this->input->post('mapping_id')&& $this->input->post('product_price')){
             $this->load->model('product_seller_mapping_model');
             $this->product_seller_mapping_model->edit_price($this->input->post('mapping_id'),
@@ -90,7 +96,7 @@ class Product_seller_mapping extends CI_Controller {
         $this->Sellers($this->input->post('product_id'));
     }
 
-    public function delete($id) {     
+    public function delete_a_mapping($id) {     
         //fun in coding is back, reinvented my way of working with views,good job!!!!
     // post will send id and product_id         
         if($this->input->post('mapping_id')) {
