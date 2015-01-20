@@ -40,6 +40,7 @@
         <thead>
             <tr>
                 <td>Product</td>
+                <td>Links</td>
                 <td>Brand</td>
                 <td>Category</td>
                 <td>Description</td>
@@ -52,6 +53,12 @@
                     <a href="<?php echo URL_X . 'Inventory?product_id='; ?>{{product.id}}">
                         {{product.product_name}}
                     </a>
+                </td>
+                <td>
+                    <!--link to sellers who sell this product-->
+                    <a class="badge" href="<?php echo URL_X;?>Seller?product_id={{product.id}}">Sellers</a>
+                    <!--link to inventories done for this product-->
+                    <a class="badge" href="<?php echo URL_X;?>Inventory?product_id={{product.id}}">Inventories</a>
                 </td>
                 <td> {{product.product_brand}}</td>
                 <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
