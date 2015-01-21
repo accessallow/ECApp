@@ -10,7 +10,7 @@ foreach($categories as $c){
 ?>
     <tr>
     <td>
-        <a href="<?php echo URL_X;?>Product?category_id=<?php echo $c->id;?>">
+        <a href="<?php echo URL_X;?>Product?product_category_id=<?php echo $c->id;?>">
         <?php echo $c->product_category_name;?>
         </a>
     </td>
