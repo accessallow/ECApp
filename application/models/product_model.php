@@ -108,7 +108,7 @@ class Product_model extends CI_Model {
     function get_total_products($whereArray) {
         $this->db->where($whereArray);
         $this->db->from('products');
-        $q = $this->db->count_all('products');
+        $q = $this->db->count_all_results();
 
         return $q;
     }

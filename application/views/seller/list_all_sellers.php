@@ -17,7 +17,11 @@
 
 <div ng-controller="SellerController">
     <div class="row well">
-        <h4><?php echo $label; ?></h4>
+        <h4><?php echo $label; ?>
+            <?php if($this->input->get('product_id')){ ?>
+            <a class="badge" href="<?php echo URL_X;?>Seller/">Get all</a>
+            <?php } ?>
+        </h4>
         <p>
             <span class="badge">Total sellers : {{sellers.length}}</span>
             
@@ -29,6 +33,9 @@
         <thead>
             <tr>
                 <td>Seller</td>
+                <?php if($this->input->get('product_id')){?>
+                <td>Price</td>
+                <?php } ?>
                 <td>Links</td>
                 <td>Phone</td>
                 <td>Address</td>
@@ -43,6 +50,9 @@
                         {{seller.seller_name}}
                     </a>
                 </td>
+                <?php if($this->input->get('product_id')){?>
+                <td>{{seller.product_price}}</td>
+                <?php } ?>
                 <td>
                     <a href="<?php echo URL_X;?>Product?seller_id={{seller.id}}" class="badge">
                         Products

@@ -18,27 +18,27 @@
         <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
     </div>
 </div>
-
-
-<div ng-controller="ProductController">
-    
-    <div class="row well">
+<div class="row well">
     <h4><?php echo $label; ?>
-    <?php
-        if(isset($get_all_link)){
+        <?php
+        if (isset($get_all_link)) {
             echo $get_all_link;
         }
-     ?>
+        ?>
     </h4>
     <p>
-        <span class="badge">Total products: {{products.length}}</span>
-        <?php if(isset($total_products_under_this_category)){ ?>
-        <span class="badge">Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category;?></span>
+        <span class="badge">Total products: <?php echo $total_products;?></span>
+        <?php if (isset($total_products_under_this_category)) { ?>
+            <span class="badge">Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category; ?></span>
         <?php } ?>
-        <span class="badge">Total uncategorized products: <?php echo $total_uncategorized_products;?></span>
+        <span class="badge">Total uncategorized products: <?php echo $total_uncategorized_products; ?></span>
     </p>
 </div>
-    
+
+<div ng-controller="ProductController">
+
+
+
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -59,15 +59,15 @@
                 </td>
                 <td>
                     <!--link to sellers who sell this product-->
-                    <a class="badge" href="<?php echo URL_X;?>Seller?product_id={{product.id}}">Sellers</a>
+                    <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
                     <!--link to inventories done for this product-->
-                    <a class="badge" href="<?php echo URL_X;?>Inventory?product_id={{product.id}}">Inventories</a>
+                    <a class="badge" href="<?php echo URL_X; ?>Inventory?product_id={{product.id}}">Inventories</a>
                 </td>
                 <td> {{product.product_brand}}</td>
                 <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
                 <td> 
-                    <a href="<?php echo URL_X.'Product?product_category_id=';?>{{product.product_category_id}}">
-                    {{product.product_category}}
+                    <a href="<?php echo URL_X . 'Product?product_category_id='; ?>{{product.product_category_id}}">
+                        {{product.product_category}}
                     </a>
                 </td>
                 <td> {{product.product_description}}</td>
