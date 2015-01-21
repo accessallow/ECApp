@@ -14,19 +14,47 @@ class Seller extends CI_Controller {
         $this->load->view("seller/list_all", $data);
         $this->load->view("template/footer");
     }
-    
+
     // now this is new and current
-     public function index() {
-         $this->load->model("seller_model");
-       $data['total_sellers_alive'] = 
-               $this->seller_model->get_total_number_of_sellers(array("tag"=>  SellerTags::$available));
+    public function index() {
+        $this->load->model("seller_model");
+        $data['total_sellers_alive'] = $this->seller_model->get_total_number_of_sellers(array("tag" => SellerTags::$available));
+
+        if ($this->input->get('product_id')) {
+            // it means now we will have to mention sellers who
+            // sell the product having this product_id
+            $product_id = $this->input->get('product_id');
+            $data['fetch_json_link'] = URL_X . 'Seller/index_json?product_id=' . $product_id;
+            //lets fetch that product_details
+            $this->load->model('product_model');
+            $r = $this->product_model->get_one_product($product_id);
+            $product_name = $r[0]->product_name;
+            $data['label'] = "Sellers who sell the Product : ".$product_name;
+        } else {
+            $data['fetch_json_link'] = URL_X . 'Seller/index_json';
+            $data['label'] = "All sellers";
+        }
         $this->load->view("template/header");
-        $this->load->view("seller/list_all_sellers",$data);
+        $this->load->view("seller/list_all_sellers", $data);
         $this->load->view("template/footer");
     }
-    public function index_json(){
+
+    public function index_json() {
         $this->load->model("seller_model");
-        $sellers = $this->seller_model->get_all_entries();
+        //empty object
+        $sellers = null;
+        // now the if condition
+        if ($this->input->get('product_id')) {
+            // take that product_id from GET input set
+            $product_id = $this->input->get('product_id');
+            //now we will call up get_all_entries with another argument
+            $sellers = $this->seller_model->get_all_entries($product_id);
+        } else {
+            //we passed null because we want all sellers this time
+            $sellers = $this->seller_model->get_all_entries(null);
+            //our model is smart.it will handle the difference :D
+        }
+
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($sellers));
     }

@@ -13,14 +13,18 @@
     </div>
 </div>
 
-<div class="row well">
-    <h4>All sellers</h4>
-    <p>
-        <span class="badge">Total sellers : <?php echo $total_sellers_alive;?></span>
-    </p>
-</div>
+
 
 <div ng-controller="SellerController">
+    <div class="row well">
+        <h4><?php echo $label; ?></h4>
+        <p>
+            <span class="badge">Total sellers : {{sellers.length}}</span>
+            
+<!--            <span class="badge">Total sellers : <?php echo $total_sellers_alive; ?></span>-->
+            
+        </p>
+    </div>
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -34,8 +38,8 @@
         <tbody>
             <tr ng-repeat="seller in sellers|filter:s">
                 <td>
-                    <a href="<?php echo URL_X;?>/Inventory?seller_id={{seller.id}}">
-                    {{seller.seller_name}}
+                    <a href="<?php echo URL_X; ?>/Inventory?seller_id={{seller.id}}">
+                        {{seller.seller_name}}
                     </a>
                 </td>
                 <td>{{seller.seller_phone_number}}</td>
@@ -54,7 +58,7 @@
 <script>
     var app = angular.module('myapp', []);
     app.controller('SellerController', ['$scope', '$http', function ($scope, $http) {
-            $http.get('<?php echo URL_X . 'Seller/index_json'; ?>').success(function (data) {
+            $http.get('<?php echo $fetch_json_link; ?>').success(function (data) {
                 $scope.sellers = data;
                 console.log(data);
             });
