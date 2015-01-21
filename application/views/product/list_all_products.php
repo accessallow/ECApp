@@ -18,7 +18,11 @@
         <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
     </div>
 </div>
-<div class="row well">
+
+
+<div ng-controller="ProductController">
+    
+    <div class="row well">
     <h4><?php echo $label; ?>
     <?php
         if(isset($get_all_link)){
@@ -27,15 +31,14 @@
      ?>
     </h4>
     <p>
-        <span class="badge">Total products: <?php echo $total_products;?></span>
+        <span class="badge">Total products: {{products.length}}</span>
         <?php if(isset($total_products_under_this_category)){ ?>
         <span class="badge">Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category;?></span>
         <?php } ?>
         <span class="badge">Total uncategorized products: <?php echo $total_uncategorized_products;?></span>
     </p>
 </div>
-
-<div ng-controller="ProductController">
+    
     <table class="table table-hover table-striped">
         <thead>
             <tr>

@@ -11,7 +11,7 @@ class Product_category extends CI_Controller {
         $this->load->model("product_category_model");
         $data["categories"] = $this->product_category_model->get_all_entries();
         $this->load->view("template/header");
-        $this->load->view("product/category/list_all", $data);
+        $this->load->view("product/category/list_all_categories", $data);
         $this->load->view("template/footer");
     }
 

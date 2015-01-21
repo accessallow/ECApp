@@ -29,6 +29,7 @@
         <thead>
             <tr>
                 <td>Seller</td>
+                <td>Links</td>
                 <td>Phone</td>
                 <td>Address</td>
                 <td>Actions</td>
@@ -40,6 +41,11 @@
                 <td>
                     <a href="<?php echo URL_X; ?>/Inventory?seller_id={{seller.id}}">
                         {{seller.seller_name}}
+                    </a>
+                </td>
+                <td>
+                    <a href="<?php echo URL_X;?>Product?seller_id={{seller.id}}" class="badge">
+                        Products
                     </a>
                 </td>
                 <td>{{seller.seller_phone_number}}</td>

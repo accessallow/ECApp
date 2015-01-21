@@ -28,7 +28,8 @@ class Product extends CI_Controller {
                 $data['json_fetch_link'] = URL_X.'Product/index_json';
             }
             
-            $data['total_products'] = $this->product_model->get_total_products();
+            $data['total_products'] = 
+                    $this->product_model->get_total_products(array('tag'=>1));
             $data['total_uncategorized_products'] = $this->product_model->get_total_categorized_products(1000);
             
            // $this->load->model("product_category_model");

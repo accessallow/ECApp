@@ -9,7 +9,11 @@
 foreach($categories as $c){
 ?>
     <tr>
-    <td><?php echo $c->product_category_name;?></td>
+    <td>
+        <a href="<?php echo URL_X;?>Product?category_id=<?php echo $c->id;?>">
+        <?php echo $c->product_category_name;?>
+        </a>
+    </td>
     
     <td style="text-align: right;">
         <a href="<?php echo URL_X.'Product_category/edit/'.$c->id;?>" class="btn  btn-primary btn-xs">Edit</a>
