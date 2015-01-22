@@ -35,8 +35,10 @@
                 <td>Seller</td>
                 <?php if($this->input->get('product_id')){?>
                 <td>Price</td>
-                <?php } ?>
+                <?php }else{ ?>
+                
                 <td>Links</td>
+                <?php } ?>
                 <td>Phone</td>
                 <td>Address</td>
                 <td>Actions</td>
@@ -52,12 +54,13 @@
                 </td>
                 <?php if($this->input->get('product_id')){?>
                 <td>{{seller.product_price}}</td>
-                <?php } ?>
+                <?php }else{ ?>
                 <td>
                     <a href="<?php echo URL_X;?>Product?seller_id={{seller.id}}" class="badge">
                         Products
                     </a>
                 </td>
+                <?php } ?>
                 <td>{{seller.seller_phone_number}}</td>
                 <td>{{seller.seller_address}}</td>
                 <td>

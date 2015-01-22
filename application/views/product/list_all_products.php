@@ -43,7 +43,11 @@
         <thead>
             <tr>
                 <td>Product</td>
+                <?php if($this->input->get('seller_id')){ ?>
+                <td>Price</td>
+                <?php }else{ ?>
                 <td>Links</td>
+                <?php } ?>
                 <td>Brand</td>
                 <td>Category</td>
                 <td>Description</td>
@@ -57,12 +61,16 @@
                         {{product.product_name}}
                     </a>
                 </td>
+                <?php if($this->input->get('seller_id')){ ?>
+                <td>{{product.product_price}}</td>
+                <?php }else{ ?>
                 <td>
                     <!--link to sellers who sell this product-->
                     <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
                     <!--link to inventories done for this product-->
                     <a class="badge" href="<?php echo URL_X; ?>Inventory?product_id={{product.id}}">Inventories</a>
                 </td>
+                <?php } ?>
                 <td> {{product.product_brand}}</td>
                 <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
                 <td> 

@@ -14,6 +14,7 @@ class Inventory_model extends CI_Model {
     var $quantity = "";
     var $payment = "";
     var $seller_id = "";
+    var $rate = null;
     var $date = "";
     var $description = "";
     var $tag = NULL;
@@ -23,12 +24,13 @@ class Inventory_model extends CI_Model {
         $this->load->database();
     }
 
-    function insert($product_id, $quantity, $payment, $seller_id, $date, $description) {
+    function insert($product_id, $quantity, $payment, $seller_id,$rate, $date, $description) {
         // ye aa gyi saari ki saari values insert hone k liye...bhai dalo inko
         $this->product_id = $product_id;
         $this->quantity = $quantity;
         $this->payment = $payment;
         $this->seller_id = $seller_id;
+        $this->rate = $rate;
         $this->date = $date;
         $this->description = $description;
         // we are setting tag to "available" means this record is live
@@ -38,11 +40,12 @@ class Inventory_model extends CI_Model {
         $this->db->insert("inventory", $this);
     }
 
-    function edit($id, $product_id, $quantity, $payment, $seller_id, $date, $description) {
+    function edit($id, $product_id, $quantity, $payment, $seller_id, $rate,$date, $description) {
         $this->product_id = $product_id;
         $this->quantity = $quantity;
         $this->payment = $payment;
         $this->seller_id = $seller_id;
+        $this->rate = $rate;
         $this->date = $date;
         $this->description = $description;
         $this->tag = InventoryTags::$available;
@@ -81,7 +84,7 @@ class Inventory_model extends CI_Model {
     function get_all_entries_joined() {
 
         // returns with column naming
-        $queryString = "select i.id,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+        $queryString = "select i.id,p.product_name,i.rate,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -97,7 +100,7 @@ class Inventory_model extends CI_Model {
     function get_all_entries_joined_no_matter_what() {
 
         // returns with column naming
-        $queryString = "select i.id,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+        $queryString = "select i.id,p.product_name,i.rate,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( 
             i.product_id = p.id and 
@@ -117,7 +120,7 @@ class Inventory_model extends CI_Model {
         $queryString = NULL;
 
         if ($product_id) {
-            $queryString = "select i.id,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -125,7 +128,7 @@ class Inventory_model extends CI_Model {
             i.product_id = $product_id
         ) order by i.date desc,i.id desc; ";
         } elseif ($seller_id) {
-            $queryString = "select i.id,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -133,7 +136,7 @@ class Inventory_model extends CI_Model {
             i.seller_id = $seller_id
         ) order by i.date desc,i.id desc; ";
         } else {
-            $queryString = "select i.id,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -171,7 +174,7 @@ class Inventory_model extends CI_Model {
         // this fetches on inventory with Product_name and seller name in
         // place of product_id and seller_id
 
-        $fetchString = "select i.id,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+        $fetchString = "select i.id,i.rate,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where (i.product_id = p.id and 
         i.seller_id = s.id
@@ -188,7 +191,7 @@ class Inventory_model extends CI_Model {
         // place of product_id and seller_id
         //this function is dealing with ghost enries...use with caution,supernatural
 
-        $fetchString = "select i.id,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+        $fetchString = "select i.id,i.rate,p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where (i.product_id = p.id and 
         i.seller_id = s.id

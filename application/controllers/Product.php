@@ -23,6 +23,18 @@ class Product extends CI_Controller {
                 $data['get_all_link'] = '<a class="badge" href="'.URL_X.'Product/">Get all</a>';
                 $data['json_fetch_link'] = URL_X.'Product/index_json?product_category_id='.$category_id;
                 
+            }elseif($this->input->get('seller_id')){
+                $seller_id = $this->input->get('seller_id');
+                $this->load->model('seller_model');
+                $r = $this->seller_model->get_one_seller($seller_id);
+                $sellerObj = $r[0];
+                $seller_name = $sellerObj->seller_name;
+                $data['label'] = "Products from seller :".$seller_name;
+            // you need to set label
+            // you need to set json_fetch_link
+                $data['json_fetch_link'] = 
+                        URL_X.'Product/get_products_from_this_seller?seller_id='.$seller_id;
+                
             }else{
                 $data['label'] = "All products";
                 $data['json_fetch_link'] = URL_X.'Product/index_json';
@@ -51,6 +63,42 @@ class Product extends CI_Controller {
         
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($products));
+    }
+    public function get_sellers_for_this_product(){
+        $sellers = null;
+        if($this->input->get('product_id')){
+            $product_id = $this->input->get('product_id');
+            $this->load->model('seller_model');
+            $sellers = $this->seller_model->get_sellers_for_this_product($product_id);
+        }else{
+            $sellers = null;
+        }
+        $this->output->set_content_type('application/json')
+                ->set_output(json_encode($sellers));
+        
+    }
+    public function get_products_from_this_seller(){
+        $products = null;
+        if($this->input->get('seller_id')){
+            $seller_id = $this->input->get('seller_id');
+            $this->load->model('product_model');
+            $products = $this->product_model->get_products_from_this_seller($seller_id);
+        }else{
+            //nothing..
+        }
+        $this->output->set_content_type('application/json')
+                ->set_output(json_encode($products));
+    }
+    public function give_me_price(){
+        if($this->input->get('product_id')&&
+                $this->input->get('seller_id')){
+            $product_id = $this->input->get('product_id');
+            $seller_id = $this->input->get('seller_id');
+            $this->load->model('product_model');
+            $result = $this->product_model->give_me_price($product_id,$seller_id);
+            $this->output->set_content_type('application/json')
+                    ->set_output(json_encode($result));
+        }
     }
     
     public function show_catalogue(){

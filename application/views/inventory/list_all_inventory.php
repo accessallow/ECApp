@@ -52,7 +52,7 @@ if (isset($product_id)) {
         </h4>
         <p>
             <span class="badge">Total entries : {{entries.length}}</span>
-            <span class="badge">Total payment : Rs. <?php echo $sum;?>/-</span>
+            <span class="badge">Total payment : Rs. <?php echo $sum; ?>/-</span>
         </p>
     </div>
     <table class="table table-hover table-striped">
@@ -60,9 +60,10 @@ if (isset($product_id)) {
             <tr style="font-weight: bolder;">
                 <td>Id</td>
                 <td>Product</td>
+                <td>Seller</td>
+                <td>Rate</td>
                 <td>Quantity</td>
                 <td>Payment</td>
-                <td>Seller</td>
                 <td>Date</td>
                 <td>Description</td>
                 <td>Action</td>
@@ -76,13 +77,15 @@ if (isset($product_id)) {
                         {{entry.product_name}}
                     </a>
                 </td>
-                <td>{{entry.quantity}}</td>
-                <td>{{entry.payment}}</td>
                 <td>
                     <a href="<?php echo URL_X . 'Inventory?seller_id='; ?>{{entry.seller_id}}">
                         {{entry.seller_name}}
                     </a>
                 </td>
+                <td>{{entry.rate}}</td>
+                <td>{{entry.quantity}}</td>
+                <td>{{entry.payment}}</td>
+
                 <td>{{entry.date}}</td>
                 <td>{{entry.description}}</td>
                 <td>

@@ -100,6 +100,29 @@ class Seller_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM seller WHERE id not in (select seller_id as id from product_seller_mapping where product_id=$product_id);");
         return $query->result();
     }
+    
+    function get_sellers_for_this_product($product_id){
+        $queryString = "select
+                        s.id as 'seller_id',
+                        s.seller_name,
+                        psm.product_price,
+                        s.seller_phone_number,
+                        s.seller_address
+                        from 
+                        seller s,
+                        product_seller_mapping psm
+                        where
+                        (
+                        s.id = psm.seller_id and
+                        psm.product_id = $product_id and
+                        s.tag = 1 and
+                        psm.tag = 1
+                        )
+                        order by psm.product_price asc
+                        ;";
+        $query = $this->db->query($queryString);
+        return $query->result();
+    }
 
     ///////////////////////////////////////////////
     ///////////////METADATA QUERIES////////////////

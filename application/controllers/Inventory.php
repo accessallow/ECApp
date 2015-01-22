@@ -76,7 +76,7 @@ class Inventory extends CI_Controller {
             $this->index();
         } else {
             $this->load->model("seller_model");
-            $data["sellers"] = $this->seller_model->get_all_entries();
+            $data["sellers"] = $this->seller_model->get_all_entries(null);
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
             $this->load->model("product_model");
