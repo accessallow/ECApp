@@ -4,7 +4,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Product Name</label>
             <div class="col-sm-4">
-                <select name="product_id" ng-model="product_id" ng-change="give_me_price(product_id, seller_id)" class="form-control"   required>
+                <select name="product_id" ng-model="product_id"  class="form-control"   required>
                     <option value="" selected>Choose a product</option>
                     <?php foreach ($products as $p) { ?>
                         <option value="<?php echo $p->id ?>"> <?php echo $p->product_name; ?> </option>
@@ -89,12 +89,20 @@
             $scope.give_me_price = function (product_id, seller_id) {
                 $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
                     //return data[0].product_price;
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
+                    console.log(data);
                     if (data[0] != null) {
+                        //console.log("Data comes here = "+data);
+                       //  console.log("Data[0] comes here = "+data[0]);
                         $scope.price = data[0].product_price;
                     } else {
 
                         $scope.price = 0;
                     }
+                }).error(function(data){
+                    console.log("error says!!!");
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
+                    console.log(data);
                 });
             };
 

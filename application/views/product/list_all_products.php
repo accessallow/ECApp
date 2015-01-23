@@ -15,7 +15,9 @@
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new Product</a>
+        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">
+            <?php echo $buttonLabel; ?>
+        </a>
     </div>
 </div>
 <div class="row well">

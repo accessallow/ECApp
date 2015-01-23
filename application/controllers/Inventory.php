@@ -70,7 +70,13 @@ class Inventory extends CI_Controller {
 
 
             $this->inventory_model->insert(
-                    $this->input->post("product_id"), $this->input->post("quantity"), $this->input->post("payment"), $this->input->post("seller_id"), $this->input->post("date"), $this->input->post("description")
+                    $this->input->post("product_id"), 
+                    $this->input->post("quantity"),
+                    $this->input->post("payment"), 
+                    $this->input->post("seller_id"),
+                    $this->input->post("rate"), 
+                    $this->input->post("date"), 
+                    $this->input->post("description")
             );
 
             $this->index();
@@ -103,6 +109,7 @@ class Inventory extends CI_Controller {
             $data['inventory_id'] = $inventoryObject->id;
             $data['product_name'] = $inventoryObject->product_name;
             $data['seller_name'] = $inventoryObject->seller_name;
+            $data['rate'] = $inventoryObject->rate;
             $data['date'] = $inventoryObject->date;
             $data['quantity'] = $inventoryObject->quantity;
             $data['payment'] = $inventoryObject->payment;
@@ -138,7 +145,14 @@ class Inventory extends CI_Controller {
             // this will execute if post data is sent to this function : updating the data
             $this->load->model("inventory_model");
 
-            $this->inventory_model->edit($this->input->post("inventory_id"), $this->input->post("product_id"), $this->input->post("quantity"), $this->input->post("payment"), $this->input->post("seller_id"), $this->input->post("date"), $this->input->post("description")
+            $this->inventory_model->edit($this->input->post("inventory_id"), 
+                    $this->input->post("product_id"), 
+                    $this->input->post("quantity"),
+                    $this->input->post("payment"), 
+                    $this->input->post("seller_id"), 
+                    $this->input->post("rate"),
+                    $this->input->post("date"), 
+                    $this->input->post("description")
             );
             $this->index();
         } else {

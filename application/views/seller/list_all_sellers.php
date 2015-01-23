@@ -9,7 +9,9 @@
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new Seller</a>
+        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Seller/add_new'; ?>">
+            <?php echo $buttonLabel; ?>
+        </a>
     </div>
 </div>
 
@@ -48,14 +50,17 @@
         <tbody>
             <tr ng-repeat="seller in sellers|filter:s">
                 <td>
-                    <a href="<?php echo URL_X; ?>/Inventory?seller_id={{seller.id}}">
+                    
                         {{seller.seller_name}}
-                    </a>
+                    
                 </td>
                 <?php if($this->input->get('product_id')){?>
                 <td>{{seller.product_price}}</td>
                 <?php }else{ ?>
                 <td>
+                    <a href="<?php echo URL_X;?>Inventory?seller_id={{seller.id}}" class="badge">
+                        Inventories
+                    </a>
                     <a href="<?php echo URL_X;?>Product?seller_id={{seller.id}}" class="badge">
                         Products
                     </a>

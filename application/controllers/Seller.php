@@ -30,9 +30,12 @@ class Seller extends CI_Controller {
             $r = $this->product_model->get_one_product($product_id);
             $product_name = $r[0]->product_name;
             $data['label'] = "Sellers who sell the Product : ".$product_name;
+            //set a different label for the add button
+            $data['buttonLabel'] = "Add a seller of this product";
         } else {
             $data['fetch_json_link'] = URL_X . 'Seller/index_json';
             $data['label'] = "All sellers";
+            $data['buttonLabel'] = "Add a seller to system";
         }
         $this->load->view("template/header");
         $this->load->view("seller/list_all_sellers", $data);

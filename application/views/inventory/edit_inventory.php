@@ -2,6 +2,7 @@
 <?php
 $inventory = $inventory[0];
 ?>
+<div ng-controller="RateController">
 <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Inventory/edit'; ?>" method="POST">
     
     <input type="hidden" name="inventory_id" value="<?php echo $inventory->id; ?>"/>
@@ -23,18 +24,6 @@ $inventory = $inventory[0];
     </div>
     
     <div class="form-group">
-        <label class="col-sm-2 control-label">Quantity</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" required name="quantity" value="<?php echo $inventory->quantity; ?>" placeholder=""/> 
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Payment</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" value="<?php echo $inventory->payment; ?>" required name="payment" placeholder=""/> 
-        </div>
-    </div>
-    <div class="form-group">
         <label class="col-sm-2 control-label">Seller</label>
         <div class="col-sm-4">
             <select name="seller_id" class="form-control"  required>
@@ -49,6 +38,33 @@ $inventory = $inventory[0];
             </select>
         </div>
     </div>
+    
+    <div class="form-group">
+            <label class="col-sm-2 control-label">Rate</label>
+            <div class="col-sm-2">
+
+
+                <input type="text" 
+                       value="<?php echo $inventory->rate;?><?php ?>" 
+                       class="form-control" required name="rate" placeholder=""/> 
+
+            </div>
+            <a class="btn btn-primary" ng-click="give_me_price(product_id, seller_id)" class='btn btn-primary'>Fetch price</a>
+        </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Quantity</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" required name="quantity" value="<?php echo $inventory->quantity; ?>" placeholder=""/> 
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Payment</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" value="<?php echo $inventory->payment; ?>" required name="payment" placeholder=""/> 
+        </div>
+    </div>
+    
     <div class="form-group">
         <label class="col-sm-2 control-label">Date</label>
 
@@ -79,3 +95,36 @@ $inventory = $inventory[0];
         </div>
     </div>
 </form>
+</div>
+<script>
+    var app = angular.module('myapp', []);
+    app.controller('RateController', ['$scope', '$http', function ($scope, $http) {
+
+            $scope.price = 0;
+            $scope.give_me_price = function (product_id, seller_id) {
+                $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
+                    //return data[0].product_price;
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
+                    console.log(data);
+                    if (data[0] != null) {
+                        //console.log("Data comes here = "+data);
+                       //  console.log("Data[0] comes here = "+data[0]);
+                        $scope.price = data[0].product_price;
+                    } else {
+
+                        $scope.price = 0;
+                    }
+                }).error(function(data){
+                    console.log("error says!!!");
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
+                    console.log(data);
+                });
+            };
+
+
+
+
+
+        }]);
+
+</script>

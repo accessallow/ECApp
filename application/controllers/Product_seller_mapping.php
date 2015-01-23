@@ -6,7 +6,13 @@ class Product_seller_mapping extends CI_Controller {
 
         parent::__construct();
     }
-
+  ////////////////////////////////////////////
+  /////////////////JSON SPITTERS///////////////
+  /////////////////////////////////////////////
+    
+    
+    
+  ////////////////////////////////////////////
     public function SellersOfAProduct($product_id) {
         //unleashing the dragons
         $this->load->model('product_model');
@@ -16,7 +22,7 @@ class Product_seller_mapping extends CI_Controller {
 
         //now command the dragons to spit on the fire
         $data['product'] = $this->product_model->get_one_product($product_id);
-        $data['sellers'] = $this->seller_model->get_all_entries();
+        $data['sellers'] = $this->seller_model->get_all_entries(null);
         $data['categories'] = $this->product_category_model->get_all_entries();
         $data['list'] = $this->product_seller_mapping_model->get_sellers_list($product_id);
 
@@ -26,11 +32,11 @@ class Product_seller_mapping extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function ProductsByASeller($seller_id){
-        
+    public function ProductsFromASeller($seller_id){
+        //not needed anymore..already implemented in products
     }
     public function All(){
-        
+        // get all the mappnings and show a list
     }
     public function add_new_seller_to_a_product($product_id) {
         if ($this->input->post('product_id')) {

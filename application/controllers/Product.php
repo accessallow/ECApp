@@ -22,6 +22,7 @@ class Product extends CI_Controller {
                 $data['label'] = "Products under category : ".$categoryObject[0]->product_category_name;
                 $data['get_all_link'] = '<a class="badge" href="'.URL_X.'Product/">Get all</a>';
                 $data['json_fetch_link'] = URL_X.'Product/index_json?product_category_id='.$category_id;
+                $data['buttonLabel'] = "Add a product to catalogue";
                 
             }elseif($this->input->get('seller_id')){
                 $seller_id = $this->input->get('seller_id');
@@ -34,10 +35,11 @@ class Product extends CI_Controller {
             // you need to set json_fetch_link
                 $data['json_fetch_link'] = 
                         URL_X.'Product/get_products_from_this_seller?seller_id='.$seller_id;
-                
+                 $data['buttonLabel'] = "Attach a product to this seller";
             }else{
                 $data['label'] = "All products";
                 $data['json_fetch_link'] = URL_X.'Product/index_json';
+                $data['buttonLabel'] = "Add a product to catalogue";
             }
             
             $data['total_products'] = 
