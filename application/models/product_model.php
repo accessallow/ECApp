@@ -69,14 +69,16 @@ class Product_model extends CI_Model {
             $queryString = "SELECT p.id,p.product_category as 'product_category_id',
             p.product_name,p.product_brand,c.product_category_name as 'product_category',
                 p.product_description FROM products p,product_category c 
-                WHERE p.product_category = c.id and
+                WHERE (p.product_category = c.id and
                 p.product_category = $category_id and
-                p.tag = " . ProductTags::$available . ";";
+                p.tag = " . ProductTags::$available . ")"
+                    . "order by p.product_name asc;";
         } else {
             $queryString = "SELECT p.id,c.id as 'product_category_id',
                 p.product_name,p.product_brand,c.product_category_name as 'product_category',
                 p.product_description FROM products p,product_category c 
-                WHERE p.product_category = c.id and p.tag = " . ProductTags::$available . ";";
+                WHERE ( p.product_category = c.id and p.tag = " . ProductTags::$available . ""
+                    . ") order by p.product_name asc;";
         }
 
         $query = $this->db->query($queryString);
@@ -118,6 +120,7 @@ class Product_model extends CI_Model {
     function get_products_from_this_seller($seller_id){
         $queryString = "select 
                         p.id,
+                        psm.id as 'mapping_id',
                         p.product_name,
                         p.product_brand,
                         psm.product_price,
@@ -136,6 +139,23 @@ class Product_model extends CI_Model {
                         )
                         order by 
                         p.product_name asc;";
+        $query = $this->db->query($queryString);
+        return $query->result();
+    }
+    
+    function get_products_which_this_seller_dont_sell($seller_id){
+        $queryString = "select 
+                        *
+                        from 
+                        products 
+                        where
+                        id 
+                        not in(select distinct product_id
+                        from product_seller_mapping
+                        where seller_id = $seller_id
+                        and tag = 1
+                        ) and tag = 1;
+                        ";
         $query = $this->db->query($queryString);
         return $query->result();
     }

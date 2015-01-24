@@ -31,11 +31,20 @@ class Seller extends CI_Controller {
             $product_name = $r[0]->product_name;
             $data['label'] = "Sellers who sell the Product : ".$product_name;
             //set a different label for the add button
-            $data['buttonLabel'] = "Add a seller of this product";
+            $data['addButtonLabel'] = "Attach a seller to this product";
+            $data['add_link'] = URL_X.'Product_seller_mapping/add_new_seller_to_a_product/'.$product_id;
+            //we are dealing with a mapping so edit link will not be present
+            $data['delete_link'] = URL_X.'Product_seller_mapping/delete_a_mapping/';
+            
+            
         } else {
+            // full seller list page
+            $data['edit_link'] = URL_X.'Seller/edit/';
+            $data['delete_link'] = URL_X.'Seller/delete/';
             $data['fetch_json_link'] = URL_X . 'Seller/index_json';
             $data['label'] = "All sellers";
-            $data['buttonLabel'] = "Add a seller to system";
+            $data['addButtonLabel'] = "Add a seller to system";
+            $data['add_link'] = URL_X.'Seller/add_new/';
         }
         $this->load->view("template/header");
         $this->load->view("seller/list_all_sellers", $data);

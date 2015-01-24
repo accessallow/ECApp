@@ -49,6 +49,7 @@ class Seller_model extends CI_Model {
         if ($product_id) {
             $queryString = "select 
                             s.id,
+                            psm.id as 'mapping_id',
                             s.seller_name,
                             s.seller_phone_number,
                             s.seller_address,
@@ -64,9 +65,11 @@ class Seller_model extends CI_Model {
                             psm.product_id = $product_id
                             )
                             order by 
-                            psm.product_price asc;";
+                            psm.product_price asc,
+                            s.seller_name asc;";
             $query = $this->db->query($queryString);
         } else {
+            $this->db->order_by('seller_name','asc');
             $query = $this->db->get_where('seller', array('tag' => SellerTags::$available));
         }
 
@@ -105,6 +108,7 @@ class Seller_model extends CI_Model {
         $queryString = "select
                         s.id as 'seller_id',
                         s.seller_name,
+                        psm.id as 'mapping_id',
                         psm.product_price,
                         s.seller_phone_number,
                         s.seller_address
@@ -120,6 +124,23 @@ class Seller_model extends CI_Model {
                         )
                         order by psm.product_price asc
                         ;";
+        $query = $this->db->query($queryString);
+        return $query->result();
+    }
+    
+    function get_sellers_who_dont_sell_this_product($product_id){
+        $queryString = "select
+                        * 
+                        from
+                        seller
+                        where
+                        id not in(select distinct seller_id
+                                from product_seller_mapping
+                                where product_id = $product_id
+                                    and tag=1
+                                )
+                        and tag = 1 order by seller_name asc;";
+        
         $query = $this->db->query($queryString);
         return $query->result();
     }

@@ -1,16 +1,19 @@
-[   
-    {
-        "id": "1",
-        "product_name": "IC-555",
-        "product_brand": "IC-555",
-        "product_category": "4",
-        "product_description": "IC high wattage"
-    },
-    {
-        "id": "2",
-        "product_name": "Potentione",
-        "product_brand": "Omega",
-        "product_category": "6",
-        "product_description": ""
-    }
-]
+[{
+        "id": "12",
+        "seller_name": "Ambuja Cement",
+        "seller_phone_number": "898767688",
+        "seller_address": "My name is cement but I sell electronics. How ironic?",
+        "tag": "1"
+    }, {
+        "id": "11",
+        "seller_name": "Bharat circuit suppliers",
+        "seller_phone_number": "996756789",
+        "seller_address": "Bharat bhavan indore",
+        "tag": "1"
+    }, {
+        "id": "13",
+        "seller_name": "Pooja Electronics",
+        "seller_phone_number": "787878787",
+        "seller_address": "MP Nagar Bhopal",
+        "tag": "1"
+    }]

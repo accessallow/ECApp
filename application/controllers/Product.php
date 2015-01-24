@@ -1,176 +1,170 @@
 <?php
 
 class Product extends CI_Controller {
-    public function __construct(){
-    
-            parent::__construct();
-           
+
+    public function __construct() {
+
+        parent::__construct();
     }
 
     public function index() {
-            $this->load->model("product_model");
-           // $data["products"] = $this->product_model->get_all_entries();
-            $data = null;
+        $this->load->model("product_model");
+        // $data["products"] = $this->product_model->get_all_entries();
+        $data = null;
+
+        if ($this->input->get('product_category_id')) {
+            $category_id = $this->input->get('product_category_id');
+            $this->load->model('product_category_model');
+            $categoryObject = $this->product_category_model->get_one_category($category_id);
+            $data['category_name'] = $categoryObject[0]->product_category_name;
+            $data['total_products_under_this_category'] = $this->product_model->get_total_categorized_products($category_id);
+
+            $data['label'] = "Products under category : " . $categoryObject[0]->product_category_name;
+            $data['get_all_link'] = '<a class="badge" href="' . URL_X . 'Product/">Get all</a>';
+            $data['json_fetch_link'] = URL_X . 'Product/index_json?product_category_id=' . $category_id;
+            $data['addButtonLabel'] = "Add a product to catalogue";
+            $data['add_link'] = URL_X . "Product/add_new";
             
-            if($this->input->get('product_category_id')){
-                $category_id = $this->input->get('product_category_id');
-                $this->load->model('product_category_model');
-                $categoryObject = $this->product_category_model->get_one_category($category_id);
-                $data['category_name'] = $categoryObject[0]->product_category_name;
-                $data['total_products_under_this_category'] = $this->product_model->get_total_categorized_products($category_id);
-            
-                $data['label'] = "Products under category : ".$categoryObject[0]->product_category_name;
-                $data['get_all_link'] = '<a class="badge" href="'.URL_X.'Product/">Get all</a>';
-                $data['json_fetch_link'] = URL_X.'Product/index_json?product_category_id='.$category_id;
-                $data['buttonLabel'] = "Add a product to catalogue";
-                
-            }elseif($this->input->get('seller_id')){
-                $seller_id = $this->input->get('seller_id');
-                $this->load->model('seller_model');
-                $r = $this->seller_model->get_one_seller($seller_id);
-                $sellerObj = $r[0];
-                $seller_name = $sellerObj->seller_name;
-                $data['label'] = "Products from seller :".$seller_name;
+        } elseif ($this->input->get('seller_id')) {
+            $seller_id = $this->input->get('seller_id');
+            $this->load->model('seller_model');
+            $r = $this->seller_model->get_one_seller($seller_id);
+            $sellerObj = $r[0];
+            $seller_name = $sellerObj->seller_name;
+            $data['label'] = "Products from seller :" . $seller_name;
             // you need to set label
             // you need to set json_fetch_link
-                $data['json_fetch_link'] = 
-                        URL_X.'Product/get_products_from_this_seller?seller_id='.$seller_id;
-                 $data['buttonLabel'] = "Attach a product to this seller";
-            }else{
-                $data['label'] = "All products";
-                $data['json_fetch_link'] = URL_X.'Product/index_json';
-                $data['buttonLabel'] = "Add a product to catalogue";
-            }
-            
-            $data['total_products'] = 
-                    $this->product_model->get_total_products(array('tag'=>1));
-            $data['total_uncategorized_products'] = $this->product_model->get_total_categorized_products(1000);
-            
-           // $this->load->model("product_category_model");
-           // $data['categories']=$this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
-            $this->load->view("product/list_all_products",$data);
-            $this->load->view("template/footer");
+            $data['json_fetch_link'] = URL_X . 'Product/get_products_from_this_seller?seller_id=' . $seller_id;
+            $data['addButtonLabel'] = "Attach a product to this seller";
+            $data['add_link'] = URL_X . "Product/add_new";
+            $data['detach_link'] = URL_X.'Product_seller_mapping/delete_a_mapping/';
+        } else {
+            $data['label'] = "All products";
+            $data['json_fetch_link'] = URL_X . 'Product/index_json';
+            $data['addButtonLabel'] = "Add a product to catalogue";
+            $data['add_link'] = URL_X . "Product/add_new";
+        }
+
+        $data['total_products'] = $this->product_model->get_total_products(array('tag' => 1));
+        $data['total_uncategorized_products'] = $this->product_model->get_total_categorized_products(1000);
+
+        // $this->load->model("product_category_model");
+        // $data['categories']=$this->product_category_model->get_all_entries();
+        $this->load->view("template/header");
+        $this->load->view("product/list_all_products", $data);
+        $this->load->view("template/footer");
     }
-    
-    public function index_json(){
+
+    public function index_json() {
         $this->load->model("product_model");
-        if($this->input->get('product_category_id')){
+        if ($this->input->get('product_category_id')) {
             $category_id = $this->input->get('product_category_id');
             $products = $this->product_model->get_all_entries_joined($category_id);
-        }else{
+        } else {
             $products = $this->product_model->get_all_entries_joined(null);
         }
-        
-        
+
+
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($products));
     }
-    public function get_sellers_for_this_product(){
+
+    public function get_sellers_for_this_product() {
         $sellers = null;
-        if($this->input->get('product_id')){
+        if ($this->input->get('product_id')) {
             $product_id = $this->input->get('product_id');
             $this->load->model('seller_model');
             $sellers = $this->seller_model->get_sellers_for_this_product($product_id);
-        }else{
+        } else {
             $sellers = null;
         }
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($sellers));
-        
     }
-    public function get_products_from_this_seller(){
+
+    public function get_products_from_this_seller() {
         $products = null;
-        if($this->input->get('seller_id')){
+        if ($this->input->get('seller_id')) {
             $seller_id = $this->input->get('seller_id');
             $this->load->model('product_model');
             $products = $this->product_model->get_products_from_this_seller($seller_id);
-        }else{
+        } else {
             //nothing..
         }
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($products));
     }
-    public function give_me_price(){
-        if($this->input->get('product_id')&&
-                $this->input->get('seller_id')){
+
+    public function give_me_price() {
+        if ($this->input->get('product_id') &&
+                $this->input->get('seller_id')) {
             $product_id = $this->input->get('product_id');
             $seller_id = $this->input->get('seller_id');
             $this->load->model('product_model');
-            $result = $this->product_model->give_me_price($product_id,$seller_id);
+            $result = $this->product_model->give_me_price($product_id, $seller_id);
             $this->output->set_content_type('application/json')
                     ->set_output(json_encode($result));
         }
     }
-    
-    public function show_catalogue(){
+
+    public function show_catalogue() {
         $this->load->view('catalogue');
     }
 
     public function add_new() {
-        if($this->input->post('product_name')) {
-            
+        if ($this->input->post('product_name')) {
+
             $this->load->model("product_model");
-            
-            $this->product_model->insert($this->input->post("product_name"),
-                    $this->input->post("product_brand"),
-                    $this->input->post("product_category"),
-                    $this->input->post("product_description")
-                    );
+
+            $this->product_model->insert($this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description")
+            );
             $this->index();
         } else {
             $this->load->model("product_category_model");
-            $data['categories']=$this->product_category_model->get_all_entries();
+            $data['categories'] = $this->product_category_model->get_all_entries();
             $this->load->view("template/header");
-            $this->load->view("product/add_new",$data);
+            $this->load->view("product/add_new", $data);
             $this->load->view("template/footer");
         }
     }
 
-    public function delete($id=NULL) {
-         if($this->input->post('id')) {
-             $this->load->model("product_model");
-             $this->product_model->delete($this->input->post('id'));
-             $this->index();
+    public function delete($id = NULL) {
+        if ($this->input->post('id')) {
+            $this->load->model("product_model");
+            $this->product_model->delete($this->input->post('id'));
+            $this->index();
         } else {
             $this->load->model("product_model");
             $data['product'] = $this->product_model->get_one_product($id);
-            
+
             $this->load->view("template/header");
-            $this->load->view("product/delete",$data);
+            $this->load->view("product/delete", $data);
             $this->load->view("template/footer");
         }
     }
 
-    public function edit($id=NULL) {
-        if($id){
+    public function edit($id = NULL) {
+        if ($id) {
             $this->load->model("product_model");
             $data['product'] = $this->product_model->get_one_product($id);
             $this->load->model("product_category_model");
-            $data['categories']=$this->product_category_model->get_all_entries();
+            $data['categories'] = $this->product_category_model->get_all_entries();
             $this->load->view("template/header");
-            $this->load->view("product/edit",$data);
+            $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
-        }
-        else if($this->input->post('product_name')) {
+        } else if ($this->input->post('product_name')) {
             $this->load->model("product_model");
-            
-            $this->product_model->edit($this->input->post("id"),
-                    $this->input->post("product_name"),
-                    $this->input->post("product_brand"),
-                    $this->input->post("product_category"),
-                    $this->input->post("product_description")
-                    );
+
+            $this->product_model->edit($this->input->post("id"), $this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description")
+            );
             $this->index();
         } else {
             $this->load->model("product_category_model");
-            $data['categories']=$this->product_category_model->get_all_entries();
+            $data['categories'] = $this->product_category_model->get_all_entries();
             $this->load->view("template/header");
-            $this->load->view("product/edit",$data);
+            $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
         }
     }
-    
-   
 
 }

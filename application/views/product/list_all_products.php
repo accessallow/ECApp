@@ -15,8 +15,9 @@
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Product/add_new'; ?>">
-            <?php echo $buttonLabel; ?>
+        <a class="btn btn-success btn-xs" 
+           href="<?php echo $add_link; ?>">
+               <?php echo $addButtonLabel; ?>
         </a>
     </div>
 </div>
@@ -29,7 +30,7 @@
         ?>
     </h4>
     <p>
-        <span class="badge">Total products: <?php echo $total_products;?></span>
+        <span class="badge">Total products: <?php echo $total_products; ?></span>
         <?php if (isset($total_products_under_this_category)) { ?>
             <span class="badge">Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category; ?></span>
         <?php } ?>
@@ -45,10 +46,10 @@
         <thead>
             <tr>
                 <td>Product</td>
-                <?php if($this->input->get('seller_id')){ ?>
-                <td>Price</td>
-                <?php }else{ ?>
-                <td>Links</td>
+                <?php if ($this->input->get('seller_id')) { ?>
+                    <td>Price</td>
+                <?php } else { ?>
+                    <td>Links</td>
                 <?php } ?>
                 <td>Brand</td>
                 <td>Category</td>
@@ -63,15 +64,15 @@
                         {{product.product_name}}
                     </a>
                 </td>
-                <?php if($this->input->get('seller_id')){ ?>
-                <td>{{product.product_price}}</td>
-                <?php }else{ ?>
-                <td>
-                    <!--link to sellers who sell this product-->
-                    <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
-                    <!--link to inventories done for this product-->
-                    <a class="badge" href="<?php echo URL_X; ?>Inventory?product_id={{product.id}}">Inventories</a>
-                </td>
+                <?php if ($this->input->get('seller_id')) { ?>
+                    <td>{{product.product_price}}</td>
+                <?php } else { ?>
+                    <td>
+                        <!--link to sellers who sell this product-->
+                        <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
+                        <!--link to inventories done for this product-->
+                        <a class="badge" href="<?php echo URL_X; ?>Inventory?product_id={{product.id}}">Inventories</a>
+                    </td>
                 <?php } ?>
                 <td> {{product.product_brand}}</td>
                 <?php // $product_category = $this->product_category_model->get_category_name($s->product_category);  ?>
@@ -82,8 +83,12 @@
                 </td>
                 <td> {{product.product_description}}</td>
                 <td>
+                    <?php if(isset($detach_link)){ ?>
+                    <a href="<?php echo $detach_link; ?>{{product.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
+                    <?php }else{ ?>
                     <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
                     <a href="<?php echo URL_X . 'Product/delete/'; ?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
+                    <?php } ?>
                 </td>
             </tr>
         </tbody>

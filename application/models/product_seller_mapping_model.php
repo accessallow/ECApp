@@ -89,5 +89,7 @@ class Product_seller_mapping_model extends CI_Model {
         $this->db->where(array('id' => $id, 'tag' => ProductSellerMappingTags::$available));
         $this->db->update('product_seller_mapping', array('product_price' => $price));
     }
+    
+    
 
 }

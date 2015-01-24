@@ -9,8 +9,8 @@
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Seller/add_new'; ?>">
-            <?php echo $buttonLabel; ?>
+        <a class="btn btn-success btn-xs" href="<?php echo $add_link; ?>">
+            <?php echo $addButtonLabel; ?>
         </a>
     </div>
 </div>
@@ -69,8 +69,13 @@
                 <td>{{seller.seller_phone_number}}</td>
                 <td>{{seller.seller_address}}</td>
                 <td>
-                    <a href="<?php echo URL_X . 'Seller/edit/'; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit</a>
-                    <a href="<?php echo URL_X . 'Seller/delete/'; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete</a>
+                    <?php if(isset($edit_link)){ ?>
+                    <a href="<?php echo $edit_link; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit Seller</a>
+                    
+                    <a href="<?php echo $delete_link; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete Seller</a>
+                    <?php }else{ ?>
+                     <a href="<?php echo $delete_link; ?>{{seller.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
+                    <?php } ?>
                 </td>
             </tr>
         </tbody>
