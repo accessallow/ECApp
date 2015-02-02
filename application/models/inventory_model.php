@@ -24,7 +24,7 @@ class Inventory_model extends CI_Model {
         $this->load->database();
     }
 
-    function insert($product_id, $quantity, $payment, $seller_id,$rate, $date, $description) {
+    function insert($product_id, $quantity, $payment, $seller_id, $rate, $date, $description) {
         // ye aa gyi saari ki saari values insert hone k liye...bhai dalo inko
         $this->product_id = $product_id;
         $this->quantity = $quantity;
@@ -40,7 +40,7 @@ class Inventory_model extends CI_Model {
         $this->db->insert("inventory", $this);
     }
 
-    function edit($id, $product_id, $quantity, $payment, $seller_id, $rate,$date, $description) {
+    function edit($id, $product_id, $quantity, $payment, $seller_id, $rate, $date, $description) {
         $this->product_id = $product_id;
         $this->quantity = $quantity;
         $this->payment = $payment;
@@ -158,7 +158,10 @@ class Inventory_model extends CI_Model {
 
     function get_one_inventory($id) {
         // jiski zinda record ki id $id ho vo uthke aa jaye 
-        $query = $this->db->get_where('inventory', array('id' => $id, 'tag' => InventoryTags::$available));
+        $query = $this->db->get_where('inventory', array(
+            'id' => $id, 'tag' => InventoryTags::$available
+                )
+        );
         return $query->result();
     }
 
@@ -204,20 +207,21 @@ class Inventory_model extends CI_Model {
     /////////////////////////////////////////////////////
     //////////////Metadata query functions////////////////
     /////////////////////////////////////////////////////
-    
-    function get_sum_of_payments($product_id=null,$seller_id=null){
-        if($product_id){
+
+    function get_sum_of_payments($product_id = null, $seller_id = null) {
+        if ($product_id) {
             $this->db->select_sum('payment');
-            $q = $this->db->get_where('inventory',array('product_id'=>$product_id));
+            $q = $this->db->get_where('inventory', array('product_id' => $product_id));
             return $q->result();
-        }elseif($seller_id){
+        } elseif ($seller_id) {
             $this->db->select_sum('payment');
-            $q = $this->db->get_where('inventory',array('seller_id'=>$seller_id));
+            $q = $this->db->get_where('inventory', array('seller_id' => $seller_id));
             return $q->result();
-        }else{
+        } else {
             $this->db->select_sum('payment');
             $q = $this->db->get_where('inventory');
             return $q->result();
         }
     }
+
 }
