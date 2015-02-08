@@ -7,16 +7,17 @@ class Shopping_list_tags{
 class Shopping_list_model extends CI_Model{
     var $list_name = "";
     var $date_created = "";
-    var $date_modfied = "";
+    var $date_modified = "";
     var $tag = null;
     
     public function __construct() {
         $this->load->database();
     }
     public function get_all_entries(){
-        $this->db->get_where('shopping_lists',array(
+        $query = $this->db->get_where('shopping_lists',array(
             'tag'=>  Shopping_list_tags::$available
         ));
+        return $query->result();
     }
     public function get_one_entry($list_id){
         $query = $this->db->get_where('shopping_lists',
@@ -30,7 +31,8 @@ class Shopping_list_model extends CI_Model{
     public function add_entry($data){
         $this->list_name = $data['list_name'];
         $this->date_created = $data['date_created'];
-        $this->date_modfied = $data['date_modified'];
+        $this->date_modified = $data['date_modified'];
+        
         $this->tag = Shopping_list_tags::$available;
         $this->db->insert('shopping_lists',$this);
         //done : inserted
@@ -38,7 +40,7 @@ class Shopping_list_model extends CI_Model{
     public function edit_entry($list_id,$data){
         $this->list_name = $data['list_name'];
         $this->date_created = $data['date_created'];
-        $this->date_modfied = $data['date_modified'];
+        $this->date_modified = $data['date_modified'];
         $this->tag = Shopping_list_tags::$available;
         $this->db->update('shopping_lists',$this,array('id'=>$list_id));
         //done : update
@@ -53,4 +55,28 @@ class Shopping_list_model extends CI_Model{
         //get all items from $list_id shopping list
     }
     
+    public function get_all_items_from_list($list_id){
+        $sql = "select 
+                sli.id,
+                sli.product_id,
+                p.product_name,
+                sli.seller_id,
+                s.seller_name,
+                sli.rate,
+                sli.quantity,
+                sli.total_price,
+                sli.description
+                from 
+                shopping_list_items sli,
+                products p,
+                seller s 
+                where 
+                sli.product_id = p.id and
+                sli.seller_id = s.id and
+                sli.list_id = $list_id and
+                sli.tag = 1;";
+        
+        $q = $this->db->query($sql);
+        return $q->result();
+    }
 }

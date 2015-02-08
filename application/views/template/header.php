@@ -52,6 +52,18 @@
                            
                         </ul>
                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Shopping Lists 
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'ShoppingList/'; ?>">All shopping lists</a></li>
+                            <li><a href="<?php echo URL_X . 'ShoppingList/add_new_shopping_list'; ?>">Add new</a></li>
+
+                           
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
