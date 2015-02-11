@@ -30,8 +30,11 @@
             <textarea class="form-control"  required name="product_description" placeholder=""></textarea>
         </div>
     </div>
+    
+    
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
+            
             <input type="submit" class="btn btn-success" value="Save"/>
             <input type="reset" class="btn" value="Clear"/>
             <a href="<?php echo URL_X . 'Product/'; ?>" class="btn btn-primary">Back</a>

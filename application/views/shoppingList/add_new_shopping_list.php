@@ -36,7 +36,7 @@
 
                         <input 
                             type="text" 
-                            data-date-format="DD/MM/YYYY" 
+                            data-date-format="YYYY-MM-DD" 
                             class="form-control" 
                             name="DateCreated" 
                             <?php

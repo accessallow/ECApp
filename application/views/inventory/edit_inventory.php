@@ -46,7 +46,9 @@ $inventory = $inventory[0];
 
                 <input type="text" 
                        value="<?php echo $inventory->rate;?><?php ?>" 
-                       class="form-control" required name="rate" placeholder=""/> 
+                       class="form-control" 
+                      
+                       required name="rate" placeholder=""/> 
 
             </div>
             <a class="btn btn-primary" ng-click="give_me_price(product_id, seller_id)" class='btn btn-primary'>Fetch price</a>
@@ -55,13 +57,17 @@ $inventory = $inventory[0];
     <div class="form-group">
         <label class="col-sm-2 control-label">Quantity</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" required name="quantity" value="<?php echo $inventory->quantity; ?>" placeholder=""/> 
+            <input type="text"
+                   
+                   class="form-control" required name="quantity" value="<?php echo $inventory->quantity; ?>" placeholder=""/> 
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Payment</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" value="<?php echo $inventory->payment; ?>" required name="payment" placeholder=""/> 
+            <input type="text" class="form-control" value="{{payment}}" required name="payment" placeholder=""/> 
+            
+              
         </div>
     </div>
     
@@ -71,7 +77,7 @@ $inventory = $inventory[0];
         <div class="col-sm-4">
             <div class='input-group date' id='datetimepicker1'>
 
-                <input type="text" data-date-format="DD/MM/YYYY" value="<?php echo $inventory->date;?>" class="form-control" name="date" placeholder=""/> 
+                <input type="text" required data-date-format="YYYY-MM-DD" value="<?php echo $inventory->date;?>" class="form-control" name="date" placeholder=""/> 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
@@ -101,6 +107,12 @@ $inventory = $inventory[0];
     app.controller('RateController', ['$scope', '$http', function ($scope, $http) {
 
             $scope.price = 0;
+            $scope.payment = <?php echo $inventory->payment; ?>;
+            $scope.refreshPayment = function(){
+                console.log("Quantity = "+quantity+" Rate = "+rate);
+                $scope.payment = quantity*rate;
+            };
+            
             $scope.give_me_price = function (product_id, seller_id) {
                 $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
                     //return data[0].product_price;

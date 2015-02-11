@@ -1,19 +1,50 @@
 [{
-        "id": "12",
-        "seller_name": "Ambuja Cement",
-        "seller_phone_number": "898767688",
-        "seller_address": "My name is cement but I sell electronics. How ironic?",
-        "tag": "1"
+        "id": "5",
+        "product_category_id": "1000",
+        "product_name": "Aurdino dumilinov adafruit",
+        "product_brand": "Aurdino dumilinov adafruit",
+        "product_category": "uncategorized",
+        "product_description": "Lorem ipsum dolor sit amet."
     }, {
-        "id": "11",
-        "seller_name": "Bharat circuit suppliers",
-        "seller_phone_number": "996756789",
-        "seller_address": "Bharat bhavan indore",
-        "tag": "1"
+        "id": "7",
+        "product_category_id": "4",
+        "product_name": "Aurdino dumilinov element14",
+        "product_brand": "element14",
+        "product_category": "IC",
+        "product_description": "bfgfg"
     }, {
-        "id": "13",
-        "seller_name": "Pooja Electronics",
-        "seller_phone_number": "787878787",
-        "seller_address": "MP Nagar Bhopal",
-        "tag": "1"
+        "id": "3",
+        "product_category_id": "1000",
+        "product_name": "Aurduino UNO 11",
+        "product_brand": "Adafruit",
+        "product_category": "uncategorized",
+        "product_description": "Aurduino the microcontroller"
+    }, {
+        "id": "1",
+        "product_category_id": "4",
+        "product_name": "IC-555",
+        "product_brand": "IC-555",
+        "product_category": "IC",
+        "product_description": "IC high wattage"
+    }, {
+        "id": "2",
+        "product_category_id": "6",
+        "product_name": "Potentione",
+        "product_brand": "Omega",
+        "product_category": "Potentiometer",
+        "product_description": ""
+    }, {
+        "id": "4",
+        "product_category_id": "4",
+        "product_name": "Raspberry PI B+",
+        "product_brand": "Adafruit",
+        "product_category": "IC",
+        "product_description": "rpi"
+    }, {
+        "id": "6",
+        "product_category_id": "4",
+        "product_name": "TSOP 4512",
+        "product_brand": "Omega",
+        "product_category": "IC",
+        "product_description": "12 Mhz"
     }]

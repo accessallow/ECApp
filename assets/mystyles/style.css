@@ -12,3 +12,7 @@ thead tr{
     background: #8099E6;
     color:white;
 }
+.printonly{
+    display:none;
+}
+

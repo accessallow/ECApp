@@ -7,7 +7,15 @@
                 <select name="product_id" ng-model="product_id"  class="form-control"   required>
                     <option value="" selected>Choose a product</option>
                     <?php foreach ($products as $p) { ?>
-                        <option value="<?php echo $p->id ?>"> <?php echo $p->product_name; ?> </option>
+                        <option value="<?php echo $p->id ?>">
+                       
+                            <?php echo $p->product_name; ?>
+                       
+                            &nbsp - &nbsp
+                       
+                            <?php echo $p->product_brand; ?> 
+                       
+                        </option>
                     <?php } ?>
                 </select>
             </div>
@@ -30,7 +38,7 @@
             <div class="col-sm-2">
 
 
-                <input type="text" value="{{price}}" class="form-control" required name="rate" placeholder=""/> 
+                <input type="text" value="{{price}}" ng-model="rate" class="form-control" required name="rate" placeholder=""/> 
 
             </div>
             <a class="btn btn-primary" ng-click="give_me_price(product_id, seller_id)" class='btn btn-primary'>Fetch price</a>
@@ -40,23 +48,34 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Quantity</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" required name="quantity" placeholder=""/> 
+                <input type="text" class="form-control" 
+                       ng-model="quantity"
+                       required name="quantity" placeholder=""/> 
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Payment</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" required name="payment" placeholder=""/> 
+                <input type="text" class="form-control" 
+                       value="{{rate*quantity||0}}"
+                       required name="payment" placeholder=""/> 
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> Description </label>
+            <div class="col-sm-4">
+                <textarea class="form-control"  name="description" placeholder=""></textarea>
+            </div>
+        </div>
+        
         <div class="form-group">
             <label class="col-sm-2 control-label">Date</label>
 
             <div class="col-sm-4">
                 <div class='input-group date' id='datetimepicker1'>
 
-                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" name="date" placeholder=""/> 
+                    <input type="text" required data-date-format="YYYY-MM-DD" class="form-control" name="date" placeholder=""/> 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
@@ -66,12 +85,7 @@
 
 
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label"> Description </label>
-            <div class="col-sm-4">
-                <textarea class="form-control"  name="description" placeholder=""></textarea>
-            </div>
-        </div>
+        
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" class="btn btn-success" value="Save"/>
@@ -93,13 +107,13 @@
                     console.log(data);
                     if (data[0] != null) {
                         //console.log("Data comes here = "+data);
-                       //  console.log("Data[0] comes here = "+data[0]);
+                        //  console.log("Data[0] comes here = "+data[0]);
                         $scope.price = data[0].product_price;
                     } else {
 
                         $scope.price = 0;
                     }
-                }).error(function(data){
+                }).error(function (data) {
                     console.log("error says!!!");
                     console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
                     console.log(data);

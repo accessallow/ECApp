@@ -14,6 +14,7 @@ class Product_model extends CI_Model {
     var $product_brand = "";
     var $product_category = "";
     var $product_description = "";
+    var $stock = null;
     var $tag = NULL;
 
     public function __construct() {
@@ -25,16 +26,19 @@ class Product_model extends CI_Model {
         $this->product_brand = $brand;
         $this->product_category = $category;
         $this->product_description = $description;
+        $this->stock = 0;
         $this->tag = ProductTags::$available;
 
         $this->db->insert("products", $this);
+        
     }
 
-    function edit($id, $name, $brand, $category, $description) {
+    function edit($id, $name, $brand, $category, $description,$stock) {
         $this->product_name = $name;
         $this->product_brand = $brand;
         $this->product_category = $category;
         $this->product_description = $description;
+        $this->stock = $stock;
         $this->tag = ProductTags::$available;
 
         $this->db->update('products', $this, array('id' => $id));
@@ -68,7 +72,7 @@ class Product_model extends CI_Model {
         if ($category_id) {
             $queryString = "SELECT p.id,p.product_category as 'product_category_id',
             p.product_name,p.product_brand,c.product_category_name as 'product_category',
-                p.product_description FROM products p,product_category c 
+                p.product_description,p.stock FROM products p,product_category c 
                 WHERE (p.product_category = c.id and
                 p.product_category = $category_id and
                 p.tag = " . ProductTags::$available . ")"
@@ -76,7 +80,7 @@ class Product_model extends CI_Model {
         } else {
             $queryString = "SELECT p.id,c.id as 'product_category_id',
                 p.product_name,p.product_brand,c.product_category_name as 'product_category',
-                p.product_description FROM products p,product_category c 
+                p.product_description,p.stock FROM products p,product_category c 
                 WHERE ( p.product_category = c.id and p.tag = " . ProductTags::$available . ""
                     . ") order by p.product_name asc;";
         }
@@ -85,9 +89,21 @@ class Product_model extends CI_Model {
         return $query->result();
     }
 
+    function get_one_product_joined($product_id) {
+        $queryString = "SELECT p.id,c.id as 'product_category_id',
+                p.product_name,p.product_brand,c.product_category_name as 'product_category',
+                p.product_description,p.stock FROM products p,product_category c 
+                WHERE ( p.product_category = c.id and 
+                p.id = $product_id
+                and p.tag = " . ProductTags::$available . ""
+                . ") order by p.product_name asc;";
+        $query = $this->db->query($queryString);
+        return $query->result();
+    }
+
     function get_all_entries_joined_no_matter_what() {
         $query = $this->db->query('SELECT p.id,p.product_name,p.product_brand,c.product_category_name as \'product_category\','
-                . 'p.product_description FROM products p,product_category c WHERE p.product_category = c.id;');
+                . 'p.product_description,p.stock FROM products p,product_category c WHERE p.product_category = c.id;');
         return $query->result();
     }
 
@@ -103,30 +119,30 @@ class Product_model extends CI_Model {
         return $query->result();
     }
 
-    function give_me_price($product_id,$seller_id){
- // this can blow in future..use with caution
-        $query = $this->db->get_where('product_seller_mapping',
-                array(
-                    'product_id'=>$product_id,
-                    'seller_id'=>$seller_id,
-                    'tag'=>  ProductTags::$available
-                ));
+    function give_me_price($product_id, $seller_id) {
+        // this can blow in future..use with caution
+        $query = $this->db->get_where('product_seller_mapping', array(
+            'product_id' => $product_id,
+            'seller_id' => $seller_id,
+            'tag' => ProductTags::$available
+        ));
         return $query->result();
 //        $resultArray = $query->result();
 //        $PriceObject = $resultArray[0];
 //        return $PriceObject->product_price;
     }
-    
-    function get_products_from_this_seller($seller_id){
+
+    function get_products_from_this_seller($seller_id) {
         $queryString = "select 
-                        p.id,
+                        p.id as 'id',
                         psm.id as 'mapping_id',
                         p.product_name,
                         p.product_brand,
                         psm.product_price,
                         (select product_category_name from product_category where product_category.id=p.product_category) as 'product_category',
                         p.product_category as 'product_category_id',
-                        p.product_description
+                        p.product_description,
+                        p.stock
                         from
                         products p,
                         product_seller_mapping psm
@@ -142,8 +158,8 @@ class Product_model extends CI_Model {
         $query = $this->db->query($queryString);
         return $query->result();
     }
-    
-    function get_products_which_this_seller_dont_sell($seller_id){
+
+    function get_products_which_this_seller_dont_sell($seller_id) {
         $queryString = "select 
                         *
                         from 
@@ -159,6 +175,7 @@ class Product_model extends CI_Model {
         $query = $this->db->query($queryString);
         return $query->result();
     }
+
     ///////////////////////////////////////////////
     ///////////////METADATA QUERY FUNCTIONS//////////
     ///////////////////////////////////////////////
@@ -177,6 +194,66 @@ class Product_model extends CI_Model {
         $q = $this->db->count_all_results();
 
         return $q;
+    }
+
+    function count_my_sellers($product_id) {
+        $this->db->where(array(
+            'product_id' => $product_id,
+            'tag' => ProductTags::$available
+        ));
+        $this->db->from('product_seller_mapping');
+        $a = $this->db->count_all_results();
+        return $a;
+    }
+
+    function my_best_rate($product_id) {
+        $mysellers = $this->count_my_sellers($product_id);
+        if ($mysellers == 0) {
+            return 0;
+        } else {
+            $where = array(
+                'product_id' => $product_id,
+                'tag' => ProductTags::$available
+            );
+            $this->db->select_min('product_price');
+            $query = $this->db->get_where('product_seller_mapping', $where);
+
+            $r = $query->result();
+            $r = $r[0];
+            return $r->product_price;
+        }
+    }
+
+    function my_best_seller($product_id) {
+        $mysellers = $this->count_my_sellers($product_id);
+        if ($mysellers == 0) {
+            return "Nil";
+        } else {
+            $best_price = $this->my_best_rate($product_id);
+            $where = array(
+                'product_id' => $product_id,
+                'product_price' => $best_price,
+                'tag' => ProductTags::$available
+            );
+            $q = $this->db->get_where('product_seller_mapping', $where);
+            $q = $q->result();
+            $q = $q[0];
+            $where = array(
+                'id' => $q->seller_id,
+                'tag' => ProductTags::$available
+            );
+            $q = $this->db->get_where('seller', $where);
+            $q = $q->result();
+            $q = $q[0];
+            return $q->seller_name;
+        }
+    }
+
+        
+    function update_my_stock($product_id,$count){
+        $this->db->update('products',
+                array('stock'=>$count), //this to update
+                array('id'=>$product_id)); //where id=blah
     }
 
 }

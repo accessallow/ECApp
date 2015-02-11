@@ -1,0 +1,31 @@
+@media print{
+    body{
+        font-size: 1em;
+    }
+    .noprint{
+        display:none;
+    }
+    .printonly{
+        display:block;
+    }
+    nav{
+        display:none;
+    }
+    table{
+        width: 100%;
+    }
+    
+    button,input{
+        display:none;
+    }
+    a{
+        text-decoration: none;
+        display: block;
+    }
+    @media print {
+        a[href]:after {
+            content: none !important;
+        }
+    }
+}
+

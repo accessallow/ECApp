@@ -6,9 +6,9 @@
         <script src="<?php echo URL; ?>assets/angularjs/angular.min.js"></script>
         <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap.min.css" />
         <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/style.css" />
+        <link rel="stylesheet" href="<?php echo URL; ?>assets/mystyles/style.css" />
         <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap-datetimepicker.min.css" />
-    </head>
+        <link rel="stylesheet" href="<?php echo URL; ?>assets/mystyles/print.css" media="print"/>
     <body>
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
@@ -37,7 +37,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo URL_X . 'Inventory/'; ?>">Inventory List</a></li>
                             <li><a href="<?php echo URL_X . 'Inventory/add_new'; ?>">Add new purchase</a></li>  
-                            
+
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -49,10 +49,10 @@
                             <li><a href="<?php echo URL_X . 'Seller/'; ?>">List all sellers</a></li>
                             <li><a href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new</a></li>
 
-                           
+
                         </ul>
                     </li>
-                     <li class="dropdown">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Shopping Lists 
                             <b class="caret"></b>
@@ -61,9 +61,34 @@
                             <li><a href="<?php echo URL_X . 'ShoppingList/'; ?>">All shopping lists</a></li>
                             <li><a href="<?php echo URL_X . 'ShoppingList/add_new_shopping_list'; ?>">Add new</a></li>
 
-                           
+
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Stock
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'StockWarning/'; ?>">Dashboard</a></li>
+
+
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Form 49
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'Form49/'; ?>">Dashboard</a></li>
+
+                            <li><a href="<?php echo URL_X . 'Form49/add_new_entry'; ?>">Add new</a></li>
+
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </nav>

@@ -1,6 +1,6 @@
 
 
-<div class="row">
+<div class="row noprint">
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
@@ -18,63 +18,77 @@
 
 
 <div ng-controller="SellerController">
-    <div class="row well">
+    <div class="row well noprint">
         <h4><?php echo $label; ?>
-            <?php if($this->input->get('product_id')){ ?>
-            <a class="badge" href="<?php echo URL_X;?>Seller/">Get all</a>
+            <?php if ($this->input->get('product_id')) { ?>
+                <a class="badge" href="<?php echo URL_X; ?>Seller/">Get all</a>
             <?php } ?>
         </h4>
         <p>
             <span class="badge">Total sellers : {{sellers.length}}</span>
-            
+
 <!--            <span class="badge">Total sellers : <?php echo $total_sellers_alive; ?></span>-->
-            
+
         </p>
+    </div>
+    <div class="row printonly">
+        <div class="col-sm-6" style="text-align: right;">
+            <?php echo SHOP_NAME; ?>
+            <br/>
+            <?php echo SHOP_ADDR; ?>
+            <br/>
+            <?php echo PHONE; ?>
+        </div>
+        <div class="col-sm-6">
+            <h4><?php echo $label; ?></h4>
+            Total sellers : {{sellers.length}} 
+        </div>
+
     </div>
     <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <td>Seller</td>
-                <?php if($this->input->get('product_id')){?>
-                <td>Price</td>
-                <?php }else{ ?>
-                
-                <td>Links</td>
+                <?php if ($this->input->get('product_id')) { ?>
+                    <td>Price</td>
+                <?php } else { ?>
+
+                    <td class="noprint">Links</td>
                 <?php } ?>
                 <td>Phone</td>
                 <td>Address</td>
-                <td>Actions</td>
+                <td class="noprint">Actions</td>
             </tr>
         </thead>
 
         <tbody>
             <tr ng-repeat="seller in sellers|filter:s">
                 <td>
-                    
-                        {{seller.seller_name}}
-                    
+
+                    {{seller.seller_name}}
+
                 </td>
-                <?php if($this->input->get('product_id')){?>
-                <td>{{seller.product_price}}</td>
-                <?php }else{ ?>
-                <td>
-                    <a href="<?php echo URL_X;?>Inventory?seller_id={{seller.id}}" class="badge">
-                        Inventories
-                    </a>
-                    <a href="<?php echo URL_X;?>Product?seller_id={{seller.id}}" class="badge">
-                        Products
-                    </a>
-                </td>
+                <?php if ($this->input->get('product_id')) { ?>
+                    <td>{{seller.product_price}}</td>
+                <?php } else { ?>
+                    <td class="noprint">
+                        <a href="<?php echo URL_X; ?>Inventory?seller_id={{seller.id}}" class="badge">
+                            Inventories
+                        </a>
+                        <a href="<?php echo URL_X; ?>Product?seller_id={{seller.id}}" class="badge">
+                            Products
+                        </a>
+                    </td>
                 <?php } ?>
                 <td>{{seller.seller_phone_number}}</td>
                 <td>{{seller.seller_address}}</td>
-                <td>
-                    <?php if(isset($edit_link)){ ?>
-                    <a href="<?php echo $edit_link; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit Seller</a>
-                    
-                    <a href="<?php echo $delete_link; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete Seller</a>
-                    <?php }else{ ?>
-                     <a href="<?php echo $delete_link; ?>{{seller.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
+                <td class="noprint">
+                    <?php if (isset($edit_link)) { ?>
+                        <a href="<?php echo $edit_link; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit Seller</a>
+
+                        <a href="<?php echo $delete_link; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete Seller</a>
+                    <?php } else { ?>
+                        <a href="<?php echo $delete_link; ?>{{seller.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
                     <?php } ?>
                 </td>
             </tr>

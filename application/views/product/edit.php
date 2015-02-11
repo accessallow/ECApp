@@ -21,7 +21,7 @@
     <div class="form-group">
         <label for="product_brand" class="col-sm-2 control-label">Company/Brand</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" required name="product_brand" value="<?php echo $product->product_name; ?>" placeholder=""/> 
+            <input type="text" class="form-control" required name="product_brand" value="<?php echo $product->product_brand; ?>" placeholder=""/> 
         </div>
     </div>
 
@@ -44,7 +44,14 @@
     <div class="form-group">
         <label for="product_description" class="col-sm-2 control-label"> Description </label>
         <div class="col-sm-4">
-            <textarea class="form-control" required name="product_description" placeholder=""><?php echo $product->product_description; ?></textarea>
+            <textarea class="form-control"  name="product_description" placeholder=""><?php echo $product->product_description; ?></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="stock" class="col-sm-2 control-label">Stock</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" required name="stock" placeholder="stock"
+                   value="<?php echo $product->stock; ?>"/> 
         </div>
     </div>
     <div class="form-group">

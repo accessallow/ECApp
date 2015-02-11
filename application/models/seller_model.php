@@ -106,6 +106,7 @@ class Seller_model extends CI_Model {
     
     function get_sellers_for_this_product($product_id){
         $queryString = "select
+                        s.id as 'id',
                         s.id as 'seller_id',
                         s.seller_name,
                         psm.id as 'mapping_id',

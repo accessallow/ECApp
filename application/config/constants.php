@@ -54,3 +54,7 @@ define('PLUGINS',URL.'bootstrap/bootstrap_plugins/');
 /* Location: ./application/config/constants.php */
 
 define('IMAGE_SERVER','http://localhost/image_server/');
+
+define('SHOP_NAME','Krishna Electronics');
+define('SHOP_ADDR','125-C, Indrapuri');
+define('PHONE','9584338959');

@@ -6,22 +6,22 @@
 //}
 ?>
 
-<div class="row">
+<div class="row  noprint">
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input class="form-control" type="text" ng-model="m"/>
+                <input class="form-control noprint" type="text" ng-model="m"/>
             </div>
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" 
+        <a class="btn btn-success btn-xs noprint" 
            href="<?php echo $add_link; ?>">
                <?php echo $addButtonLabel; ?>
         </a>
     </div>
 </div>
-<div class="row well">
+<div class="row well noprint">
     <h4><?php echo $label; ?>
         <?php
         if (isset($get_all_link)) {
@@ -38,6 +38,31 @@
     </p>
 </div>
 
+
+<div class="row printonly">
+    <div class="col-sm-6" style="text-align: right;">
+        <?php echo SHOP_NAME; ?>
+        <br/>
+        <?php echo SHOP_ADDR; ?>
+        <br/>
+        <?php echo PHONE; ?>
+    </div>
+    <div class="col-sm-6">
+        <h4><?php echo $label; ?></h4>
+        Total products: <?php echo $total_products; ?>
+        <br/>
+        <?php if (isset($total_products_under_this_category)) { ?>
+            Total products under <?php echo $category_name; ?> : <?php echo $total_products_under_this_category; ?>
+            <br/>
+        <?php } ?>
+
+        Total uncategorized products: <?php echo $total_uncategorized_products; ?>
+    </div>
+
+</div>
+
+
+
 <div ng-controller="ProductController">
 
 
@@ -49,25 +74,26 @@
                 <?php if ($this->input->get('seller_id')) { ?>
                     <td>Price</td>
                 <?php } else { ?>
-                    <td>Links</td>
+                    <td class="noprint">Links</td>
                 <?php } ?>
                 <td>Brand</td>
                 <td>Category</td>
                 <td>Description</td>
-                <td>Action</td>
+                <td>Stock</td>
+                <td class="noprint">Action</td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="product in products|filter:m">
                 <td>
-                    <a href="<?php echo URL_X . 'Inventory?product_id='; ?>{{product.id}}">
+                    <a href="<?php echo URL_X . 'Product/single_product/'; ?>{{product.id}}">
                         {{product.product_name}}
                     </a>
                 </td>
                 <?php if ($this->input->get('seller_id')) { ?>
                     <td>{{product.product_price}}</td>
                 <?php } else { ?>
-                    <td>
+                    <td class="noprint">
                         <!--link to sellers who sell this product-->
                         <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
                         <!--link to inventories done for this product-->
@@ -82,12 +108,13 @@
                     </a>
                 </td>
                 <td> {{product.product_description}}</td>
-                <td>
-                    <?php if(isset($detach_link)){ ?>
-                    <a href="<?php echo $detach_link; ?>{{product.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
-                    <?php }else{ ?>
-                    <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
-                    <a href="<?php echo URL_X . 'Product/delete/'; ?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
+                <td> {{product.stock}}</td>
+                <td class="noprint">
+                    <?php if (isset($detach_link)) { ?>
+                        <a href="<?php echo $detach_link; ?>{{product.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
+                    <?php } else { ?>
+                        <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
+                        <a href="<?php echo URL_X . 'Product/delete/'; ?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
                     <?php } ?>
                 </td>
             </tr>

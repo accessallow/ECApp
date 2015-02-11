@@ -120,7 +120,9 @@ class Inventory_model extends CI_Model {
         $queryString = NULL;
 
         if ($product_id) {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',
+                p.product_brand as 'product_brand',
+                s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -128,7 +130,9 @@ class Inventory_model extends CI_Model {
             i.product_id = $product_id
         ) order by i.date desc,i.id desc; ";
         } elseif ($seller_id) {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',
+        p.product_brand as 'product_brand',                
+        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
@@ -136,7 +140,9 @@ class Inventory_model extends CI_Model {
             i.seller_id = $seller_id
         ) order by i.date desc,i.id desc; ";
         } else {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+            $queryString = "select i.id,i.rate,p.id as 'product_id',
+        p.product_brand as 'product_brand',                
+        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 

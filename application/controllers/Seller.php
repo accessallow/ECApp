@@ -29,22 +29,22 @@ class Seller extends CI_Controller {
             $this->load->model('product_model');
             $r = $this->product_model->get_one_product($product_id);
             $product_name = $r[0]->product_name;
-            $data['label'] = "Sellers who sell the Product : ".$product_name;
+            $product_brand = $r[0]->product_brand;
+            $data['label'] = "Sellers who sell the Product : " . $product_name . "- "
+                    . "<small>Brand: " . $product_brand . '</small>';
             //set a different label for the add button
             $data['addButtonLabel'] = "Attach a seller to this product";
-            $data['add_link'] = URL_X.'Product_seller_mapping/add_new_seller_to_a_product/'.$product_id;
+            $data['add_link'] = URL_X . 'Product_seller_mapping/add_new_seller_to_a_product/' . $product_id;
             //we are dealing with a mapping so edit link will not be present
-            $data['delete_link'] = URL_X.'Product_seller_mapping/delete_a_mapping/';
-            
-            
+            $data['delete_link'] = URL_X . 'Product_seller_mapping/delete_a_mapping/';
         } else {
             // full seller list page
-            $data['edit_link'] = URL_X.'Seller/edit/';
-            $data['delete_link'] = URL_X.'Seller/delete/';
+            $data['edit_link'] = URL_X . 'Seller/edit/';
+            $data['delete_link'] = URL_X . 'Seller/delete/';
             $data['fetch_json_link'] = URL_X . 'Seller/index_json';
             $data['label'] = "All sellers";
             $data['addButtonLabel'] = "Add a seller to system";
-            $data['add_link'] = URL_X.'Seller/add_new/';
+            $data['add_link'] = URL_X . 'Seller/add_new/';
         }
         $this->load->view("template/header");
         $this->load->view("seller/list_all_sellers", $data);
@@ -77,7 +77,7 @@ class Seller extends CI_Controller {
             $this->load->model("seller_model");
 
             $this->seller_model->insert($this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_address"));
-            $this->index();
+            redirect('Seller/add_new');
         } else {
             $this->load->view("template/header");
             $this->load->view("seller/add_new");
@@ -89,7 +89,7 @@ class Seller extends CI_Controller {
         if ($this->input->post('id')) {
             $this->load->model("seller_model");
             $this->seller_model->delete($this->input->post('id'));
-            $this->index();
+            redirect('Seller');
         } else {
             $this->load->model("seller_model");
             $data['seller'] = $this->seller_model->get_one_seller($id);
@@ -111,12 +111,19 @@ class Seller extends CI_Controller {
             $this->load->model("seller_model");
 
             $this->seller_model->edit($this->input->post("id"), $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_address"));
-            $this->index();
+            redirect('Seller');
         } else {
             $this->load->view("template/header");
             $this->load->view("seller/edit");
             $this->load->view("template/footer");
         }
+    }
+
+    public function get_one_seller_json($seller_id) {
+        $this->load->model('seller_model');
+        $s = $this->seller_model->get_one_seller($seller_id);
+        $this->output->set_content_type('application/json')
+                ->set_output(json_encode($s));
     }
 
 }

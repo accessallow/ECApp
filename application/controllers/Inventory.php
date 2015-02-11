@@ -67,7 +67,7 @@ class Inventory extends CI_Controller {
 
             $this->load->model("inventory_model");
 
-
+            $date = new DateTime($this->input->post('date'));
 
             $this->inventory_model->insert(
                     $this->input->post("product_id"), 
@@ -75,11 +75,17 @@ class Inventory extends CI_Controller {
                     $this->input->post("payment"), 
                     $this->input->post("seller_id"),
                     $this->input->post("rate"), 
-                    $this->input->post("date"), 
+                    date_format($date, 'Y-m-d'), 
                     $this->input->post("description")
             );
+            $this->load->model('product_model');
+            $p = $this->product_model->get_one_product($this->input->post('product_id'));
+            $p = $p[0];
+            $currentStock = $p->stock;
+            $newStock = $currentStock + $this->input->post('quantity');
+            $this->product_model->update_my_stock($p->id,$newStock);
 
-            $this->index();
+            redirect('Inventory/add_new');
         } else {
             $this->load->model("seller_model");
             $data["sellers"] = $this->seller_model->get_all_entries(null);
@@ -98,7 +104,7 @@ class Inventory extends CI_Controller {
         if ($this->input->post('inventory_id')) {
             $this->load->model("inventory_model");
             $this->inventory_model->delete($this->input->post('inventory_id'));
-            $this->index();
+            redirect('Inventory');
         } else {
 
             $this->load->model("inventory_model");
@@ -144,6 +150,7 @@ class Inventory extends CI_Controller {
 
             // this will execute if post data is sent to this function : updating the data
             $this->load->model("inventory_model");
+            $date = new DateTime($this->input->post('date'));
 
             $this->inventory_model->edit($this->input->post("inventory_id"), 
                     $this->input->post("product_id"), 
@@ -151,10 +158,10 @@ class Inventory extends CI_Controller {
                     $this->input->post("payment"), 
                     $this->input->post("seller_id"), 
                     $this->input->post("rate"),
-                    $this->input->post("date"), 
+                    date_format($date, 'Y-m-d'),  
                     $this->input->post("description")
             );
-            $this->index();
+            redirect('Inventory');
         } else {
 
 

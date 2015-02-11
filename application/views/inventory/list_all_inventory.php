@@ -27,7 +27,7 @@ if (isset($product_id)) {
 }
 ?>
 
-<div class="row">
+<div class="row noprint">
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
@@ -42,7 +42,7 @@ if (isset($product_id)) {
 <br/>
 
 <div ng-controller="InventoryController">
-    <div class="row well">
+    <div class="row well noprint">
         <h4>{{label}} 
             <?php
             if ($should_set_link == 1) {
@@ -55,18 +55,33 @@ if (isset($product_id)) {
             <span class="badge">Total payment : Rs. <?php echo $sum; ?>/-</span>
         </p>
     </div>
+    <div class="row printonly">
+        <div class="col-sm-6" style="text-align: right;">
+            <?php echo SHOP_NAME; ?>
+            <br/>
+            <?php echo SHOP_ADDR; ?>
+            <br/>
+            <?php echo PHONE; ?>
+        </div>
+        <div class="col-sm-6">
+            <h4>{{label}} </h4>
+            Total entries : {{entries.length}}<br/>
+            Total payment : Rs. <?php echo $sum; ?>/-
+        </div>
+    </div>
     <table class="table table-hover table-striped">
         <thead>
             <tr style="font-weight: bolder;">
                 <td>Id</td>
                 <td>Product</td>
+                <td>Brand</td>
                 <td>Seller</td>
                 <td>Rate</td>
                 <td>Quantity</td>
                 <td>Payment</td>
                 <td>Date</td>
                 <td>Description</td>
-                <td>Action</td>
+                <td class="noprint">Action</td>
             </tr>
         </thead>
         <tbody>
@@ -77,6 +92,7 @@ if (isset($product_id)) {
                         {{entry.product_name}}
                     </a>
                 </td>
+                <td>{{entry.product_brand}}</td>
                 <td>
                     <a href="<?php echo URL_X . 'Inventory?seller_id='; ?>{{entry.seller_id}}">
                         {{entry.seller_name}}
@@ -88,7 +104,7 @@ if (isset($product_id)) {
 
                 <td>{{entry.date}}</td>
                 <td>{{entry.description}}</td>
-                <td>
+                <td class="noprint">
                     <a href="<?php echo URL_X . 'Inventory/edit/'; ?>{{entry.id}}" class="btn  btn-primary btn-xs">Edit</a>
                     <a href="<?php echo URL_X . 'Inventory/delete/'; ?>{{entry.id}}" class="btn  btn-danger btn-xs">Delete</a>
                 </td>

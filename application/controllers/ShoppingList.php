@@ -22,10 +22,12 @@ class ShoppingList extends CI_Controller {
         if ($this->input->post('ListName')) {
             $this->load->model('shopping_list_model');
 
+            $date = new DateTime($this->input->post('DateCreated'));
+
             $this->shopping_list_model->add_entry(array(
                 'list_name' => $this->input->post('ListName'),
-                'date_created' => $this->input->post('DateCreated'),
-                'date_modified' => $this->input->post('DateCreated')
+                'date_created' => date_format($date, 'Y-m-d'),
+                'date_modified' => date_format($date, 'Y-m-d')
             ));
 
             $this->index();
@@ -55,11 +57,17 @@ class ShoppingList extends CI_Controller {
         }
     }
 
-    public function get_items_of_list($list_id) {
+    public function get_items_of_list($list_id, $seller_id = null) {
         //this function spits all items that fall under List::$list_id
 
         $this->load->model('shopping_list_model');
-        $r = $this->shopping_list_model->get_all_items_from_list($list_id);
+        $r = null;
+        if ($seller_id) {
+            $r = $this->shopping_list_model->get_all_items_of_a_seller_from_list($list_id, $seller_id);
+        } else {
+            $r = $this->shopping_list_model->get_all_items_from_list($list_id);
+        }
+
 
         $this->output->set_content_type('application/json')
                 ->set_output(json_encode($r));
@@ -90,14 +98,15 @@ class ShoppingList extends CI_Controller {
 
         $this->load->model('shopping_list_model');
 
+        $date = new DateTime($this->input->post('DateCreated'));
 
         if ($this->input->post('list_id')) {
             $p_list_id = $this->input->post('list_id');
 
             $this->shopping_list_model->edit_entry($p_list_id, array(
                 'list_name' => $this->input->post('ListName'),
-                'date_created' => $this->input->post('DateCreated'),
-                'date_modified' => $this->input->post('DateCreated')
+                'date_created' => date_format($date, 'Y-m-d'),
+                'date_modified' => date_format($date, 'Y-m-d')
                     )
             );
             redirect('ShoppingList');
@@ -152,24 +161,129 @@ class ShoppingList extends CI_Controller {
      * ITEM DEALING FUNCTIONS
      */
 
-    public function delete_item_from_shopping_list($list_id, $sitem_id) {
+    public function delete_item_from_shopping_list($list_id, $item_id) {
         //this will be redirecting to a warning based page 
         //in case of post it will be deleting in real and
         // loading again that perticular shopping list items
         // this function should be called while viewing items of
         // a shopping list
+
+        $this->load->model('shopping_list_model');
+        if ($this->input->post('id')) {
+            $this->shopping_list_model->delete_one_item(
+                    $this->input->post('id')
+            );
+            redirect('ShoppingList');
+        } else {
+            // I am gonna deliver the item to be deleted!!!
+            $list = $this->shopping_list_model->get_one_entry($list_id);
+            $list = $list[0];
+            $item = $this->shopping_list_model->get_one_item($item_id);
+            $item = $item[0];
+
+            $this->load->model('product_model');
+            $p = $this->product_model->get_one_product($item->product_id);
+            $p = $p[0];
+
+
+            $data['confirmation_line'] = "Are you sure want to delete item: <strong>" .
+                    $p->product_name . "</strong> from list: <strong>" . $list->list_name . "</strong>?";
+            $data['item_id'] = $item->id;
+
+            $data['delete_form_url'] = site_url('ShoppingList/delete_item_from_shopping_list/' . $list_id . '/' . $item_id);
+            $data['back_url'] = site_url('ShoppingList');
+
+            $this->load->view('template/header');
+            $this->load->view('shoppingList/delete', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function add_item_to_shopping_list($list_id) {
         //on not getting POST it will show an ADD ITEM form
         // on getting POST it will save the sent item and render
         // item list of List::$list_id
+
+        if ($this->input->post('list_id')) {
+            $item = array(
+                'list_id' => $this->input->post('list_id'),
+                'product_id' => $this->input->post('product_id'),
+                'seller_id' => $this->input->post('seller_id'),
+                'quantity' => $this->input->post('quantity'),
+                'rate' => $this->input->post('rate'),
+                'total_price' => $this->input->post('total_price'),
+                'description' => $this->input->post('description'),
+            );
+            $this->load->model('shopping_list_model');
+            $this->shopping_list_model->add_an_item_to_list($item);
+
+            redirect('ShoppingList');
+        } else {
+            $data['products_fetch_url'] = site_url('Product/index_json');
+            $data['sellers_fetch_url'] = site_url('Seller/index_json');
+            $data['shopping_lists_fetch_url'] = site_url('ShoppingList/get_all_lists');
+
+            $data['products_refresh_url'] = site_url('Product/get_products_from_this_seller?seller_id=');
+            $data['sellers_refresh_url'] = site_url('Product/get_sellers_for_this_product?product_id=');
+
+            $data['form_submit_url'] = site_url('ShoppingList/add_item_to_shopping_list');
+            $data['back_url'] = site_url('ShoppingList');
+            $data['list_id'] = $list_id;
+
+            $this->load->view('template/header');
+            $this->load->view('shoppingList/add_new_shopping_item', $data);
+            $this->load->view('template/footer');
+        }
     }
 
-    public function edit_item_of_shopping_list($list_id, $sitem_id) {
+    public function edit_item_of_shopping_list($list_id, $item_id) {
         // on getting post it will update the item details sent under
         //post and on getting just a call,it will show the edoit form with
         // correctly loaded details
+        $this->load->model('shopping_list_model');
+
+        if ($this->input->post('id')) {
+            $item = array(
+                'list_id' => $this->input->post('list_id'),
+                'product_id' => $this->input->post('product_id'),
+                'seller_id' => $this->input->post('seller_id'),
+                'quantity' => $this->input->post('quantity'),
+                'rate' => $this->input->post('rate'),
+                'total_price' => $this->input->post('total_price'),
+                'description' => $this->input->post('description'),
+            );
+            $this->shopping_list_model->update_one_item($this->input->post('id'), $item);
+
+            redirect('ShoppingList');
+        } else {
+            $data['products_fetch_url'] = site_url('Product/index_json');
+            $data['sellers_fetch_url'] = site_url('Seller/index_json');
+            $data['shopping_lists_fetch_url'] = site_url('ShoppingList/get_all_lists');
+
+            $data['products_refresh_url'] = site_url('Product/get_products_from_this_seller?seller_id=');
+            $data['sellers_refresh_url'] = site_url('Product/get_sellers_for_this_product?product_id=');
+
+            $data['form_submit_url'] = site_url('ShoppingList/edit_item_of_shopping_list/' . $list_id . '/' . $item_id);
+            $data['back_url'] = site_url('ShoppingList');
+            $data['list_id'] = $list_id;
+
+            $item = $this->shopping_list_model->get_one_item($item_id);
+            $item = $item[0];
+
+            $data['edit'] = true;
+            $data['id'] = $item->id;
+            $data['list_id'] = $item->list_id;
+            $data['product_id'] = $item->product_id;
+            $data['seller_id'] = $item->seller_id;
+            $data['quantity'] = $item->quantity;
+            $data['rate'] = $item->rate;
+            $data['total_price'] = $item->total_price;
+            $data['description'] = $item->description;
+
+            $this->load->view('template/header');
+            $this->load->view('shoppingList/add_new_shopping_item', $data);
+            $this->load->view('template/footer');
+        }
     }
 
 }
