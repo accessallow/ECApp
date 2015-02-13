@@ -7,6 +7,7 @@ class Form49 extends CI_Controller {
         parent::__construct();
         $this->load->model("form49_model");
     }
+
     // functions that spit a view
     public function index() {
         $this->load->model("product_model");
@@ -55,38 +56,29 @@ class Form49 extends CI_Controller {
         $this->load->view("template/footer");
     }
 
-    public function single_product($product_id) {
-        $this->load->model('product_model');
-        $p = $this->product_model->get_one_product_joined($product_id);
-        $p = $p[0];
+    public function get($id) {
+       
+        $f = $this->form49_model->get_all_entries_joined($id);
+        $f = $f[0];
 
-        //Data for panel-1
-        $data['id'] = $p->id;
-        $data['product_name'] = $p->product_name;
-        $data['category'] = $p->product_category;
-        $data['brand'] = $p->product_brand;
-        $data['description'] = $p->product_description;
+        
+        $data['form'] = $f;
+       
+        $data['form_edit_link'] = site_url('Form49/edit/' . $id);
+        $data['form_delete_link'] = site_url('Form49/delete/' . $id);
 
-        $data['product_edit_link'] = site_url('Product/edit/' . $product_id);
-        $data['product_delete_link'] = site_url('Product/delete/' . $product_id);
-
-        //data for panel-2
-        $data['sellers_count'] = $this->product_model->count_my_sellers($product_id);
-        $data['best_rate'] = $this->product_model->my_best_rate($product_id);
-        $data['best_seller'] = $this->product_model->my_best_seller($product_id);
-        $data['stock'] =  $p->stock;
-        $data['do_stock_zero_link'] = site_url('Product/DoStockZero/'.$p->id);
+       
 
         $this->load->view("template/header");
-        $this->load->view("product/single_product", $data);
+        $this->load->view("form49/single", $data);
         $this->load->view("template/footer");
     }
-    
+
     public function add_new() {
         if ($this->input->post('shop_name')) {
 
-            
-            
+
+
             $f = array(
                 'shop_name' => $this->input->post('shop_name'),
                 'address' => $this->input->post('address'),
@@ -107,19 +99,19 @@ class Form49 extends CI_Controller {
             );
 
             $this->form49_model->insert($f);
-            
-            
+
+
             redirect('Form49/add_new');
         } else {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            
+
             $this->load->model('product_model');
-            $data['products'] = $this->product_model->get_all_entries_joined(); 
-            
+            $data['products'] = $this->product_model->get_all_entries_joined();
+
             $data['form_submit_url'] = site_url('Form49/add_new');
             $data['back_url'] = site_url('Form49');
-            
+
             $this->load->view("template/header");
             $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
@@ -128,48 +120,65 @@ class Form49 extends CI_Controller {
 
     public function delete($id = NULL) {
         if ($this->input->post('id')) {
-            $this->load->model("product_model");
-            $this->product_model->delete($this->input->post('id'));
-            redirect('Product');
+            
+            $this->form49_model->delete($this->input->post('id'));
+            redirect('Form49');
         } else {
-            $this->load->model("product_model");
-            $data['product'] = $this->product_model->get_one_product($id);
+            
+           $data['delete_form_url'] = site_url('Form49/delete/'.$id);
+           $data['confirmation_line'] = "Are you sure want to delete this form entry?";
+           $data['back_url'] = site_url('Form49');
+           $data['item_id'] = $id;
 
             $this->load->view("template/header");
-            $this->load->view("product/delete", $data);
+            $this->load->view("common/delete", $data);
             $this->load->view("template/footer");
         }
     }
 
     public function edit($id = NULL) {
-        if ($id) {
-            $this->load->model("product_model");
-            $data['product'] = $this->product_model->get_one_product($id);
-            $this->load->model("product_category_model");
-            $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
-            $this->load->view("product/edit", $data);
-            $this->load->view("template/footer");
-        } else if ($this->input->post('product_name')) {
-            $this->load->model("product_model");
+        if ($id == null) {
+            redirect('Form49');
+        }
+        if ($this->input->post('shop_name')) {
 
-            $this->product_model->edit($this->input->post("id"),
-                    $this->input->post("product_name"),
-                    $this->input->post("product_brand"), 
-                    $this->input->post("product_category"), 
-                    $this->input->post("product_description"),
-                    $this->input->post('stock')
+            $f = array(
+                'shop_name' => $this->input->post('shop_name'),
+                'address' => $this->input->post('address'),
+                'tin_number' => $this->input->post('tin_number'),
+                'invoice_number' => $this->input->post('invoice_number'),
+                'date' => $this->input->post('date'),
+                'total_value' => $this->input->post('total_value'),
+                'total_quantity' => $this->input->post('total_quantity'),
+                'dispatch_location' => $this->input->post('dispatch_location'),
+                'destination' => $this->input->post('destination'),
+                'category' => $this->input->post('category'),
+                'product' => $this->input->post('product'),
+                'description' => $this->input->post('description'),
+                'transport_value' => $this->input->post('transport_value'),
+                'billty_number' => $this->input->post('billty_number'),
+                'vehicle_number' => $this->input->post('vehicle_number'),
+                'form_c' => $this->input->post('form_c')
             );
-           redirect('Product');
+            $this->form49_model->edit($id,$f);
+
+            redirect('Form49');
         } else {
-            $this->load->model("product_category_model");
-            $data['categories'] = $this->product_category_model->get_all_entries();
+            $data['edit'] = true;
+            $f = $this->form49_model->get_one_form(array(
+                'id' => $id
+            ));
+            $data['form'] = $f[0];
+            $data['form_submit_url'] = site_url('Form49/edit/' . $id);
+            $data['back_url'] = site_url('Form49');
+
+
             $this->load->view("template/header");
-            $this->load->view("product/edit", $data);
+            $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
         }
     }
-    
+
     // functions that spit json
     public function index_json() {
         $forms = null;

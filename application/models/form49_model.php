@@ -91,7 +91,11 @@ class Form49_model extends CI_Model {
         $query = $this->db->get_where('form49', array('tag' => Form49Tags::$available));
         return $query->result();
     }
-    function get_all_entries_joined(){
+    function get_all_entries_joined($id=null){
+        $breakString = '';
+        if($id!=null){
+           $breakString = 'f.id = '.$id.' and '; 
+        }
         $sql = "select
                 f.id as 'id',
                 f.shop_name,f.address,f.tin_number,f.invoice_number,
@@ -106,12 +110,13 @@ class Form49_model extends CI_Model {
                 where
                 f.product = p.id and
                 f.category = c.id and
+                $breakString
                 f.tag = 1;
                 ";
         $r = $this->db->query($sql);
         return $r->result();
     }
-    function get_one_product($where) {
+    function get_one_form($where) {
         
         $where['tag'] = Form49Tags::$available;
         $query = $this->db->get_where('form49', $where);
@@ -122,80 +127,80 @@ class Form49_model extends CI_Model {
     /////////////METADATA QUERY FUNCTIONS//////////
     ///////////////////////////////////////////////
 
-    function get_total_products($whereArray) {
-        $this->db->where($whereArray);
-        $this->db->from('products');
-        $q = $this->db->count_all_results();
-
-        return $q;
-    }
-
-    function get_total_categorized_products($category_id) {
-        $this->db->where(array('product_category' => $category_id));
-        $this->db->from('products');
-        $q = $this->db->count_all_results();
-
-        return $q;
-    }
-
-    function count_my_sellers($product_id) {
-        $this->db->where(array(
-            'product_id' => $product_id,
-            'tag' => ProductTags::$available
-        ));
-        $this->db->from('product_seller_mapping');
-        $a = $this->db->count_all_results();
-        return $a;
-    }
-
-    function my_best_rate($product_id) {
-        $mysellers = $this->count_my_sellers($product_id);
-        if ($mysellers == 0) {
-            return 0;
-        } else {
-            $where = array(
-                'product_id' => $product_id,
-                'tag' => ProductTags::$available
-            );
-            $this->db->select_min('product_price');
-            $query = $this->db->get_where('product_seller_mapping', $where);
-
-            $r = $query->result();
-            $r = $r[0];
-            return $r->product_price;
-        }
-    }
-
-    function my_best_seller($product_id) {
-        $mysellers = $this->count_my_sellers($product_id);
-        if ($mysellers == 0) {
-            return "Nil";
-        } else {
-            $best_price = $this->my_best_rate($product_id);
-            $where = array(
-                'product_id' => $product_id,
-                'product_price' => $best_price,
-                'tag' => ProductTags::$available
-            );
-            $q = $this->db->get_where('product_seller_mapping', $where);
-            $q = $q->result();
-            $q = $q[0];
-            $where = array(
-                'id' => $q->seller_id,
-                'tag' => ProductTags::$available
-            );
-            $q = $this->db->get_where('seller', $where);
-            $q = $q->result();
-            $q = $q[0];
-            return $q->seller_name;
-        }
-    }
-
-        
-    function update_my_stock($product_id,$count){
-        $this->db->update('products',
-                array('stock'=>$count), //this to update
-                array('id'=>$product_id)); //where id=blah
-    }
+//    function get_total_products($whereArray) {
+//        $this->db->where($whereArray);
+//        $this->db->from('products');
+//        $q = $this->db->count_all_results();
+//
+//        return $q;
+//    }
+//
+//    function get_total_categorized_products($category_id) {
+//        $this->db->where(array('product_category' => $category_id));
+//        $this->db->from('products');
+//        $q = $this->db->count_all_results();
+//
+//        return $q;
+//    }
+//
+//    function count_my_sellers($product_id) {
+//        $this->db->where(array(
+//            'product_id' => $product_id,
+//            'tag' => ProductTags::$available
+//        ));
+//        $this->db->from('product_seller_mapping');
+//        $a = $this->db->count_all_results();
+//        return $a;
+//    }
+//
+//    function my_best_rate($product_id) {
+//        $mysellers = $this->count_my_sellers($product_id);
+//        if ($mysellers == 0) {
+//            return 0;
+//        } else {
+//            $where = array(
+//                'product_id' => $product_id,
+//                'tag' => ProductTags::$available
+//            );
+//            $this->db->select_min('product_price');
+//            $query = $this->db->get_where('product_seller_mapping', $where);
+//
+//            $r = $query->result();
+//            $r = $r[0];
+//            return $r->product_price;
+//        }
+//    }
+//
+//    function my_best_seller($product_id) {
+//        $mysellers = $this->count_my_sellers($product_id);
+//        if ($mysellers == 0) {
+//            return "Nil";
+//        } else {
+//            $best_price = $this->my_best_rate($product_id);
+//            $where = array(
+//                'product_id' => $product_id,
+//                'product_price' => $best_price,
+//                'tag' => ProductTags::$available
+//            );
+//            $q = $this->db->get_where('product_seller_mapping', $where);
+//            $q = $q->result();
+//            $q = $q[0];
+//            $where = array(
+//                'id' => $q->seller_id,
+//                'tag' => ProductTags::$available
+//            );
+//            $q = $this->db->get_where('seller', $where);
+//            $q = $q->result();
+//            $q = $q[0];
+//            return $q->seller_name;
+//        }
+//    }
+//
+//        
+//    function update_my_stock($product_id,$count){
+//        $this->db->update('products',
+//                array('stock'=>$count), //this to update
+//                array('id'=>$product_id)); //where id=blah
+//    }
 
 }

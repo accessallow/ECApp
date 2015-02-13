@@ -8,57 +8,111 @@ $products_fetch_link = site_url('Product/index_json');
             <div class="form-group">
                 <label class="col-sm-4 control-label">Shop name</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="shop_name" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required name="shop_name" 
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->shop_name; ?>"
+                        <?php } ?>
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Address</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" 
-                              required name="address"></textarea> 
+                    <textarea 
+                        class="form-control" 
+                        required 
+                        name="address">
+                            <?php if (isset($edit)) { ?>
+                                <?php echo $form->address; ?>
+                            <?php } ?>
+                    </textarea> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">TIN number</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="tin_number" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required 
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->tin_number; ?>"
+                        <?php } ?>
+                        name="tin_number" 
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Invoice number</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="invoice_number" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required 
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->invoice_number; ?>"
+                        <?php } ?>
+                        name="invoice_number" 
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Total value</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="total_value" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->total_value; ?>"
+                        <?php } ?>
+                        name="total_value"
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Total quantity</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="total_quantity" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required 
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->total_quantity; ?>"
+                        <?php } ?>
+                        name="total_quantity" 
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Dispatch location</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="dispatch_location" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->dispatch_location; ?>"
+                        <?php } ?>
+                        name="dispatch_location"
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Destination</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="destination" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->destination; ?>"
+                        <?php } ?>
+                        name="destination" 
+                        placeholder=""/> 
                 </div>
             </div>
 
@@ -68,11 +122,21 @@ $products_fetch_link = site_url('Product/index_json');
                 <label class="col-sm-4 control-label">Product Name</label>
                 <div class="col-sm-8">
                     <select name="product" ng-model="product_id"  class="form-control"   required>
-                        <option value="" selected>Choose a product</option>
+                        <option 
+                            value="" 
+                            <?php if (!isset($edit)) { ?>
+                                selected
+                            <?php } else { ?>
 
-                       <option ng-repeat="product in products" value="{{product.id}}">
+                            <?php } ?>
+                            >Choose a product</option>
 
-                           {{product.product_name}} - {{product.product_brand}}
+                        <option 
+                            ng-repeat="product in products" 
+                            ng-selected="check_selected_product(product.id)"
+                            value="{{product.id}}">
+
+                            {{product.product_name}} - {{product.product_brand}}
 
                         </option>
 
@@ -83,11 +147,21 @@ $products_fetch_link = site_url('Product/index_json');
                 <label class="col-sm-4 control-label">Category</label>
                 <div class="col-sm-8">
                     <select name="category" ng-model="product_id"  class="form-control"   required>
-                        <option value="" selected>Choose a category</option>
+                        <option 
+                            value="" 
+                            <?php if (!isset($edit)) { ?>
+                                selected
+                            <?php } else { ?>
 
-                        <option ng-repeat="category in categories" value="{{category.id}}">
+                            <?php } ?>
+                            >Choose a category</option>
 
-                           {{category.product_category_name}}
+                        <option 
+                            ng-repeat="category in categories"
+                            ng-selected="check_selected_category(category.id)"
+                            value="{{category.id}}">
+
+                            {{category.product_category_name}}
 
                         </option>
 
@@ -97,36 +171,68 @@ $products_fetch_link = site_url('Product/index_json');
             <div class="form-group">
                 <label class="col-sm-4 control-label">Description</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" 
-                              required name="description"></textarea> 
+                    <textarea 
+                        class="form-control" 
+                        required 
+                        name="description">
+                            <?php if (isset($edit)) { ?>
+                                <?php echo $form->description; ?>
+                            <?php } ?>
+                    </textarea> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Transport value</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="transport_value" placeholder=""/> 
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        required
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->transport_value; ?>"
+                        <?php } ?>
+                        name="transport_value"
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Billty number</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="billty_number" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        required
+                        <?php if (isset($edit)) { ?>
+                            value ="<?php echo $form->billty_number; ?>"
+                        <?php } ?>
+                        name="billty_number" 
+                        placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Vehicle number</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="vehicle_number" placeholder=""/> 
+                    <input type="text"
+                           class="form-control" 
+                           required
+                           <?php if (isset($edit)) { ?>
+                               value ="<?php echo $form->vehicle_number; ?>"
+                           <?php } ?>
+                           name="vehicle_number"
+                           placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Form "C"</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" 
-                           required name="form_c" placeholder=""/> 
+                    <input type="text" 
+                           class="form-control" 
+                           required 
+                           <?php if (isset($edit)) { ?>
+                               value ="<?php echo $form->form_c; ?>"
+                           <?php } ?>
+                           name="form_c"
+                           placeholder=""/> 
                 </div>
             </div>
             <div class="form-group">
@@ -135,7 +241,15 @@ $products_fetch_link = site_url('Product/index_json');
                 <div class="col-sm-8">
                     <div class='input-group date' id='datetimepicker1'>
 
-                        <input type="text" required data-date-format="YYYY-MM-DD" class="form-control" name="date" placeholder=""/> 
+                        <input type="text" 
+                               required 
+                               data-date-format="YYYY-MM-DD" 
+                               class="form-control" 
+                               <?php if (isset($edit)) { ?>
+                                   value ="<?php echo $form->date; ?>"
+                               <?php } ?>
+                               name="date" 
+                               placeholder=""/> 
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
@@ -156,12 +270,30 @@ $products_fetch_link = site_url('Product/index_json');
     app.controller('AddFormController', ['$scope', '$http', function ($scope, $http) {
             $http.get('<?php echo $categories_fetch_link; ?>').success(function (data) {
                 $scope.categories = data;
-                console.log("Categories:\n"+data);
+                console.log("Categories:\n" + data);
             });
             $http.get('<?php echo $products_fetch_link; ?>').success(function (data) {
                 $scope.products = data;
-                console.log("Products:\n"+data);
+                console.log("Products:\n" + data);
             });
+<?php if (isset($edit)) { ?>
+                $scope.check_selected_product = function (product_id) {
+                    form_product_id = <?php echo $form->product; ?>;
+                    if (product_id == form_product_id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                $scope.check_selected_category = function (category_id) {
+                    form_category_id = <?php echo $form->category; ?>;
+                    if (category_id == form_category_id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+<?php } ?>
 
         }]);
 </script>
