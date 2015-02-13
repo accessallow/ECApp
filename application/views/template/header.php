@@ -84,7 +84,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo URL_X . 'Form49/'; ?>">Dashboard</a></li>
 
-                            <li><a href="<?php echo URL_X . 'Form49/add_new_entry'; ?>">Add new</a></li>
+                            <li><a href="<?php echo URL_X . 'Form49/add_new'; ?>">Add new</a></li>
 
                         </ul>
                     </li>
