@@ -1,50 +1,57 @@
 [{
-        "id": "5",
-        "product_category_id": "1000",
-        "product_name": "Aurdino dumilinov adafruit",
-        "product_brand": "Aurdino dumilinov adafruit",
-        "product_category": "uncategorized",
-        "product_description": "Lorem ipsum dolor sit amet."
-    }, {
-        "id": "7",
-        "product_category_id": "4",
-        "product_name": "Aurdino dumilinov element14",
+        "id": "1",
+        "product_name": "IC-555",
         "product_brand": "element14",
-        "product_category": "IC",
-        "product_description": "bfgfg"
+        "product_category": "4",
+        "product_description": "IC high wattage",
+        "stock": "0",
+        "tag": "1"
     }, {
         "id": "3",
-        "product_category_id": "1000",
         "product_name": "Aurduino UNO 11",
         "product_brand": "Adafruit",
-        "product_category": "uncategorized",
-        "product_description": "Aurduino the microcontroller"
-    }, {
-        "id": "1",
-        "product_category_id": "4",
-        "product_name": "IC-555",
-        "product_brand": "IC-555",
-        "product_category": "IC",
-        "product_description": "IC high wattage"
-    }, {
-        "id": "2",
-        "product_category_id": "6",
-        "product_name": "Potentione",
-        "product_brand": "Omega",
-        "product_category": "Potentiometer",
-        "product_description": ""
+        "product_category": "1000",
+        "product_description": "Aurduino the microcontroller",
+        "stock": "0",
+        "tag": "1"
     }, {
         "id": "4",
-        "product_category_id": "4",
         "product_name": "Raspberry PI B+",
         "product_brand": "Adafruit",
-        "product_category": "IC",
-        "product_description": "rpi"
+        "product_category": "4",
+        "product_description": "rpi",
+        "stock": "0",
+        "tag": "1"
     }, {
-        "id": "6",
-        "product_category_id": "4",
-        "product_name": "TSOP 4512",
+        "id": "5",
+        "product_name": "Aurdino dumilinov",
+        "product_brand": "adafruit",
+        "product_category": "1000",
+        "product_description": "Lorem ipsum dolor sit amet.",
+        "stock": "0",
+        "tag": "1"
+    }, {
+        "id": "7",
+        "product_name": "Aurdino dumilinov",
+        "product_brand": "element14",
+        "product_category": "4",
+        "product_description": "bfgfg",
+        "stock": "0",
+        "tag": "1"
+    }, {
+        "id": "8",
+        "product_name": "Supercomp 511",
+        "product_brand": "Supercomp",
+        "product_category": "1001",
+        "product_description": "Clearcut offline stablizer",
+        "stock": "0",
+        "tag": "1"
+    }, {
+        "id": "10",
+        "product_name": "TSOP 1215",
         "product_brand": "Omega",
-        "product_category": "IC",
-        "product_description": "12 Mhz"
+        "product_category": "1001",
+        "product_description": "f",
+        "stock": "0",
+        "tag": "1"
     }]

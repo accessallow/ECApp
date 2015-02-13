@@ -51,8 +51,9 @@ class Product_model extends CI_Model {
         $this->db->update('products', $data);
     }
 
-    function get_all_entries() {
-        $query = $this->db->get_where('products', array('tag' => ProductTags::$available));
+    function get_all_entries($where=null) {
+        $where['tag'] = ProductTags::$available;
+        $query = $this->db->get_where('products', $where);
         return $query->result();
     }
 
