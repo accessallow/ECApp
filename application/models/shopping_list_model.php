@@ -56,6 +56,9 @@ class Shopping_list_model extends CI_Model {
     public function delete_entry($list_id) {
         $this->db->update('shopping_lists', array('tag' => Shopping_list_tags::$deleted), array('id' => $list_id));
         // a graceful delete
+        $this->db->update('shopping_list_items',
+                array('tag'=>  Shopping_list_tags::$deleted),
+                array('list_id'=>$list_id));
     }
 
     public function get_all_items_from_list($list_id) {

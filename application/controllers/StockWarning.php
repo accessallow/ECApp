@@ -5,8 +5,10 @@ class StockWarning extends CI_Controller{
         parent::__construct();
     }
     public function index(){
+        $data['json_fetch_link'] = site_url('StockWarning/index_json');
+        
         $this->load->view('template/header');
-        $this->load->view('stockwarn/dashboard');
+        $this->load->view('stockwarn/dashboard',$data);
         $this->load->view('template/footer');
     }
     public function index_json(){
