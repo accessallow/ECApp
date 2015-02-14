@@ -54,7 +54,9 @@ class Product_category_model extends CI_Model {
     }
 
     function get_all_entries() {
-        $query = $this->db->get_where("product_category",array('tag'=>  ProductCategoryTags::$available));
+        $this->db->order_by("product_category_name","asc");
+        $query = $this->db->get_where("product_category",
+                array('tag'=>  ProductCategoryTags::$available));
         return $query->result();
     }
     
