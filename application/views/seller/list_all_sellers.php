@@ -45,7 +45,7 @@
         </div>
 
     </div>
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped table-bordered" style="font-size: 0.9em;">
         <thead>
             <tr>
                 <td>Seller</td>
@@ -56,6 +56,8 @@
                     <td class="noprint">Links</td>
                 <?php } ?>
                 <td>Phone</td>
+                <td>Email</td>
+                <td>Tin no.</td>
                 <td>Address</td>
                 <td class="noprint">Actions</td>
             </tr>
@@ -81,12 +83,14 @@
                     </td>
                 <?php } ?>
                 <td>{{seller.seller_phone_number}}</td>
+                <td>{{seller.mail_id}}</td>
+                <td>{{seller.tin_number}}</td>
                 <td>{{seller.seller_address}}</td>
                 <td class="noprint">
                     <?php if (isset($edit_link)) { ?>
-                        <a href="<?php echo $edit_link; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit Seller</a>
+                        <a href="<?php echo $edit_link; ?>{{seller.id}}" class="btn  btn-primary btn-xs">Edit</a>
 
-                        <a href="<?php echo $delete_link; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete Seller</a>
+                        <a href="<?php echo $delete_link; ?>{{seller.id}}" class="btn  btn-danger btn-xs">Delete</a>
                     <?php } else { ?>
                         <a href="<?php echo $delete_link; ?>{{seller.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
                     <?php } ?>

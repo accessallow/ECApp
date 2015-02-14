@@ -11,6 +11,18 @@
             <input type="text" required class="form-control" name="seller_phone_number" placeholder=""/> 
         </div>
     </div>
+     <div class="form-group">
+        <label for="seller_mail_id" class="col-sm-2 control-label">Email-id</label>
+        <div class="col-sm-4">
+            <input type="text" required class="form-control" name="seller_mail_id" placeholder=""/> 
+        </div>
+    </div>
+     <div class="form-group">
+        <label for="seller_tin_number" class="col-sm-2 control-label">Tin number</label>
+        <div class="col-sm-4">
+            <input type="text" required class="form-control" name="seller_tin_number" placeholder=""/> 
+        </div>
+    </div>
     <div class="form-group">
         <label for="seller_address" class="col-sm-2 control-label"> Address </label>
         <div class="col-sm-4">

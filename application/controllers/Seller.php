@@ -76,7 +76,12 @@ class Seller extends CI_Controller {
 
             $this->load->model("seller_model");
 
-            $this->seller_model->insert($this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_address"));
+            $this->seller_model->insert(
+                    $this->input->post("seller_name"), 
+                    $this->input->post("seller_phone_number"), 
+                    $this->input->post("seller_mail_id"), 
+                    $this->input->post("seller_tin_number"), 
+                    $this->input->post("seller_address"));
             redirect('Seller/add_new');
         } else {
             $this->load->view("template/header");
@@ -110,7 +115,13 @@ class Seller extends CI_Controller {
         } else if ($this->input->post('seller_name')) {
             $this->load->model("seller_model");
 
-            $this->seller_model->edit($this->input->post("id"), $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_address"));
+            $this->seller_model->edit(
+                    $this->input->post("id"), 
+                    $this->input->post("seller_name"),
+                    $this->input->post("seller_phone_number"), 
+                    $this->input->post("seller_mail_id"), 
+                    $this->input->post("seller_tin_number"), 
+                    $this->input->post("seller_address"));
             redirect('Seller');
         } else {
             $this->load->view("template/header");

@@ -11,6 +11,8 @@ class Seller_model extends CI_Model {
 
     var $seller_name = "";
     var $seller_phone_number = "";
+    var $mail_id = "";
+    var $tin_number = "";
     var $seller_address = "";
     var $tag = NULL;
 
@@ -18,18 +20,22 @@ class Seller_model extends CI_Model {
         $this->load->database();
     }
 
-    function insert($name, $phone, $address) {
+    function insert($name, $phone, $mail_id, $tin_number, $address) {
         $this->seller_name = $name;
         $this->seller_phone_number = $phone;
+        $this->mail_id = $mail_id;
+        $this->tin_number = $tin_number;
         $this->seller_address = $address;
         $this->tag = SellerTags::$available;
 
         $this->db->insert("seller", $this);
     }
 
-    function edit($id, $name, $phone, $address) {
+    function edit($id, $name, $phone, $mail_id, $tin_number, $address) {
         $this->seller_name = $name;
         $this->seller_phone_number = $phone;
+        $this->mail_id = $mail_id;
+        $this->tin_number = $tin_number;
         $this->seller_address = $address;
         $this->tag = SellerTags::$available;
 
@@ -42,16 +48,18 @@ class Seller_model extends CI_Model {
         $this->db->update('seller', array('tag' => SellerTags::$deleted));
     }
 
-    function get_all_entries($product_id) {
+    function get_all_entries($product_id=null) {
         //empty object,will be filled in the ifs accordingly
         $query = null;
 
-        if ($product_id) {
+        if ($product_id!=null) {
             $queryString = "select 
                             s.id,
                             psm.id as 'mapping_id',
                             s.seller_name,
                             s.seller_phone_number,
+                            s.mail_id,
+                            s.tin_number,
                             s.seller_address,
                             psm.product_price
                             from 
@@ -59,7 +67,7 @@ class Seller_model extends CI_Model {
                             product_seller_mapping psm
                             where
                             (
-                            s.tag = ".SellerTags::$available." and
+                            s.tag = " . SellerTags::$available . " and
                             psm.tag = 1 and
                             s.id = psm.seller_id and
                             psm.product_id = $product_id
@@ -69,7 +77,7 @@ class Seller_model extends CI_Model {
                             s.seller_name asc;";
             $query = $this->db->query($queryString);
         } else {
-            $this->db->order_by('seller_name','asc');
+            $this->db->order_by('seller_name', 'asc');
             $query = $this->db->get_where('seller', array('tag' => SellerTags::$available));
         }
 
@@ -103,8 +111,8 @@ class Seller_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM seller WHERE id not in (select seller_id as id from product_seller_mapping where product_id=$product_id);");
         return $query->result();
     }
-    
-    function get_sellers_for_this_product($product_id){
+
+    function get_sellers_for_this_product($product_id) {
         $queryString = "select
                         s.id as 'id',
                         s.id as 'seller_id',
@@ -112,6 +120,8 @@ class Seller_model extends CI_Model {
                         psm.id as 'mapping_id',
                         psm.product_price,
                         s.seller_phone_number,
+                        s.mail_id,
+                        s.tin_number,
                         s.seller_address
                         from 
                         seller s,
@@ -128,8 +138,8 @@ class Seller_model extends CI_Model {
         $query = $this->db->query($queryString);
         return $query->result();
     }
-    
-    function get_sellers_who_dont_sell_this_product($product_id){
+
+    function get_sellers_who_dont_sell_this_product($product_id) {
         $queryString = "select
                         * 
                         from
@@ -141,7 +151,7 @@ class Seller_model extends CI_Model {
                                     and tag=1
                                 )
                         and tag = 1 order by seller_name asc;";
-        
+
         $query = $this->db->query($queryString);
         return $query->result();
     }
