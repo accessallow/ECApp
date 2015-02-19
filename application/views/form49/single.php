@@ -65,7 +65,7 @@
                     Edit
                 </a>
                 <a 
-                    href="<?php echo $form_edit_link ?>"
+                    href="<?php echo $form_delete_link ?>"
                     class="btn btn-xs btn-danger">
                     Delete
                 </a>
