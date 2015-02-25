@@ -55,6 +55,10 @@ define('PLUGINS',URL.'bootstrap/bootstrap_plugins/');
 
 define('IMAGE_SERVER','http://localhost/image_server/');
 
+//Info to be printed on bill titles
 define('SHOP_NAME','Krishna Electronics');
 define('SHOP_ADDR','125-C, Indrapuri');
 define('PHONE','9584338959');
+
+// Mega Title on the header bar
+define('MegaTitle','Krishna Electronics');

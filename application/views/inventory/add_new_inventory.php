@@ -1,4 +1,6 @@
-<!--DONE-->
+<h3>Add new inventory</h3>
+<hr/>
+
 <div ng-controller="RateController">
     <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Inventory/add_new'; ?>" method="POST">
         <div class="form-group">

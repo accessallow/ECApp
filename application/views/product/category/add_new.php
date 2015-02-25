@@ -1,3 +1,5 @@
+<h3>Add new category</h3>
+<hr/>
 <form class="form-horizontal"   data-parsley-validate role="form" action="<?php echo URL_X . 'Product_category/add_new'; ?>" method="POST">
     <div class="form-group">
         <label for="seller_name" class="col-sm-2 control-label">Category Name</label>

@@ -78,16 +78,17 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
             </div>
 
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped" style="font-size: 0.9em;">
             <thead>
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         {{ListName}}
                     </td>
                 </tr>
                 <tr>
                     <td  class="noprint">id</td>
                     <td>Product</td>
+                    <td>Brand</td>
                     <td class="noprint">Seller</td>
                     <td class="noprint">Rate</td>
                     <td>Quantity</td>
@@ -100,6 +101,7 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                 <tr ng-repeat="item in items">
                     <td  class="noprint">{{item.id}}</td>
                     <td>{{item.product_name}}</td>
+                    <td>{{item.product_brand}}</td>
                     <td  class="noprint">
                         <a href="#" 
                            ng-click="refreshList(list_id, ListName + ' : ' + item.seller_name, item.seller_id);">

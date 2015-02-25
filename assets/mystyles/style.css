@@ -5,10 +5,10 @@
     border-color: #FF3333;
     background-color: #FFCCCC;
 }
-thead{
+thead,tfoot{
     font-weight: bolder;
 }
-thead tr{
+thead tr,tfoot tr{
     background: #8099E6;
     color:white;
 }

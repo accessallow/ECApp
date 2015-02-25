@@ -1,4 +1,6 @@
 <!--DONE-->
+<h3>Add new product</h3>
+<hr/>
 <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Product/add_new'; ?>" method="POST">
     <div class="form-group">
         <label for="product_name" class="col-sm-2 control-label">Product Name</label>

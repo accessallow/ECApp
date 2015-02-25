@@ -5,23 +5,25 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
     <h4>Products whose stock is zero <span class="badge">34</span></h4>
 </div>
 <div class="row" ng-controller="StockProductController">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <td>Product</td>
                 <td>Brand</td>
                 <td>Category</td>
-
+                <td>#Appearance</td>
 
                 <td>Action</td>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="product in products">
+            <tr ng-repeat="product in products"
+                ng-class="{success: is_not_zero(product.item_count)}"
+                >
                 <td>{{product.product_name}}</td>
                 <td>{{product.product_brand}}</td>
                 <td>{{my_category_name(product.product_category)}}</td>
-
+                <td>{{product.item_count}}</td>
                 <td>
                     <a href="#" class="btn btn-success btn-xs">
                         Add to shopping list
@@ -51,6 +53,10 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
                         return $scope.categories[i].product_category_name;
                     }
                 }
+            }
+            $scope.is_not_zero = function (count){
+                if(count>0) return true;
+                else return false;
             }
             
 

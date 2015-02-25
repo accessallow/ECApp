@@ -1,35 +1,12 @@
 [{
-        "id": "1",
-        "product_name": "IC-555",
-        "product_brand": "element14",
-        "product_category": "4",
-        "product_description": "IC high wattage",
-        "stock": "0",
-        "tag": "1"
-    }, {
-        "id": "3",
-        "product_name": "Aurduino UNO 11",
-        "product_brand": "Adafruit",
-        "product_category": "1000",
-        "product_description": "Aurduino the microcontroller",
-        "stock": "0",
-        "tag": "1"
-    }, {
-        "id": "4",
-        "product_name": "Raspberry PI B+",
-        "product_brand": "Adafruit",
-        "product_category": "4",
-        "product_description": "rpi",
-        "stock": "0",
-        "tag": "1"
-    }, {
         "id": "5",
         "product_name": "Aurdino dumilinov",
         "product_brand": "adafruit",
         "product_category": "1000",
         "product_description": "Lorem ipsum dolor sit amet.",
         "stock": "0",
-        "tag": "1"
+        "tag": "1",
+        "item_count": 4
     }, {
         "id": "7",
         "product_name": "Aurdino dumilinov",
@@ -37,7 +14,53 @@
         "product_category": "4",
         "product_description": "bfgfg",
         "stock": "0",
-        "tag": "1"
+        "tag": "1",
+        "item_count": 0
+    }, {
+        "id": "3",
+        "product_name": "Aurduino UNO 11",
+        "product_brand": "Adafruit",
+        "product_category": "1000",
+        "product_description": "Aurduino the microcontroller",
+        "stock": "0",
+        "tag": "1",
+        "item_count": 1
+    }, {
+        "id": "1",
+        "product_name": "IC-555",
+        "product_brand": "element14",
+        "product_category": "4",
+        "product_description": "IC high wattage",
+        "stock": "0",
+        "tag": "1",
+        "item_count": 3
+    }, {
+        "id": "9",
+        "product_name": "IC-556",
+        "product_brand": "Adafruit",
+        "product_category": "4",
+        "product_description": "Costly",
+        "stock": "0",
+        "tag": "1",
+        "item_count": 0
+    }, {
+        "id": "2",
+        "product_name": "Potentione",
+        "product_brand": "OmegaX",
+        "product_category": "6",
+        "product_description": "1 meter length",
+        "stock": "0",
+        "tag": "1",
+        "item_count": 0
+    }, {
+        "id": "4",
+        "product_name": "Raspberry PI B+",
+        "product_brand": "Adafruit",
+        "product_category": "4",
+        "product_description": "rpi",
+        "stock": "0",
+        "tag": "1",
+        "item_count": 0
     }, {
         "id": "8",
         "product_name": "Supercomp 511",
@@ -45,7 +68,8 @@
         "product_category": "1001",
         "product_description": "Clearcut offline stablizer",
         "stock": "0",
-        "tag": "1"
+        "tag": "1",
+        "item_count": 0
     }, {
         "id": "10",
         "product_name": "TSOP 1215",
@@ -53,5 +77,6 @@
         "product_category": "1001",
         "product_description": "f",
         "stock": "0",
-        "tag": "1"
+        "tag": "1",
+        "item_count": 0
     }]

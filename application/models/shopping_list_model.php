@@ -67,6 +67,7 @@ class Shopping_list_model extends CI_Model {
                 sli.list_id,
                 sli.product_id,
                 p.product_name,
+                p.product_brand,
                 sli.seller_id,
                 s.seller_name,
                 sli.rate,
@@ -93,6 +94,7 @@ class Shopping_list_model extends CI_Model {
                 sli.list_id,
                 sli.product_id,
                 p.product_name,
+                p.product_brand,
                 sli.seller_id,
                 s.seller_name,
                 sli.rate,
@@ -137,6 +139,17 @@ class Shopping_list_model extends CI_Model {
     public function delete_one_item($item_id) {
         $this->db->update('shopping_list_items', array('tag' => Shopping_list_tags::$deleted), array('id' => $item_id));
         //graceful delete again :)
+    }
+    
+    public function count_entries_of_product($product_id){
+        $this->db->where(array(
+            'product_id' => $product_id,
+            'tag' => 1
+        ));
+        $this->db->from('shopping_list_items');
+        $r = $this->db->count_all_results();
+        
+        return $r;
     }
 
 }

@@ -45,7 +45,7 @@
                                 ng-selected="select_product(product.id);"
                             <?php } ?>
                             value="{{product.id}}">
-                        {{product.product_name}}
+                        {{product.product_name}} - {{product.product_brand}}
                     </option>
                 </select>
             </div>

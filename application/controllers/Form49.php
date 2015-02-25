@@ -40,7 +40,7 @@ class Form49 extends CI_Controller {
             $data['add_link'] = URL_X . "Product/add_new";
             $data['detach_link'] = URL_X . 'Product_seller_mapping/delete_a_mapping/';
         } else {
-            $data['label'] = "All form records";
+            $data['label'] = "All form49 records";
             $data['json_fetch_link'] = site_url('Form49/index_json');
             $data['addButtonLabel'] = "Add a form to records";
             $data['add_link'] = site_url("Form49/add_new");

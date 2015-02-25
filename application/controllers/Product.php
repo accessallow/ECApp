@@ -75,7 +75,11 @@ class Product extends CI_Controller {
         $data['best_seller'] = $this->product_model->my_best_seller($product_id);
         $data['stock'] =  $p->stock;
         $data['do_stock_zero_link'] = site_url('Product/DoStockZero/'.$p->id);
-
+        //attachment type = 1 for product
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=1&attachment_id='.$p->id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$p->id.'/1');
+        $data['upload_base'] = base_url('assets/uploads/');
+        
         $this->load->view("template/header");
         $this->load->view("product/single_product", $data);
         $this->load->view("template/footer");
