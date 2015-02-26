@@ -6,17 +6,26 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Product Name</label>
             <div class="col-sm-4">
-                <select name="product_id" ng-model="product_id"  class="form-control"   required>
-                    <option value="" selected>Choose a product</option>
+                <select name="product_id" 
+                        ng-model="product_id"  
+                        class="form-control"   
+                        required>
+<option value="" <?php if (!isset($product_id)) { echo " selected ";} ?>
+                        >Choose a product
+                    </option>
                     <?php foreach ($products as $p) { ?>
-                        <option value="<?php echo $p->id ?>">
-                       
+                        <option 
+                            value="<?php echo $p->id; ?>"
+    <?php if (isset($product_id) && $p->id == $product_id) { echo ' selected '; }?>
+                         >
+
                             <?php echo $p->product_name; ?>
-                       
+
                             &nbsp - &nbsp
-                       
+                             <?php echo $p->product_category; ?> 
+                            &nbsp - &nbsp
                             <?php echo $p->product_brand; ?> 
-                       
+
                         </option>
                     <?php } ?>
                 </select>
@@ -59,7 +68,7 @@
             <label class="col-sm-2 control-label">Payment</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" 
-                       value="{{rate*quantity||0}}"
+                       value="{{rate * quantity||0}}"
                        required name="payment" placeholder=""/> 
             </div>
         </div>
@@ -70,14 +79,21 @@
                 <textarea class="form-control"  name="description" placeholder=""></textarea>
             </div>
         </div>
-        
+
         <div class="form-group">
             <label class="col-sm-2 control-label">Date</label>
 
             <div class="col-sm-4">
                 <div class='input-group date' id='datetimepicker1'>
 
-                    <input type="text" required data-date-format="YYYY-MM-DD" class="form-control" name="date" placeholder=""/> 
+                    <input 
+                        type="text" 
+                        required
+                        data-date-format="YYYY-MM-DD" 
+                        class="form-control" 
+                        name="date" 
+                        value="<?php echo $set_date; ?>"
+                        placeholder=""/> 
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
@@ -87,7 +103,7 @@
 
 
 
-        
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" class="btn btn-success" value="Save"/>
@@ -102,6 +118,9 @@
     app.controller('RateController', ['$scope', '$http', function ($scope, $http) {
 
             $scope.price = 0;
+            <?php if(isset($product_id)){ ?>
+            $scope.product_id = <?php echo $product_id; ?>;
+            <?php } ?>
             $scope.give_me_price = function (product_id, seller_id) {
                 $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
                     //return data[0].product_price;

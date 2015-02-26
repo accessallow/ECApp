@@ -52,7 +52,7 @@ if (isset($product_id)) {
         </h4>
         <p>
             <span class="badge">Total entries : {{entries.length}}</span>
-            <span class="badge">Total payment : Rs. <?php echo $sum; ?>/-</span>
+            <span class="badge">Total payment : Rs {{  getTotal()}}/-</span>
         </p>
     </div>
     <div class="row printonly">
@@ -66,7 +66,7 @@ if (isset($product_id)) {
         <div class="col-sm-6">
             <h4>{{label}} </h4>
             Total entries : {{entries.length}}<br/>
-            Total payment : Rs. <?php echo $sum; ?>/-
+            Total payment : Rs  {{  getTotal()}} /-
         </div>
     </div>
     <table class="table table-hover table-striped">
@@ -122,6 +122,15 @@ if (isset($product_id)) {
                 $scope.label = "<?php echo $label; ?>";
                 // $scope.get_all_link = "<?php echo $get_all_link; ?>";
             });
+
+            $scope.getTotal = function () {
+                var total = 0;
+                for (var i = 0; i < $scope.entries.length; i++) {
+                    var e = $scope.entries[i];
+                    total += parseInt(e.payment);
+                }
+                return total;
+            }
 
         }]);
 </script>

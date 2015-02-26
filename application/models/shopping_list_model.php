@@ -82,7 +82,9 @@ class Shopping_list_model extends CI_Model {
                 sli.product_id = p.id and
                 sli.seller_id = s.id and
                 sli.list_id = $list_id and
-                sli.tag = 1;";
+                sli.tag = 1
+                order by s.seller_name,p.product_name
+                ;";
 
         $q = $this->db->query($sql);
         return $q->result();
@@ -110,7 +112,9 @@ class Shopping_list_model extends CI_Model {
                 sli.seller_id = s.id and
                 sli.seller_id = $seller_id and
                 sli.list_id = $list_id and
-                sli.tag = 1;";
+                sli.tag = 1
+                order by s.seller_name,p.product_name
+                ;";
 
         $q = $this->db->query($sql);
         return $q->result();

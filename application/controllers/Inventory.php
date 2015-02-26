@@ -87,12 +87,19 @@ class Inventory extends CI_Controller {
 
             redirect('Inventory/add_new');
         } else {
+            $data = null;
+            if($this->input->get('product_id')){
+                $data['product_id'] = $this->input->get('product_id');
+            }
             $this->load->model("seller_model");
             $data["sellers"] = $this->seller_model->get_all_entries(null);
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
             $this->load->model("product_model");
-            $data["products"] = $this->product_model->get_all_entries();
+            $data["products"] = $this->product_model->get_all_entries_joined();
+            
+            $this->load->model('key_value_model');
+            $data['set_date'] = $this->key_value_model->get_value('date');
 
             $this->load->view("template/header");
             $this->load->view("inventory/add_new_inventory", $data);

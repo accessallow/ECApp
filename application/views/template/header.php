@@ -90,7 +90,18 @@
 
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Date
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL_X . 'Date/'; ?>">Set date</a></li>
 
+                           
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>

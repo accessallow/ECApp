@@ -247,7 +247,9 @@ $products_fetch_link = site_url('Product/index_json');
                                class="form-control" 
                                <?php if (isset($edit)) { ?>
                                    value ="<?php echo $form->date; ?>"
-                               <?php } ?>
+                               <?php }else{ ?>
+                                   value="<?php echo $set_date; ?>"
+                               <?php }?>
                                name="date" 
                                placeholder=""/> 
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>

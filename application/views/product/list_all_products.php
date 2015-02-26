@@ -94,6 +94,9 @@
                     <td>{{product.product_price}}</td>
                 <?php } else { ?>
                     <td class="noprint">
+                        <a class="badge" 
+                           style="background: #0063dc;"
+                           href="<?php echo URL_X; ?>Inventory/add_new?product_id={{product.id}}">+ i</a>
                         <!--link to sellers who sell this product-->
                         <a class="badge" href="<?php echo URL_X; ?>Seller?product_id={{product.id}}">Sellers</a>
                         <!--link to inventories done for this product-->

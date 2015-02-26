@@ -111,6 +111,9 @@ class Form49 extends CI_Controller {
 
             $data['form_submit_url'] = site_url('Form49/add_new');
             $data['back_url'] = site_url('Form49');
+            
+            $this->load->model('key_value_model');
+            $data['set_date'] = $this->key_value_model->get_value('date');
 
             $this->load->view("template/header");
             $this->load->view("form49/add_new", $data);
