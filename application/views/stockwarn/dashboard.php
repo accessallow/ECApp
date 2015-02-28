@@ -25,7 +25,8 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
                 <td>{{my_category_name(product.product_category)}}</td>
                 <td>{{product.item_count}}</td>
                 <td>
-                    <a href="#" class="btn btn-success btn-xs">
+                    <a href="<?php echo site_url('StockWarning/add_seller_wizard');?>/{{product.id}}" 
+                       class="btn btn-success btn-xs">
                         Add to shopping list
                     </a>
                 </td>
@@ -45,15 +46,18 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
             $http.get('<?php echo site_url('Product_category/index_json'); ?>').success(function (data) {
                 $scope.categories = data;
                 console.log(data);
-            });
-
-            $scope.my_category_name = function (category_id) {
+                
+                $scope.my_category_name = function (category_id) {
                 for(i=0;i<$scope.categories.length;i++){
                     if($scope.categories[i].id == category_id){
                         return $scope.categories[i].product_category_name;
                     }
                 }
             }
+                
+            });
+
+            
             $scope.is_not_zero = function (count){
                 if(count>0) return true;
                 else return false;

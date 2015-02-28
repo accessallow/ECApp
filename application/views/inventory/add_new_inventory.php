@@ -10,24 +10,32 @@
                         ng-model="product_id"  
                         class="form-control"   
                         required>
-<option value="" <?php if (!isset($product_id)) { echo " selected ";} ?>
-                        >Choose a product
+                    <option value="" <?php
+                    if (!isset($product_id)) {
+                        echo " selected ";
+                    }
+                    ?>
+                            >Choose a product
                     </option>
-                    <?php foreach ($products as $p) { ?>
+                        <?php foreach ($products as $p) { ?>
                         <option 
                             value="<?php echo $p->id; ?>"
-    <?php if (isset($product_id) && $p->id == $product_id) { echo ' selected '; }?>
-                         >
+                            <?php
+                            if (isset($product_id) && $p->id == $product_id) {
+                                echo ' selected ';
+                            }
+                            ?>
+                            >
 
                             <?php echo $p->product_name; ?>
 
                             &nbsp - &nbsp
-                             <?php echo $p->product_category; ?> 
+                        <?php echo $p->product_category; ?> 
                             &nbsp - &nbsp
-                            <?php echo $p->product_brand; ?> 
+    <?php echo $p->product_brand; ?> 
 
                         </option>
-                    <?php } ?>
+<?php } ?>
                 </select>
             </div>
         </div>
@@ -37,9 +45,9 @@
             <div class="col-sm-4">
                 <select name="seller_id" ng-model="seller_id" class="form-control"  required>
                     <option value="" selected>Choose a seller</option>
-                    <?php foreach ($sellers as $s) { ?>
+<?php foreach ($sellers as $s) { ?>
                         <option value="<?php echo $s->id ?>"><?php echo $s->seller_name; ?></option>
-                    <?php } ?>
+<?php } ?>
                 </select>
             </div>
         </div>
@@ -118,8 +126,12 @@
     app.controller('RateController', ['$scope', '$http', function ($scope, $http) {
 
             $scope.price = 0;
-            <?php if(isset($product_id)){ ?>
-            $scope.product_id = <?php echo $product_id; ?>;
+            <?php if (isset($product_id)) { ?>
+                            $scope.product_id = <?php echo $product_id; ?>;
+            <?php } ?>
+
+            <?php if (isset($seller_id)) { ?>
+                            $scope.seller_id = <?php echo $seller_id; ?>;
             <?php } ?>
             $scope.give_me_price = function (product_id, seller_id) {
                 $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
@@ -129,10 +141,11 @@
                     if (data[0] != null) {
                         //console.log("Data comes here = "+data);
                         //  console.log("Data[0] comes here = "+data[0]);
-                        $scope.price = data[0].product_price;
+                        //$scope.price = data[0].product_price;
+                        $scope.rate = data[0].product_price;
                     } else {
 
-                        $scope.price = 0;
+                        $scope.rate = 0;
                     }
                 }).error(function (data) {
                     console.log("error says!!!");

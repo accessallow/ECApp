@@ -1,7 +1,7 @@
 <?php
 
 //done
-class Inventory extends CI_Controller {
+class Inventory extends MY_Controller {
 
     public function __construct() {
 
@@ -41,7 +41,7 @@ class Inventory extends CI_Controller {
             $sum =$this->inventory_model->get_sum_of_payments(null,null);
             $data['sum'] = $sum[0]->payment;
         }
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("inventory/list_all_inventory",$data);
         $this->load->view("template/footer");
     }
@@ -68,7 +68,7 @@ class Inventory extends CI_Controller {
             $this->load->model("inventory_model");
 
             $date = new DateTime($this->input->post('date'));
-
+            //insert into inventory
             $this->inventory_model->insert(
                     $this->input->post("product_id"), 
                     $this->input->post("quantity"),
@@ -78,19 +78,34 @@ class Inventory extends CI_Controller {
                     date_format($date, 'Y-m-d'), 
                     $this->input->post("description")
             );
+            //get product details, update its stock
             $this->load->model('product_model');
             $p = $this->product_model->get_one_product($this->input->post('product_id'));
             $p = $p[0];
             $currentStock = $p->stock;
             $newStock = $currentStock + $this->input->post('quantity');
             $this->product_model->update_my_stock($p->id,$newStock);
-
+            //update mapping with new price (or same price)
+            $this->load->model('product_seller_mapping_model');
+            $this->product_seller_mapping_model->insert(
+                    $this->input->post('product_id'),
+                    $this->input->post('seller_id'),
+                    $this->input->post('rate')
+                    );
+            
+            //graceful redirect
             redirect('Inventory/add_new');
         } else {
+            // just show the form to fill
             $data = null;
+            //setting up conditional variables
             if($this->input->get('product_id')){
                 $data['product_id'] = $this->input->get('product_id');
             }
+            if($this->input->get('seller_id')){
+                $data['seller_id'] = $this->input->get('seller_id');
+            }
+            
             $this->load->model("seller_model");
             $data["sellers"] = $this->seller_model->get_all_entries(null);
             $this->load->model("product_category_model");
@@ -101,7 +116,7 @@ class Inventory extends CI_Controller {
             $this->load->model('key_value_model');
             $data['set_date'] = $this->key_value_model->get_value('date');
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("inventory/add_new_inventory", $data);
             $this->load->view("template/footer");
         }
@@ -128,7 +143,7 @@ class Inventory extends CI_Controller {
             $data['payment'] = $inventoryObject->payment;
             $data['description'] = $inventoryObject->description;
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("inventory/delete_inventory", $data);
             $this->load->view("template/footer");
         }
@@ -150,7 +165,7 @@ class Inventory extends CI_Controller {
             $data["sellers"] = $this->seller_model->get_all_entries_no_matter_what();
 
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("inventory/edit_inventory", $data);
             $this->load->view("template/footer");
         } else if ($this->input->post('product_id')) {
@@ -168,6 +183,8 @@ class Inventory extends CI_Controller {
                     date_format($date, 'Y-m-d'),  
                     $this->input->post("description")
             );
+            
+            
             redirect('Inventory');
         } else {
 
@@ -175,7 +192,7 @@ class Inventory extends CI_Controller {
             //this wont execute just wrote is for fun
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("inventory/edit_inventory", $data);
             $this->load->view("template/footer");
         }

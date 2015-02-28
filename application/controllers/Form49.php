@@ -1,6 +1,6 @@
 <?php
 
-class Form49 extends CI_Controller {
+class Form49 extends MY_Controller {
 
     public function __construct() {
 
@@ -51,7 +51,7 @@ class Form49 extends CI_Controller {
 
         // $this->load->model("product_category_model");
         // $data['categories']=$this->product_category_model->get_all_entries();
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("form49/dashboard", $data);
         $this->load->view("template/footer");
     }
@@ -69,7 +69,7 @@ class Form49 extends CI_Controller {
 
        
 
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("form49/single", $data);
         $this->load->view("template/footer");
     }
@@ -115,7 +115,7 @@ class Form49 extends CI_Controller {
             $this->load->model('key_value_model');
             $data['set_date'] = $this->key_value_model->get_value('date');
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
         }
@@ -133,7 +133,7 @@ class Form49 extends CI_Controller {
            $data['back_url'] = site_url('Form49');
            $data['item_id'] = $id;
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("common/delete", $data);
             $this->load->view("template/footer");
         }
@@ -176,7 +176,7 @@ class Form49 extends CI_Controller {
             $data['back_url'] = site_url('Form49');
 
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
         }

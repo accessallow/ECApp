@@ -1,6 +1,6 @@
 <?php
 
-class Product_category extends CI_Controller {
+class Product_category extends MY_Controller {
 
     public function __construct() {
 
@@ -12,7 +12,7 @@ class Product_category extends CI_Controller {
         $data["categories"] = $this->product_category_model->get_all_entries();
         $data['json_fetch_link'] = site_url('Product_category/index_json');
         
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("product/category/list_all_categories", $data);
         $this->load->view("template/footer");
     }
@@ -32,7 +32,7 @@ class Product_category extends CI_Controller {
             $this->product_category_model->insert($this->input->post("product_category_name"));
             $this->index();
         } else {
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/category/add_new");
             $this->load->view("template/footer");
         }
@@ -47,7 +47,7 @@ class Product_category extends CI_Controller {
             $this->load->model("product_category_model");
             $data['category'] = $this->product_category_model->get_one_category($id);
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/category/delete", $data);
             $this->load->view("template/footer");
         }
@@ -67,7 +67,7 @@ class Product_category extends CI_Controller {
             );
             $this->index();
         } else {
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/category/edit");
             $this->load->view("template/footer");
         }

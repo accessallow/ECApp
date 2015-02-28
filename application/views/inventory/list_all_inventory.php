@@ -17,13 +17,19 @@ if (isset($product_id)) {
     $url = URL_X . 'Inventory/index_json?product_id=' . $product_id;
     $label = "Inventories for Product : " . $product_name;
     $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?product_id=' . $product_id);
+    $add_new_label = "Attach an inventory to this product";
 } elseif (isset($seller_id)) {
     $url = URL_X . 'Inventory/index_json?seller_id=' . $seller_id;
     $label = "Inventories for Seller : " . $seller_name;
     $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?seller_id=' . $seller_id);
+    $add_new_label = "Attach an inventory to this seller";
 } else {
     $url = URL_X . 'Inventory/index_json';
     $should_set_link = 0;
+    $add_new_link = site_url('Inventory/add_new');
+    $add_new_label = "Add new inventory";
 }
 ?>
 
@@ -36,7 +42,11 @@ if (isset($product_id)) {
         </form>
     </div>
     <div class="col-md-5" style="text-align: right;">
-        <a class="btn btn-success btn-xs" href="<?php echo URL_X . 'Inventory/add_new'; ?>">Add new Inventory Entry</a>
+        <a class="btn btn-success btn-xs" 
+           href="<?php echo $add_new_link; ?>"
+           >
+            <?php echo $add_new_label; ?>
+        </a>
     </div>
 </div>
 <br/>

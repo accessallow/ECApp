@@ -1,6 +1,6 @@
 <?php
 
-class DataTableExamples extends CI_Controller {
+class DataTableExamples extends MY_Controller {
 
     public function __construct() {
 
@@ -16,7 +16,7 @@ class DataTableExamples extends CI_Controller {
         
         $data['products'] = $products;
         
-        $this->load->view('template/header');
+        $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('data_table/product',$data);
         $this->load->view('template/footer');
         

@@ -67,7 +67,7 @@ $view_url = site_url('Form49/get');
 
 
 
-<div ng-controller="Form49Controller" style="width: 119%;margin-left: -107px;font-size: 0.8em;">
+<div ng-controller="Form49Controller" style="width: 119%;margin-left:-80px;font-size: 0.8em;">
 
 
 

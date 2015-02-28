@@ -1,6 +1,6 @@
 <?php
 
-class Product_seller_mapping extends CI_Controller {
+class Product_seller_mapping extends MY_Controller {
 
     public function __construct() {
 
@@ -25,7 +25,7 @@ class Product_seller_mapping extends CI_Controller {
         $data['list'] = $this->product_seller_mapping_model->get_sellers_list($product_id);
 
         //firing the views
-        $this->load->view('template/header');
+        $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('product/sellers/list_all', $data);
         $this->load->view('template/footer');
     }
@@ -60,7 +60,7 @@ class Product_seller_mapping extends CI_Controller {
             $data['fetch_non_sellers_json_link'] = URL_X . 'Product_seller_mapping/sellers_who_dont_sell_this_product/' . $product_id;
             $data['fetch_sellers_json_link'] = URL_X . 'Seller/index_json?product_id=' . $product_id;
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/sellers/add_new", $data);
             $this->load->view("template/footer");
         }
@@ -85,7 +85,7 @@ class Product_seller_mapping extends CI_Controller {
             $data['fetch_non_products_json_link'] = URL_X . 'Product_seller_mapping/sellers_who_dont_sell_this_product/' . $product_id;
             $data['fetch_products_json_link'] = URL_X . 'Seller/index_json?product_id=' . $product_id;
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/sellers/add_new_product_to_seller", $data);
             $this->load->view("template/footer");
         }
@@ -99,9 +99,12 @@ class Product_seller_mapping extends CI_Controller {
             $data['sellers'] = $this->seller_model->get_all_entries();
             $this->load->model("product_model");
             $data['products'] = $this->product_model->get_all_entries();
-            $this->load->view("template/header");
+            
+            
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/sellers/edit", $data);
             $this->load->view("template/footer");
+            
         } else if ($this->input->post('mapping_id')) {
             $this->load->model("product_seller_mapping_model");
 
@@ -111,7 +114,7 @@ class Product_seller_mapping extends CI_Controller {
         } else {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
         }
@@ -152,7 +155,7 @@ class Product_seller_mapping extends CI_Controller {
             $seller_object = $this->seller_model->get_one_seller($mapping_object->seller_id)[0];
             $data['seller_name'] = $seller_object->seller_name;
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/sellers/delete", $data);
             $this->load->view("template/footer");
         }

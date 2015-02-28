@@ -32,20 +32,20 @@
             <label class="col-sm-2 control-label">Product Name</label>
             <div class="col-sm-4">
                 <select name="product_id" class="form-control"   
-                        ng-model="product_id"
-                        ng-change="refresh_sellers(product_id);"
+                        ng-model="my_product_id"
+                        
 
                         required>
                     <option value="" 
-                    <?php if (!isset($edit)) echo ' selected '; ?>
+                    <?php if (!isset($edit)||(!isset($product_id)&& !isset($seller_id))) echo ' selected '; ?>
                             >Choose a product
                     </option>
                     <option ng-repeat="product in products"
-                    <?php if (isset($edit)) { ?>
+                    <?php if (isset($edit)||isset($product_id)) { ?>
                                 ng-selected="select_product(product.id);"
                             <?php } ?>
                             value="{{product.id}}">
-                        {{product.product_name}} - {{product.product_brand}}
+                        {{product.product_name}} - {{product.product_category}} - {{product.product_brand}} 
                     </option>
                 </select>
             </div>
@@ -55,14 +55,14 @@
             <label class="col-sm-2 control-label">Seller</label>
             <div class="col-sm-4">
                 <select name="seller_id" class="form-control"  
-                        ng-model="seller_id"
-                        ng-change="refresh_products(seller_id);"
+                        ng-model="my_seller_id"
+                       
                         required>
                     <option value="" 
-                    <?php if (!isset($edit)) echo ' selected '; ?>
+                    <?php if (!isset($edit)||!isset($seller_id)) echo ' selected '; ?>
                             >Choose a seller</option>
                     <option ng-repeat="seller in sellers"
-                    <?php if (isset($edit)) { ?>
+                    <?php if (isset($edit)||isset($seller_id)) { ?>
                                 ng-selected="select_seller(seller.id);"
                             <?php } ?>
                             value="{{seller.id}}">
@@ -76,9 +76,9 @@
             <label class="col-sm-2 control-label">Rate</label>
             <div class="col-sm-2">
 
-
+<!--value="{{rate}}" -->
                 <input type="text" 
-                       value="{{rate}}" 
+                       
                        class="form-control" 
                        required 
                        name="rate" 
@@ -86,20 +86,21 @@
                        placeholder=""/> 
 
             </div>
-            <a class="btn btn-primary" ng-click="give_me_rate_from_mapping(product_id, seller_id)" >Fetch rate from mapping</a>
-            <a class="btn btn-info" ng-click="give_me_rate_from_inventory(product_id, seller_id)" >Fetch rate from inventory</a>
+            <a class="btn btn-primary" 
+               ng-click="give_me_price(my_product_id, my_seller_id)">Fetch rate from mapping</a>
+           
         </div>
 
-
+<?php if (isset($edit)) { ?>
+<!--        value="//<?php echo $quantity; ?>"-->
+<?php } ?>
         <div class="form-group">
             <label class="col-sm-2 control-label">Quantity</label>
             <div class="col-sm-4">
                 <input type="text" 
                        class="form-control" 
                        required
-                       <?php if (isset($edit)) { ?>
-                           value="<?php echo $quantity; ?>"
-                       <?php } ?>
+                       
                        name="quantity" 
                        ng-model="quantity"
                        placeholder=""/> 
@@ -143,26 +144,33 @@
     var app = angular.module('myapp', []);
     app.controller('ShoppingItemController', ['$scope', '$http', function ($scope, $http) {
 
-//            $scope.price = 0;
-//            $scope.give_me_price = function (product_id, seller_id) {
-//                $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
-//                    //return data[0].product_price;
-//                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
-//                    console.log(data);
-//                    if (data[0] != null) {
-//                        //console.log("Data comes here = "+data);
-//                       //  console.log("Data[0] comes here = "+data[0]);
-//                        $scope.price = data[0].product_price;
-//                    } else {
-//
-//                        $scope.price = 0;
-//                    }
-//                }).error(function(data){
-//                    console.log("error says!!!");
-//                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
-//                    console.log(data);
-//                });
-//            };
+            $scope.rate = 0;
+            <?php if(!isset($edit)&&isset($product_id)&&isset($seller_id)){ ?>
+            $scope.my_product_id = <?php echo $product_id; ?>;
+            $scope.my_seller_id = <?php echo $seller_id; ?>;
+            $scope.rate = <?php echo $rate; ?>;
+            <?php } ?>
+            $scope.give_me_price = function (product_id, seller_id) {
+                $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&seller_id=' + seller_id).success(function (data) {
+                    //return data[0].product_price;
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&seller_id=' + seller_id);
+                    console.log(data);
+                    if (data[0] != null) {
+                        //console.log("Data comes here = "+data);
+                       //  console.log("Data[0] comes here = "+data[0]);
+                        $scope.rate = data[0].product_price;
+                    } else {
+
+                        $scope.rate = 0;
+                    }
+                }).error(function(data){
+                    console.log("error says!!!");
+                    console.log('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id);
+                    console.log(data);
+                });
+            };
+
+            <?php if(isset($list_id)){ ?>
             var choosen_list_id = <?php echo $list_id; ?>;
 
             $scope.select_list = function (list_id) {
@@ -171,22 +179,37 @@
                 else
                     return false;
             };
+            
+            <?php } ?>
 
-<?php if (isset($edit)) { ?>
+<?php if (isset($edit)||isset($product_id)||isset($seller_id)) { ?>
+                <?php if(isset($product_id)){ ?>
                 $scope.select_product = function (product_id) {
                     if (product_id == <?php echo $product_id; ?>)
                         return true;
                     else
                         return false;
                 };
+                <?php } ?>
+                
+                <?php if(isset($seller_id)){ ?>
                 $scope.select_seller = function (seller_id) {
                     if (seller_id == <?php echo $seller_id; ?>)
                         return true;
                     else
                         return false;
                 };
+                <?php } ?>
+                
+                
+                <?php if(isset($product_id)||isset($seller_id)&&!(isset($product_id)&&isset($seller_id))){ ?>
+                $scope.rate = 0;
+                $scope.quantity = 0;
+                <?php }else{ ?>
+               
                 $scope.rate = <?php echo $rate; ?>;
                 $scope.quantity = <?php echo $quantity; ?>;
+                <?php } ?>
 <?php } ?>
 
 

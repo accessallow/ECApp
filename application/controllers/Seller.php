@@ -1,6 +1,6 @@
 <?php
 
-class Seller extends CI_Controller {
+class Seller extends MY_Controller {
 
     public function __construct() {
 
@@ -10,7 +10,7 @@ class Seller extends CI_Controller {
     public function index_old() {
         $this->load->model("seller_model");
         $data["sellers"] = $this->seller_model->get_all_entries();
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("seller/list_all", $data);
         $this->load->view("template/footer");
     }
@@ -46,7 +46,7 @@ class Seller extends CI_Controller {
             $data['addButtonLabel'] = "Add a seller to system";
             $data['add_link'] = URL_X . 'Seller/add_new/';
         }
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("seller/list_all_sellers", $data);
         $this->load->view("template/footer");
     }
@@ -84,7 +84,7 @@ class Seller extends CI_Controller {
                     $this->input->post("seller_address"));
             redirect('Seller/add_new');
         } else {
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("seller/add_new");
             $this->load->view("template/footer");
         }
@@ -99,7 +99,7 @@ class Seller extends CI_Controller {
             $this->load->model("seller_model");
             $data['seller'] = $this->seller_model->get_one_seller($id);
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("seller/delete", $data);
             $this->load->view("template/footer");
         }
@@ -109,7 +109,7 @@ class Seller extends CI_Controller {
         if ($id) {
             $this->load->model("seller_model");
             $data['seller'] = $this->seller_model->get_one_seller($id);
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("seller/edit", $data);
             $this->load->view("template/footer");
         } else if ($this->input->post('seller_name')) {
@@ -124,7 +124,7 @@ class Seller extends CI_Controller {
                     $this->input->post("seller_address"));
             redirect('Seller');
         } else {
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("seller/edit");
             $this->load->view("template/footer");
         }

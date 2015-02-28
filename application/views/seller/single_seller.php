@@ -1,13 +1,8 @@
 <div class="row">
-    <h3 class="well"><?php echo $product_name; ?>
-        <small><?php echo $category; ?></small>
-    </h3>
-</div>
-<div class="row">
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Details
+                <?php echo $product_name; ?>
             </div>
             <div class="panel-body">
                 <table class="table table-striped">
@@ -82,28 +77,30 @@
             </span>
         </div>
         <div class="panel-body" ng-controller="UploadController">
-
+            
             <div 
                 ng-repeat="upload in uploads"
                 class="col-md-2" style="text-align: center;margin-bottom: 15px;">
-                <img ng-src="<?php echo $upload_base; ?>/{{upload.file_name}}" 
+                <img ng-src="<?php echo $upload_base;?>/{{upload.file_name}}" 
                      class="img-thumbnail"
                      style="width: 150px;height:100px;margin-bottom: 5px;"
                      />
                 <br/>
                 <a 
-                    href="<?php echo site_url('FileUpload/single'); ?>/{{upload.id}}/{{upload.attachment_type}}/{{upload.attachment_id}}" 
+                    href="<?php 
+                    echo site_url('FileUpload/single'); ?>/{{upload.id}}/{{upload.attachment_type}}/{{upload.attachment_id}}" 
                     class="btn btn-info btn-xs"
                     style="margin-top:-190px;margin-left:110px;"
                     >V</a>
-
-                <a href="<?php echo site_url('FileUpload/delete'); ?>/{{upload.id}}/{{upload.attachment_type}}/{{upload.attachment_id}}" class="btn btn-danger btn-xs"
-                   style="margin-top:-138px;margin-left:-24px;"
-                   >D</a>        
-
+                
+                <a href="<?php 
+                    echo site_url('FileUpload/delete'); ?>/{{upload.id}}/{{upload.attachment_type}}/{{upload.attachment_id}}" class="btn btn-danger btn-xs"
+                    style="margin-top:-138px;margin-left:-24px;"
+                    >D</a>        
+                    
             </div>
-
-
+            
+            
         </div>
     </div>
 </div>

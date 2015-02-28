@@ -1,6 +1,6 @@
 <?php
 
-class ShoppingList extends CI_Controller {
+class ShoppingList extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -9,7 +9,7 @@ class ShoppingList extends CI_Controller {
 
     public function index() {
         //we will deliver here the main page of shopping lists
-        $this->load->view('template/header');
+        $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('shoppingList/dashboard');
         $this->load->view('template/footer');
     }
@@ -35,7 +35,7 @@ class ShoppingList extends CI_Controller {
             $data['form_submit_url'] = site_url('ShoppingList/add_new_shopping_list');
             $data['back_url'] = site_url('ShoppingList');
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/add_new_shopping_list', $data);
             $this->load->view('template/footer');
         }
@@ -86,10 +86,7 @@ class ShoppingList extends CI_Controller {
       LIST DEALING FUNCTIONS
      */
 
-    public function add_shopping_list_item() {
-        // accept one new shopping list entry as POST,
-        //otherwise send an add new shopping list form
-    }
+    
 
     public function edit_shopping_list($list_id) {
         //accept an shopping list item with an id
@@ -122,7 +119,7 @@ class ShoppingList extends CI_Controller {
             $data['back_url'] = site_url('ShoppingList');
 
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/add_new_shopping_list', $data);
             $this->load->view('template/footer');
         }
@@ -151,7 +148,7 @@ class ShoppingList extends CI_Controller {
             $data['delete_form_url'] = site_url('ShoppingList/delete_shopping_list/' . $list_id);
             $data['back_url'] = site_url('ShoppingList');
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/delete', $data);
             $this->load->view('template/footer');
         }
@@ -193,18 +190,19 @@ class ShoppingList extends CI_Controller {
             $data['delete_form_url'] = site_url('ShoppingList/delete_item_from_shopping_list/' . $list_id . '/' . $item_id);
             $data['back_url'] = site_url('ShoppingList');
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/delete', $data);
             $this->load->view('template/footer');
         }
     }
 
-    public function add_item_to_shopping_list($list_id) {
+    public function add_item_to_shopping_list($list_id=null) {
         //on not getting POST it will show an ADD ITEM form
         // on getting POST it will save the sent item and render
         // item list of List::$list_id
 
         if ($this->input->post('list_id')) {
+            //inserting on getting a post
             $item = array(
                 'list_id' => $this->input->post('list_id'),
                 'product_id' => $this->input->post('product_id'),
@@ -219,6 +217,7 @@ class ShoppingList extends CI_Controller {
 
             redirect('ShoppingList');
         } else {
+            //sending form to fill 
             $data['products_fetch_url'] = site_url('Product/index_json');
             $data['sellers_fetch_url'] = site_url('Seller/index_json');
             $data['shopping_lists_fetch_url'] = site_url('ShoppingList/get_all_lists');
@@ -228,9 +227,26 @@ class ShoppingList extends CI_Controller {
 
             $data['form_submit_url'] = site_url('ShoppingList/add_item_to_shopping_list');
             $data['back_url'] = site_url('ShoppingList');
+            
             $data['list_id'] = $list_id;
+            
+            if($this->input->get('product_id')){
+                $data['product_id'] = $this->input->get('product_id');
+            }
+            if($this->input->get('seller_id')){
+                $data['seller_id'] = $this->input->get('seller_id');
+            }
+            if($this->input->get('seller_id')&&$this->input->get('product_id')){
+                $this->load->model('product_seller_mapping_model');
+                $v = $this->product_seller_mapping_model->give_me_price(
+                        $this->input->get('product_id'),
+                        $this->input->get('seller_id')
+                        );
+                $v = $v[0];
+                $data['rate'] = $v->product_price;
+            }
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/add_new_shopping_item', $data);
             $this->load->view('template/footer');
         }
@@ -280,7 +296,7 @@ class ShoppingList extends CI_Controller {
             $data['total_price'] = $item->total_price;
             $data['description'] = $item->description;
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('shoppingList/add_new_shopping_item', $data);
             $this->load->view('template/footer');
         }

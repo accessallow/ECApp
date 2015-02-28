@@ -1,4 +1,6 @@
-
+<?php 
+$seller_single_url = site_url("Seller/single/");
+?>
 
 <div class="row noprint">
     <div class="col-md-7">
@@ -66,9 +68,9 @@
         <tbody>
             <tr ng-repeat="seller in sellers|filter:s">
                 <td>
-
+                    <a href="<?php echo $seller_single_url; ?>/{{seller.id}}">
                     {{seller.seller_name}}
-
+                    </a>
                 </td>
                 <?php if ($this->input->get('product_id')) { ?>
                     <td>{{seller.product_price}}</td>

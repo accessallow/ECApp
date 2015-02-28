@@ -1,6 +1,6 @@
 <?php
 
-class FileUpload extends CI_Controller {
+class FileUpload extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -44,7 +44,7 @@ class FileUpload extends CI_Controller {
             $data['attachment_type'] = $this->input->get('attachment_type');
             $data['back_url'] = site_url('Product/single_product/' . $this->input->get('attachment_id'));
 
-            $this->load->view('template/header');
+            $this->load->view('template/header',$this->activation_model->get_activation_data());
             $this->load->view('file_upload/new_upload', $data);
             $this->load->view('template/footer');
         } else {
@@ -145,7 +145,7 @@ class FileUpload extends CI_Controller {
         $data['attachment_type'] = $attachment_type;
         $data['attachment_id'] = $attachment_id;
 
-        $this->load->view('template/header');
+        $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('file_upload/upload_single', $data);
         $this->load->view('template/footer');
     }
@@ -168,7 +168,7 @@ class FileUpload extends CI_Controller {
         $data['confirmation_line'] = 'Are you sure want to delete this upload?';
         $data['item_id'] = $id;
 
-        $this->load->view('template/header');
+        $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('common/delete', $data);
         $this->load->view('template/footer');
     }

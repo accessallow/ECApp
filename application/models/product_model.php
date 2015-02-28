@@ -121,18 +121,7 @@ class Product_model extends CI_Model {
         return $query->result();
     }
 
-    function give_me_price($product_id, $seller_id) {
-        // this can blow in future..use with caution
-        $query = $this->db->get_where('product_seller_mapping', array(
-            'product_id' => $product_id,
-            'seller_id' => $seller_id,
-            'tag' => ProductTags::$available
-        ));
-        return $query->result();
-//        $resultArray = $query->result();
-//        $PriceObject = $resultArray[0];
-//        return $PriceObject->product_price;
-    }
+    
 
     function get_products_from_this_seller($seller_id) {
         $queryString = "select 

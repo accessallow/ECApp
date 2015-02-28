@@ -19,12 +19,16 @@ class Product_seller_mapping_model extends CI_Model {
     }
 
     function insert($p_id, $s_id, $p_price) {
-        $this->product_id = $p_id;
-        $this->seller_id = $s_id;
-        $this->product_price = $p_price;
-        $this->tag = ProductSellerMappingTags::$available;
+        if ($this->is_already_mapped($p_id, $s_id)) {
+            $this->update_mapping($p_id, $s_id, $p_price);
+        } else {
+            $this->product_id = $p_id;
+            $this->seller_id = $s_id;
+            $this->product_price = $p_price;
+            $this->tag = ProductSellerMappingTags::$available;
 
-        $this->db->insert("product_seller_mapping", $this);
+            $this->db->insert("product_seller_mapping", $this);
+        }
     }
 
     function edit($id, $p_id, $s_id, $p_price) {
@@ -89,7 +93,40 @@ class Product_seller_mapping_model extends CI_Model {
         $this->db->where(array('id' => $id, 'tag' => ProductSellerMappingTags::$available));
         $this->db->update('product_seller_mapping', array('product_price' => $price));
     }
-    
-    
+
+    function is_already_mapped($product_id, $seller_id) {
+        $q = $this->db->get_where('product_seller_mapping', array(
+            'product_id' => $product_id,
+            'seller_id' => $seller_id
+        ));
+        $q = $q->result();
+        if ($q == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function update_mapping($product_id, $seller_id, $new_price) {
+        $this->db->update('product_seller_mapping', array(
+            'product_id' => $product_id,
+            'seller_id' => $seller_id
+                ), array(
+            'product_price' => $new_price
+        ));
+    }
+
+    function give_me_price($product_id, $seller_id) {
+        // this can blow in future..use with caution
+        $query = $this->db->get_where('product_seller_mapping', array(
+            'product_id' => $product_id,
+            'seller_id' => $seller_id,
+            'tag' => ProductSellerMappingTags::$available
+        ));
+        return $query->result();
+//        $resultArray = $query->result();
+//        $PriceObject = $resultArray[0];
+//        return $PriceObject->product_price;
+    }
 
 }

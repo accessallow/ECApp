@@ -1,6 +1,6 @@
 <?php
 
-class Date extends CI_Controller{
+class Date extends MY_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->model('key_value_model');
@@ -27,7 +27,7 @@ class Date extends CI_Controller{
         $data['form_submit_url'] = site_url('Date');
         $data['back_url'] = 'Product';
         
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("date/dashboard",$data);
         $this->load->view("template/footer");
     }

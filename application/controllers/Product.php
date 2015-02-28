@@ -1,11 +1,16 @@
 <?php
 
-class Product extends CI_Controller {
+class Product extends MY_Controller {
+    
 
     public function __construct() {
 
         parent::__construct();
+        
+       
+        
     }
+    
 
     public function index() {
         $this->load->model("product_model");
@@ -49,7 +54,10 @@ class Product extends CI_Controller {
 
         // $this->load->model("product_category_model");
         // $data['categories']=$this->product_category_model->get_all_entries();
-        $this->load->view("template/header");
+        
+        
+        
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("product/list_all_products", $data);
         $this->load->view("template/footer");
     }
@@ -80,7 +88,7 @@ class Product extends CI_Controller {
         $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$p->id.'/1');
         $data['upload_base'] = base_url('assets/uploads/');
         
-        $this->load->view("template/header");
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("product/single_product", $data);
         $this->load->view("template/footer");
     }
@@ -133,10 +141,12 @@ class Product extends CI_Controller {
     public function give_me_price() {
         if ($this->input->get('product_id') &&
                 $this->input->get('seller_id')) {
+            
             $product_id = $this->input->get('product_id');
             $seller_id = $this->input->get('seller_id');
-            $this->load->model('product_model');
-            $result = $this->product_model->give_me_price($product_id, $seller_id);
+            $this->load->model('product_seller_mapping_model');
+            $result = $this->product_seller_mapping_model->give_me_price($product_id, $seller_id);
+            
             $this->output->set_content_type('application/json')
                     ->set_output(json_encode($result));
         }
@@ -158,7 +168,8 @@ class Product extends CI_Controller {
         } else {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
+            
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/add_new", $data);
             $this->load->view("template/footer");
         }
@@ -173,7 +184,7 @@ class Product extends CI_Controller {
             $this->load->model("product_model");
             $data['product'] = $this->product_model->get_one_product($id);
 
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/delete", $data);
             $this->load->view("template/footer");
         }
@@ -185,7 +196,7 @@ class Product extends CI_Controller {
             $data['product'] = $this->product_model->get_one_product($id);
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
         } else if ($this->input->post('product_name')) {
@@ -202,7 +213,7 @@ class Product extends CI_Controller {
         } else {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header");
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
         }
