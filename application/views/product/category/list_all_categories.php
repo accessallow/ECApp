@@ -1,10 +1,3 @@
-<?php if($this->session->flashdata('message')){ ?>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok"></span>
-    <strong><?php echo $this->session->flashdata('message');?></strong>
-</div>
-<?php } ?>
-
 <div class="row">
     <div class="col-md-7">
         <form class="form-inline">

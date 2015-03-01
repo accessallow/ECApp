@@ -51,27 +51,27 @@ class Form49 extends MY_Controller {
 
         // $this->load->model("product_category_model");
         // $data['categories']=$this->product_category_model->get_all_entries();
-        $this->load->view("template/header", $this->activation_model->get_activation_data());
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("form49/dashboard", $data);
         $this->load->view("template/footer");
     }
 
     public function get($id) {
-
+       
         $f = $this->form49_model->get_all_entries_joined($id);
         $f = $f[0];
 
-
+        
         $data['form'] = $f;
-
+       
         $data['form_edit_link'] = site_url('Form49/edit/' . $id);
         $data['form_delete_link'] = site_url('Form49/delete/' . $id);
 
-        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=4&attachment_id=' . $id);
-        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/' . $id . '/4');
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=4&attachment_id='.$id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$id.'/4');
         $data['upload_base'] = base_url('assets/uploads/');
 
-        $this->load->view("template/header", $this->activation_model->get_activation_data());
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("form49/single", $data);
         $this->load->view("template/footer");
     }
@@ -102,7 +102,7 @@ class Form49 extends MY_Controller {
 
             $this->form49_model->insert($f);
 
-           $this->session->set_flashdata('message','Form saved');
+
             redirect('Form49/add_new');
         } else {
             $this->load->model("product_category_model");
@@ -113,11 +113,11 @@ class Form49 extends MY_Controller {
 
             $data['form_submit_url'] = site_url('Form49/add_new');
             $data['back_url'] = site_url('Form49');
-
+            
             $this->load->model('key_value_model');
             $data['set_date'] = $this->key_value_model->get_value('date');
 
-            $this->load->view("template/header", $this->activation_model->get_activation_data());
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
         }
@@ -125,17 +125,17 @@ class Form49 extends MY_Controller {
 
     public function delete($id = NULL) {
         if ($this->input->post('id')) {
-
+            
             $this->form49_model->delete($this->input->post('id'));
             redirect('Form49');
         } else {
+            
+           $data['delete_form_url'] = site_url('Form49/delete/'.$id);
+           $data['confirmation_line'] = "Are you sure want to delete this form entry?";
+           $data['back_url'] = site_url('Form49');
+           $data['item_id'] = $id;
 
-            $data['delete_form_url'] = site_url('Form49/delete/' . $id);
-            $data['confirmation_line'] = "Are you sure want to delete this form entry?";
-            $data['back_url'] = site_url('Form49');
-            $data['item_id'] = $id;
-
-            $this->load->view("template/header", $this->activation_model->get_activation_data());
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("common/delete", $data);
             $this->load->view("template/footer");
         }
@@ -165,7 +165,7 @@ class Form49 extends MY_Controller {
                 'vehicle_number' => $this->input->post('vehicle_number'),
                 'form_c' => $this->input->post('form_c')
             );
-            $this->form49_model->edit($id, $f);
+            $this->form49_model->edit($id,$f);
 
             redirect('Form49');
         } else {
@@ -178,7 +178,7 @@ class Form49 extends MY_Controller {
             $data['back_url'] = site_url('Form49');
 
 
-            $this->load->view("template/header", $this->activation_model->get_activation_data());
+            $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("form49/add_new", $data);
             $this->load->view("template/footer");
         }

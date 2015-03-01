@@ -164,7 +164,7 @@ class Product extends MY_Controller {
 
             $this->product_model->insert($this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description")
             );
-            $this->session->set_flashdata('message','Product saved');
+            
             redirect('Product/add_new');
         } else {
             $this->load->model("product_category_model");

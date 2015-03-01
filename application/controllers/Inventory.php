@@ -92,7 +92,7 @@ class Inventory extends MY_Controller {
                     $this->input->post('seller_id'),
                     $this->input->post('rate')
                     );
-            $this->session->set_flashdata('message','Inventory saved');
+            
             //graceful redirect
             redirect('Inventory/add_new');
         } else {
