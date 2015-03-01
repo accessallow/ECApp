@@ -7,8 +7,15 @@ class Pg_admin extends CI_Controller {
         $this->load->library('session');
     }
 
+    public function check_auth(){
+        if ($this->session->userdata('root')) {
+            
+        }else{
+            redirect('Pg_admin/login');
+        }
+    }
     public function index() {
-        if ($this->session->userdata('login')) {
+        if ($this->session->userdata('root')) {
 
             $data['form_submit_url'] = site_url('Pg_admin/create_key');
 
@@ -34,7 +41,7 @@ class Pg_admin extends CI_Controller {
             if ((strcmp($username, $my_username) == 0) && (strcmp($password, $my_password) == 0)) {
                 $login_data = array(
                     'name' => "Pankaj Tiwari",
-                    'login' => true
+                    'root' => true
                 );
                 $this->session->set_userdata($login_data);
                 redirect('Pg_admin/');
@@ -42,7 +49,7 @@ class Pg_admin extends CI_Controller {
                 redirect('Pg_admin/login');
             }
         } else {
-            if ($this->session->userdata('login')) {
+            if ($this->session->userdata('root')) {
                 redirect('Pg_admin/');
             } else {
 

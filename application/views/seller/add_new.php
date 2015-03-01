@@ -1,5 +1,14 @@
+
 <h3>Add new seller</h3>
 <hr/>
+
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
 <form class="form-horizontal" role="form"   data-parsley-validate action="<?php echo URL_X . 'Seller/add_new'; ?>" method="POST">
     <div class="form-group">
         <label for="seller_name" class="col-sm-2 control-label">Seller Name</label>

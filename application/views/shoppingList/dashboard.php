@@ -81,7 +81,7 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
         <table class="table table-striped" style="font-size: 0.9em;">
             <thead>
                 <tr>
-                    <td colspan="9">
+                    <td colspan="10">
                         {{ListName}}
                     </td>
                 </tr>
@@ -89,7 +89,7 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                     <td  class="noprint">id</td>
                     <td>Product</td>
                     <td>Brand</td>
-                    <td class="noprint">Seller</td>
+                    <td class="">Seller</td>
                     <td class="noprint">Rate</td>
                     <td>Quantity</td>
                     <td class="noprint">Price</td>
@@ -102,7 +102,8 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                     <td  class="noprint">{{item.id}}</td>
                     <td>{{item.product_name}}</td>
                     <td>{{item.product_brand}}</td>
-                    <td  class="noprint">
+                  
+                    <td  class="">
                         <a href="#" 
                            ng-click="refreshList(list_id, ListName + ' : ' + item.seller_name, item.seller_id);">
                             {{item.seller_name}}
@@ -136,10 +137,10 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                 console.log(data);
                 $scope.address = "";
                 $scope.phone = "";
-                
-                
-                
-                
+
+
+
+
                 $scope.ListName = "Please select a list";
                 $scope.loadList = function (list_id, list_name) {
                     console.log(list_id);
@@ -151,7 +152,7 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                         $scope.list_id = list_id;
                     });
                 }
-               
+
                 $scope.refreshList = function (list_id, list_name, seller_id) {
                     console.log(list_id);
                     url = '<?php echo $list_items_url; ?>/' + list_id + '/' + seller_id;

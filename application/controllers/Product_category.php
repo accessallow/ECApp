@@ -30,7 +30,9 @@ class Product_category extends MY_Controller {
             $this->load->model("product_category_model");
 
             $this->product_category_model->insert($this->input->post("product_category_name"));
-            $this->index();
+            
+            $this->session->set_flashdata('message','Category saved.');
+            redirect('Product_category');
         } else {
             $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/category/add_new");

@@ -12,6 +12,13 @@
 </div>
 <br/>
 
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
 <div class="row" ng-controller="CategoryController">
     <div class="col-md-5">
         <table class="table table-hover table-striped">

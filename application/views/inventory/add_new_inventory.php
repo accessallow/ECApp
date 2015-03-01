@@ -1,6 +1,14 @@
 <h3>Add new inventory</h3>
 <hr/>
 
+
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
 <div ng-controller="RateController">
     <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Inventory/add_new'; ?>" method="POST">
         <div class="form-group">

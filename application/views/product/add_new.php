@@ -1,6 +1,15 @@
 <!--DONE-->
 <h3>Add new product</h3>
 <hr/>
+
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
+
 <form class="form-horizontal" data-parsley-validate role="form" action="<?php echo URL_X . 'Product/add_new'; ?>" method="POST">
     <div class="form-group">
         <label for="product_name" class="col-sm-2 control-label">Product Name</label>

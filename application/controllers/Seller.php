@@ -79,6 +79,8 @@ class Seller extends MY_Controller {
 
             $this->seller_model->insert(
                     $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_mail_id"), $this->input->post("seller_tin_number"), $this->input->post("seller_address"));
+           
+            $this->session->set_flashdata('message','Seller saved.');
             redirect('Seller/add_new');
         } else {
             $this->load->view("template/header", $this->activation_model->get_activation_data());

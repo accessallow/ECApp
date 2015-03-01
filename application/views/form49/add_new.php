@@ -1,3 +1,11 @@
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
+
 <?php
 $categories_fetch_link = site_url('Product_category/index_json');
 $products_fetch_link = site_url('Product/index_json');
