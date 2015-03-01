@@ -42,9 +42,10 @@ class FileUpload extends MY_Controller {
         if ($this->input->get('attachment_id') && $this->input->get('attachment_type')) {
             $data['attachment_id'] = $this->input->get('attachment_id');
             $data['attachment_type'] = $this->input->get('attachment_type');
-            $data['back_url'] = site_url('Product/single_product/' . $this->input->get('attachment_id'));
+            $data['back_url'] = site_url($this->get_controller($this->input->get('attachment_type'), 
+                        $this->input->get('attachment_id')));
 
-            $this->load->view('template/header',$this->activation_model->get_activation_data());
+            $this->load->view('template/header', $this->activation_model->get_activation_data());
             $this->load->view('file_upload/new_upload', $data);
             $this->load->view('template/footer');
         } else {
@@ -76,13 +77,18 @@ class FileUpload extends MY_Controller {
                 );
                 $this->upload_model->insert($upload_entry);
 
-                switch ($this->input->post('attachment_type')) {
-                    case 1:
-                        redirect('Product/single_product/' . $this->input->post('attachment_id'));
-                        //echo 'Product/single_product/'.$this->input->post('attachment_id');
-                        break;
-                }
-
+//                switch ($this->input->post('attachment_type')) {
+//                    case 1:
+//                        redirect('Product/single_product/' . $this->input->post('attachment_id'));
+//                        //echo 'Product/single_product/'.$this->input->post('attachment_id');
+//                        break;
+//                    case 2:
+//                        redirect('Seller/single/' . $this->input->post('attachment_id'));
+//                        //echo 'Product/single_product/'.$this->input->post('attachment_id');
+//                        break;
+//                }
+                redirect($this->get_controller($this->input->post('attachment_type'), 
+                        $this->input->post('attachment_id')));
 
                 //$this->load->view('file_upload/upload_success', $data);
             } else {
@@ -95,8 +101,8 @@ class FileUpload extends MY_Controller {
             echo "variables not set!!!\n";
         }
     }
-    
-    public function get_controller($attachment_type, $attachment_id){
+
+    public function get_controller($attachment_type, $attachment_id) {
         $controller = null;
         switch ($attachment_type) {
             case 1: $controller = 'Product/single_product/' . $attachment_id;
@@ -105,7 +111,7 @@ class FileUpload extends MY_Controller {
                 break;
             case 3: $controller = 'Inventory/single_inventory/' . $attachment_id;
                 break;
-            case 4: $controller = 'Form49/single/' . $attachment_id;
+            case 4: $controller = 'Form49/get/' . $attachment_id;
                 break;
         }
         return $controller;
@@ -129,7 +135,7 @@ class FileUpload extends MY_Controller {
     }
 
     public function single($id, $attachment_type, $attachment_id) {
-        
+
         $u = $this->upload_model->get_all_uploads(array(
             'id' => $id
         ));
@@ -137,7 +143,7 @@ class FileUpload extends MY_Controller {
 
         $data['image_fq_name'] = base_url('assets/uploads/' . $upload->file_name);
         $data['description'] = $upload->description;
-        
+
 
         $data['back_url'] = site_url($this->get_controller($attachment_type, $attachment_id));
         $data['form_submit_url'] = site_url("FileUpload/update/$id/$attachment_type/$attachment_id");
@@ -145,37 +151,37 @@ class FileUpload extends MY_Controller {
         $data['attachment_type'] = $attachment_type;
         $data['attachment_id'] = $attachment_id;
 
-        $this->load->view('template/header',$this->activation_model->get_activation_data());
+        $this->load->view('template/header', $this->activation_model->get_activation_data());
         $this->load->view('file_upload/upload_single', $data);
         $this->load->view('template/footer');
     }
-    
-    public function delete($id, $attachment_type, $attachment_id){
+
+    public function delete($id, $attachment_type, $attachment_id) {
         //@multiroute
-        
-        
-        
-        if($this->input->post('id')){
-            
+
+
+
+        if ($this->input->post('id')) {
+
             $this->upload_model->delete($this->input->post('id'));
             redirect($this->get_controller($attachment_type, $attachment_id));
         }
-        
-        
-        
+
+
+
         $data['back_url'] = site_url($this->get_controller($attachment_type, $attachment_id));
         $data['delete_form_url'] = site_url("FileUpload/delete/$id/$attachment_type/$attachment_id");
         $data['confirmation_line'] = 'Are you sure want to delete this upload?';
         $data['item_id'] = $id;
 
-        $this->load->view('template/header',$this->activation_model->get_activation_data());
+        $this->load->view('template/header', $this->activation_model->get_activation_data());
         $this->load->view('common/delete', $data);
         $this->load->view('template/footer');
     }
-    
-    public function update($id,$attachment_type,$attachment_id){
-        if($this->input->post('attachment_type') && $this->input->post('attachment_id')){
-            $this->upload_model->update($id,$this->input->post('upload_description'));
+
+    public function update($id, $attachment_type, $attachment_id) {
+        if ($this->input->post('attachment_type') && $this->input->post('attachment_id')) {
+            $this->upload_model->update($id, $this->input->post('upload_description'));
             //echo "updated...";
         }
         redirect($this->get_controller($attachment_type, $attachment_id));

@@ -37,7 +37,7 @@ if (isset($product_id)) {
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input class="form-control" type="text" ng-model="m"/>
+                <input  placeholder="Search..." class="form-control" type="text" ng-model="m"/>
             </div>
         </form>
     </div>
@@ -45,7 +45,7 @@ if (isset($product_id)) {
         <a class="btn btn-success btn-xs" 
            href="<?php echo $add_new_link; ?>"
            >
-            <?php echo $add_new_label; ?>
+               <?php echo $add_new_label; ?>
         </a>
     </div>
 </div>
@@ -115,8 +115,9 @@ if (isset($product_id)) {
                 <td>{{entry.date}}</td>
                 <td>{{entry.description}}</td>
                 <td class="noprint">
-                    <a href="<?php echo URL_X . 'Inventory/edit/'; ?>{{entry.id}}" class="btn  btn-primary btn-xs">Edit</a>
-                    <a href="<?php echo URL_X . 'Inventory/delete/'; ?>{{entry.id}}" class="btn  btn-danger btn-xs">Delete</a>
+                    <a href="<?php echo URL_X . 'Inventory/single_inventory/'; ?>{{entry.id}}" class="btn  btn-info btn-xs">V</a>
+                    <a href="<?php echo URL_X . 'Inventory/edit/'; ?>{{entry.id}}" class="btn  btn-primary btn-xs">E</a>
+                    <a href="<?php echo URL_X . 'Inventory/delete/'; ?>{{entry.id}}" class="btn  btn-danger btn-xs">D</a>
                 </td>
             </tr>
         </tbody>
@@ -131,16 +132,20 @@ if (isset($product_id)) {
                 console.log(data);
                 $scope.label = "<?php echo $label; ?>";
                 // $scope.get_all_link = "<?php echo $get_all_link; ?>";
+
+                $scope.getTotal = function () {
+                    var total = 0;
+                    for (var i = 0; i < $scope.entries.length; i++) {
+                        var e = $scope.entries[i];
+                        total += parseInt(e.payment);
+                    }
+                    return total;
+                }
+
+
             });
 
-            $scope.getTotal = function () {
-                var total = 0;
-                for (var i = 0; i < $scope.entries.length; i++) {
-                    var e = $scope.entries[i];
-                    total += parseInt(e.payment);
-                }
-                return total;
-            }
+
 
         }]);
 </script>

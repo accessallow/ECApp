@@ -67,7 +67,9 @@ class Form49 extends MY_Controller {
         $data['form_edit_link'] = site_url('Form49/edit/' . $id);
         $data['form_delete_link'] = site_url('Form49/delete/' . $id);
 
-       
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=4&attachment_id='.$id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$id.'/4');
+        $data['upload_base'] = base_url('assets/uploads/');
 
         $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("form49/single", $data);

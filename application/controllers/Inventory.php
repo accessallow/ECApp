@@ -198,4 +198,13 @@ class Inventory extends MY_Controller {
         }
     }
 
+    public function single_inventory($id){
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=3&attachment_id='.$id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$id.'/3');
+        $data['upload_base'] = base_url('assets/uploads/');
+        
+        $this->load->view("template/header",$this->activation_model->get_activation_data());
+        $this->load->view("inventory/single_inventory", $data);
+        $this->load->view("template/footer");
+    }
 }

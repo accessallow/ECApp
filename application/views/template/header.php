@@ -94,12 +94,13 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Date
+                                Settings
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?php echo URL_X . 'Date/'; ?>">Set date</a></li>
-
+                                <li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>
+                                <li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>
 
 
                             </ul>
@@ -121,8 +122,8 @@
                                 $activation_class = "btn-danger";
                                 $activation_label = "Not activated";
                             }
-                            
-                            $counter_percentage = round((100*$counter/3000),2);
+
+                            $counter_percentage = round((100 * $counter / 3000), 2);
                             ?>
                             <li>
                                 <a href="<?php echo site_url('Activation'); ?>" >
@@ -136,7 +137,7 @@
 
                                 </a>
                             </li>
-                           
+
                         </ul>
                     <?php } ?>
 

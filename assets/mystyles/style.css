@@ -1,3 +1,10 @@
+body{
+    //background: url('../images/ricepaper.png');
+    //background: url('../images/grey_wash_wall.png');
+}
+table{
+    //background:white;
+}
 .parsley-required{
     display:none;
 }

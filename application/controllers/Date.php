@@ -25,7 +25,7 @@ class Date extends MY_Controller{
         
         
         $data['form_submit_url'] = site_url('Date');
-        $data['back_url'] = 'Product';
+        $data['back_url'] = site_url('Product');
         
         $this->load->view("template/header",$this->activation_model->get_activation_data());
         $this->load->view("date/dashboard",$data);

@@ -92,6 +92,7 @@ class Product extends MY_Controller {
         $this->load->view("product/single_product", $data);
         $this->load->view("template/footer");
     }
+    
     public function DoStockZero($product_id){
         $this->load->model('product_model');
         $this->product_model->update_my_stock($product_id,0);

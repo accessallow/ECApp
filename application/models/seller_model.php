@@ -48,11 +48,11 @@ class Seller_model extends CI_Model {
         $this->db->update('seller', array('tag' => SellerTags::$deleted));
     }
 
-    function get_all_entries($product_id=null) {
+    function get_all_entries($product_id = null) {
         //empty object,will be filled in the ifs accordingly
         $query = null;
 
-        if ($product_id!=null) {
+        if ($product_id != null) {
             $queryString = "select 
                             s.id,
                             psm.id as 'mapping_id',
@@ -165,6 +165,26 @@ class Seller_model extends CI_Model {
         $q = $this->db->count_all_results();
 
         return $q;
+    }
+
+    function count_my_products($seller_id) {
+        $this->db->where(array(
+            'seller_id' => $seller_id,
+            'tag' => SellerTags::$available
+        ));
+        $this->db->from('product_seller_mapping');
+        $a = $this->db->count_all_results();
+        return $a;
+    }
+    
+     function count_my_inventory($seller_id) {
+        $this->db->where(array(
+            'seller_id' => $seller_id,
+            'tag' => SellerTags::$available
+        ));
+        $this->db->from('inventory');
+        $a = $this->db->count_all_results();
+        return $a;
     }
 
 }

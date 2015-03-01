@@ -14,7 +14,7 @@ $view_url = site_url('Form49/get');
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input class="form-control noprint" type="text" ng-model="m"/>
+                <input  placeholder="Search..." class="form-control noprint" type="text" ng-model="m"/>
             </div>
         </form>
     </div>

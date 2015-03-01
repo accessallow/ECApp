@@ -1,12 +1,12 @@
 <?php 
-$seller_single_url = site_url("Seller/single/");
+$seller_single_url = site_url("Seller/single_seller/");
 ?>
 
 <div class="row noprint">
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input class="form-control" type="text" ng-model="s"/>
+                <input  placeholder="Search..." class="form-control" type="text" ng-model="s"/>
             </div>
         </form>
     </div>
