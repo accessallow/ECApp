@@ -1,3 +1,11 @@
+<?php if($this->session->flashdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
+
 <h3>Add new seller</h3>
 <hr/>
 <form class="form-horizontal" role="form"   data-parsley-validate action="<?php echo URL_X . 'Seller/add_new'; ?>" method="POST">

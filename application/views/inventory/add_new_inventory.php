@@ -1,3 +1,11 @@
+<?php if($this->session->userdata('message')){?>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong><?php echo $this->session->flashdata('message');?></strong>
+</div>
+<?php } ?>
+
+
 <h3>Add new inventory</h3>
 <hr/>
 
