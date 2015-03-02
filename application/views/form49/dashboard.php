@@ -75,8 +75,8 @@ $view_url = site_url('Form49/get');
         <thead>
             <tr>
                 <td>Shop name</td>
-                <td>Address</td>
                 <td>TIN no.</td>
+                <td>Address</td>
                 <td>Invoice no.</td>
                 <td>Date</td>
                 <td>Total value</td>
@@ -114,13 +114,13 @@ $view_url = site_url('Form49/get');
                 <td>{{form.form_c}}</td>
 
 
-               
-                
+
+
                 <td class="noprint">
-                        <a href="<?php echo $view_url; ?>/{{form.id}}" class="btn  btn-info btn-xs">V</a>
-                        <a href="<?php echo $edit_url; ?>/{{form.id}}" class="btn  btn-primary btn-xs">E</a>
-                        <a href="<?php echo $delete_url; ?>/{{form.id}}" class="btn  btn-danger btn-xs">D</a>
-                   
+                    <a href="<?php echo $view_url; ?>/{{form.id}}" class="btn  btn-info btn-xs">V</a>
+                    <a href="<?php echo $edit_url; ?>/{{form.id}}" class="btn  btn-primary btn-xs">E</a>
+                    <a href="<?php echo $delete_url; ?>/{{form.id}}" class="btn  btn-danger btn-xs">D</a>
+
                 </td>
             </tr>
         </tbody>
