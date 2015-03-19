@@ -112,6 +112,17 @@ class Inventory extends MY_Controller {
             if($this->input->get('product_id')){
                 $data['product_id'] = $this->input->get('product_id');
             }
+            $this->load->model('key_value_model');
+            
+            if($this->key_value_model->get_value('seller_id')!=null){
+                $data['seller']=true;
+                $this->load->model('seller_model','sm');
+                $seller = $this->sm->get_one_seller($this->key_value_model->get_value('seller_id'));
+                $seller = $seller[0];
+                $data['seller_data'] = $seller;
+                $data['seller_id'] = $seller->id;
+            }
+            
             if($this->input->get('seller_id')){
                 $data['seller_id'] = $this->input->get('seller_id');
             }

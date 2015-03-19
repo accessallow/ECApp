@@ -57,6 +57,7 @@ class Set extends MY_Controller {
             $data['date'] = $this->input->post('date');
             $data['message'] = "<strong>New date set !!!</strong>"
                     . "<br/> Date  = " . $data['date'];
+            //redirect('Set');
         }
         if ($this->input->post('category_id')) {
             $this->key_value_model->set_value('category_id', $this->input->post('category_id'));
@@ -65,6 +66,7 @@ class Set extends MY_Controller {
             );
             $data['message_category'] = "<strong>New category set !!!</strong>"
                     . "<br/> Category  = " . $data['category'];
+            //redirect('Set');
         }
         if ($this->input->post('seller_id')) {
             $this->key_value_model->set_value('seller_id', $this->input->post('seller_id'));
@@ -73,6 +75,7 @@ class Set extends MY_Controller {
             );
             $data['message_seller'] = "<strong>New seller set !!!</strong>"
                     . "<br/> Seller  = " . $data['seller'];
+            //redirect('Set');
         }
 ///////////////////////////////////////////////////////////////////////////////////
         $data['categories'] = $this->pcm->get_all_entries();
