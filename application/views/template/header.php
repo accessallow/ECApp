@@ -98,7 +98,7 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Date/'; ?>">Set date</a></li>
+                                <li><a href="<?php echo URL_X . 'Set/'; ?>">Presets</a></li>
                                 <!--<li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>-->
                                 <!--<li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>-->
 

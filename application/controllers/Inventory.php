@@ -36,6 +36,14 @@ class Inventory extends MY_Controller {
             
             $data['seller_id'] = $this->input->get('seller_id');
             $data['seller_name'] = $sellerObject[0]->seller_name;
+        }elseif($this->input->get('date')){
+            $date = $this->input->get('date');
+                                   
+            $this->load->model('inventory_model');
+            $sum =$this->inventory_model->get_sum_of_payments(NULL,null,$date);
+            $data['sum'] = $sum[0]->payment;
+            $data['date'] = $date;
+                      
         }else{
             $this->load->model('inventory_model');
             $sum =$this->inventory_model->get_sum_of_payments(null,null);
@@ -51,11 +59,13 @@ class Inventory extends MY_Controller {
         $products=NULL;
         
         if ($this->input->get('product_id')) {
-            $products = $this->inventory_model->get_all_entries_joined_extended($this->input->get('product_id'),NULL);
+            $products = $this->inventory_model->get_all_entries_joined_extended($this->input->get('product_id'),null,NULL);
         } else if ($this->input->get('seller_id')) {
-            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,$this->input->get('seller_id'));
+            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,$this->input->get('seller_id'),null);
+        }else if ($this->input->get('date')) {
+            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,null,$this->input->get('date'));
         }else{
-            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,NULL);
+            $products = $this->inventory_model->get_all_entries_joined_extended(NULL,NULL,null);
         }
 
         $this->output->set_content_type('application/json')

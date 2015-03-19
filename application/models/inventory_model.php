@@ -113,12 +113,12 @@ class Inventory_model extends CI_Model {
         return $query->result();
     }
 
-    function get_all_entries_joined_extended($product_id, $seller_id) {
+    function get_all_entries_joined_extended($product_id, $seller_id,$date) {
 
         // returns with column naming
 
         $queryString = NULL;
-
+                     
         if ($product_id) {
             $queryString = "select i.id,i.rate,p.id as 'product_id',
                 p.product_brand as 'product_brand',
@@ -139,7 +139,17 @@ class Inventory_model extends CI_Model {
             i.seller_id = s.id and
             i.seller_id = $seller_id
         ) order by i.date desc,i.id desc; ";
-        } else {
+        }elseif ($date) {
+            $queryString = "select i.id,i.rate,p.id as 'product_id',
+        p.product_brand as 'product_brand',                
+        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
+        from inventory i,products p,seller s
+        where ( i.tag = " . InventoryTags::$available . " and 
+            i.product_id = p.id and 
+            i.seller_id = s.id and
+            i.date = '$date'
+        ) order by i.date desc,i.id desc; ";
+        }  else {
             $queryString = "select i.id,i.rate,p.id as 'product_id',
         p.product_brand as 'product_brand',                
         s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description

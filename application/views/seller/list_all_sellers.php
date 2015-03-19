@@ -1,4 +1,4 @@
-<?php 
+<?php
 $seller_single_url = site_url("Seller/single_seller/");
 ?>
 
@@ -69,18 +69,31 @@ $seller_single_url = site_url("Seller/single_seller/");
             <tr ng-repeat="seller in sellers|filter:s">
                 <td>
                     <a href="<?php echo $seller_single_url; ?>/{{seller.id}}">
-                    {{seller.seller_name}}
+                        {{seller.seller_name}}
                     </a>
+
                 </td>
                 <?php if ($this->input->get('product_id')) { ?>
                     <td>{{seller.product_price}}</td>
                 <?php } else { ?>
                     <td class="noprint">
-                        <a href="<?php echo URL_X; ?>Inventory?seller_id={{seller.id}}" class="badge">
-                            Inventories
+                        <a href="<?php echo URL_X; ?>Form49/add_new?seller_id={{seller.id}}" 
+                           style="background: #006699;"
+                           class="badge">
+                            +F
+                        </a>
+                        <a href="<?php echo URL_X; ?>Inventory?seller_id={{seller.id}}" 
+                           class="badge"
+                           style="background: #008200;">
+                            &nbsp;I&nbsp;
                         </a>
                         <a href="<?php echo URL_X; ?>Product?seller_id={{seller.id}}" class="badge">
-                            Products
+                            P
+                        </a>
+                        <a href="<?php echo URL_X; ?>Set?seller_id={{seller.id}}" class="badge"
+                           style="background: #39b3d7"
+                           >
+                            S
                         </a>
                     </td>
                 <?php } ?>

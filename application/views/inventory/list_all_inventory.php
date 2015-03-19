@@ -25,6 +25,12 @@ if (isset($product_id)) {
     $should_set_link = 1;
     $add_new_link = site_url('Inventory/add_new?seller_id=' . $seller_id);
     $add_new_label = "Attach an inventory to this seller";
+} elseif (isset($date)) {
+    $url = URL_X . 'Inventory/index_json?date=' . $date;
+    $label = "Inventories for date : " . $date;
+    $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new');
+    $add_new_label = "Add new inventory";
 } else {
     $url = URL_X . 'Inventory/index_json';
     $should_set_link = 0;
@@ -112,7 +118,11 @@ if (isset($product_id)) {
                 <td>{{entry.quantity}}</td>
                 <td>{{entry.payment}}</td>
 
-                <td>{{entry.date}}</td>
+                <td>
+                    <a href="<?php echo URL_X . 'Inventory?date='; ?>{{entry.date}}">
+                        {{entry.date}}
+                    </a>
+                </td>
                 <td>{{entry.description}}</td>
                 <td class="noprint">
                     <a href="<?php echo URL_X . 'Inventory/single_inventory/'; ?>{{entry.id}}" class="btn  btn-info btn-xs">V</a>

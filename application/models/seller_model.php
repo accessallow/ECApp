@@ -94,6 +94,10 @@ class Seller_model extends CI_Model {
         $query = $this->db->get_where('seller', array('id' => $id, 'tag' => SellerTags::$available));
         return $query->result();
     }
+    function get_seller_name($id) {
+        $a = $this->get_one_seller($id);
+        return $a[0]->seller_name;
+    }
 
     function get_one_seller_no_matter_what($id) {
 

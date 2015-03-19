@@ -106,6 +106,22 @@ class Form49 extends MY_Controller {
 
             redirect('Form49/add_new');
         } else {
+             $this->load->model('key_value_model');
+            
+            if($this->key_value_model->get_value('seller_id')!=null){
+                $data['seller']=true;
+                $this->load->model('seller_model','sm');
+                $seller = $this->sm->get_one_seller($this->key_value_model->get_value('seller_id'));
+                $seller = $seller[0];
+                $data['seller_data'] = $seller;
+            }
+            if($this->input->get('seller_id')){
+                $data['seller']=true;
+                $this->load->model('seller_model','sm');
+                $seller = $this->sm->get_one_seller($this->input->get('seller_id'));
+                $seller = $seller[0];
+                $data['seller_data'] = $seller;
+            }
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
 
@@ -115,7 +131,7 @@ class Form49 extends MY_Controller {
             $data['form_submit_url'] = site_url('Form49/add_new');
             $data['back_url'] = site_url('Form49');
 
-            $this->load->model('key_value_model');
+           
             $data['set_date'] = $this->key_value_model->get_value('date');
 
             $this->load->view("template/header", $this->activation_model->get_activation_data());

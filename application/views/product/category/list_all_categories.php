@@ -31,6 +31,7 @@
                 </td>
 
                 <td style="text-align: right;">
+                     <a href="<?php echo URL_X . 'Set?category_id='; ?>{{category.id}}" class="btn  btn-info btn-xs">Preset</a>
                     <a href="<?php echo URL_X . 'Product_category/edit/'; ?>{{category.id}}" class="btn  btn-primary btn-xs">Edit</a>
                     <a href="<?php echo URL_X . 'Product_category/delete/'; ?>{{category.id}}" class="btn  btn-danger btn-xs">Delete</a>
                 </td>

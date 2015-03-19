@@ -171,6 +171,10 @@ class Product extends MY_Controller {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
             
+            $this->load->model('key_value_model');
+            $data['category_id'] = $this->key_value_model->get_value('category_id');
+            
+            
             $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/add_new", $data);
             $this->load->view("template/footer");

@@ -1,8 +1,8 @@
-<?php if($this->session->flashdata('message')){?>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok"></span>
-    <strong><?php echo $this->session->flashdata('message');?></strong>
-</div>
+<?php if ($this->session->flashdata('message')) { ?>
+    <div class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok"></span>
+        <strong><?php echo $this->session->flashdata('message'); ?></strong>
+    </div>
 <?php } ?>
 
 
@@ -23,6 +23,9 @@ $products_fetch_link = site_url('Product/index_json');
                         <?php if (isset($edit)) { ?>
                             value ="<?php echo $form->shop_name; ?>"
                         <?php } ?>
+                        <?php if (isset($seller)) { ?>
+                            value ="<?php echo $seller_data->seller_name; ?>"
+                        <?php } ?>
                         placeholder=""/> 
                 </div>
             </div>
@@ -35,7 +38,9 @@ $products_fetch_link = site_url('Product/index_json');
                         name="address">
                             <?php if (isset($edit)) { ?>
                                 <?php echo $form->address; ?>
-                            <?php } ?>
+                            <?php }elseif (isset($seller)) { ?>
+                            <?php echo trim($seller_data->seller_address,''); ?>
+                        <?php } ?>
                     </textarea> 
                 </div>
             </div>
@@ -48,6 +53,9 @@ $products_fetch_link = site_url('Product/index_json');
                         required 
                         <?php if (isset($edit)) { ?>
                             value ="<?php echo $form->tin_number; ?>"
+                        <?php } ?>
+                        <?php if (isset($seller)) { ?>
+                            value ="<?php echo $seller_data->tin_number; ?>"
                         <?php } ?>
                         name="tin_number" 
                         placeholder=""/> 
@@ -255,9 +263,9 @@ $products_fetch_link = site_url('Product/index_json');
                                class="form-control" 
                                <?php if (isset($edit)) { ?>
                                    value ="<?php echo $form->date; ?>"
-                               <?php }else{ ?>
+                               <?php } else { ?>
                                    value="<?php echo $set_date; ?>"
-                               <?php }?>
+                               <?php } ?>
                                name="date" 
                                placeholder=""/> 
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>

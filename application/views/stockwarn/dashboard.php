@@ -1,6 +1,16 @@
 <?php
 $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
 ?>
+<div class="row noprint">
+    <div class="col-md-7">
+        <form class="form-inline">
+            <div class="form-group">
+                <input  placeholder="Search..." class="form-control" type="text" ng-model="m"/>
+            </div>
+        </form>
+    </div>
+    
+</div>
 <div class="row well">
     <h4>Products whose stock is zero <span class="badge">34</span></h4>
 </div>
@@ -17,7 +27,7 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="product in products"
+            <tr ng-repeat="product in products|filter:m"
                 ng-class="{success: is_not_zero(product.item_count)}"
                 >
                 <td>{{product.product_name}}</td>
