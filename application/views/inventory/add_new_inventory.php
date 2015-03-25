@@ -15,6 +15,7 @@
             <label class="col-sm-2 control-label">Product Name</label>
             <div class="col-sm-4">
                 <select name="product_id" 
+                        autofocus="autofocus"
                         ng-model="product_id"  
                         class="form-control"   
                         required>
@@ -122,9 +123,9 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" class="btn btn-success" value="Save"/>
+                <input accesskey="s" type="submit" class="btn btn-success" value="Save"/>
                 <input type="reset" class="btn" value="Clear"/>
-                <a href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Back</a>
+                <a accesskey="c" href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Back</a>
             </div>
         </div>
     </form>

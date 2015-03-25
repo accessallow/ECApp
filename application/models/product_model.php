@@ -180,7 +180,7 @@ class Product_model extends CI_Model {
     }
 
     function get_total_categorized_products($category_id) {
-        $this->db->where(array('product_category' => $category_id));
+        $this->db->where(array('product_category' => $category_id,'tag' => 1));
         $this->db->from('products');
         $q = $this->db->count_all_results();
 

@@ -67,6 +67,7 @@ $products_fetch_link = site_url('Product/index_json');
                     <input 
                         type="text" 
                         class="form-control" 
+                        autofocus="autofocus"
                         required 
                         <?php if (isset($edit)) { ?>
                             value ="<?php echo $form->invoice_number; ?>"
@@ -137,7 +138,7 @@ $products_fetch_link = site_url('Product/index_json');
             <div class="form-group">
                 <label class="col-sm-4 control-label">Product Name</label>
                 <div class="col-sm-8">
-                    <select name="product" ng-model="product_id"  class="form-control"   required>
+                    <select name="product" class="form-control"   required>
                         <option 
                             value="" 
                             <?php if (!isset($edit)) { ?>
@@ -162,7 +163,7 @@ $products_fetch_link = site_url('Product/index_json');
             <div class="form-group">
                 <label class="col-sm-4 control-label">Category</label>
                 <div class="col-sm-8">
-                    <select name="category" ng-model="product_id"  class="form-control"   required>
+                    <select name="category"   class="form-control"   required>
                         <option 
                             value="" 
                             <?php if (!isset($edit)) { ?>
@@ -275,9 +276,9 @@ $products_fetch_link = site_url('Product/index_json');
 
             </div>
             <div class="pull-right">
-                <input type="submit" class="btn btn-success" value="Save"/>
+                <input accesskey="s" type="submit" class="btn btn-success" value="Save"/>
                 <input type="reset" class="btn btn-default" value="Clear"/>
-                <a href="<?php echo $back_url; ?>" class="btn btn-primary">Cancel</a>
+                <a accesskey="c" href="<?php echo $back_url; ?>" class="btn btn-primary">Cancel</a>
             </div>
         </div>
     </form>

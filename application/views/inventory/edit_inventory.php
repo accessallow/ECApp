@@ -95,9 +95,9 @@ $inventory = $inventory[0];
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" class="btn btn-success" value="Save"/>
+            <input accesskey="s" type="submit" class="btn btn-success" value="Save"/>
             <input type="reset" class="btn" value="Clear"/>
-            <a href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Back</a>
+            <a accesskey="c" href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Back</a>
         </div>
     </div>
 </form>

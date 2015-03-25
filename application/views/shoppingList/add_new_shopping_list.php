@@ -16,6 +16,7 @@
                 <label class="col-sm-3">List name</label>
                 <div class="col-sm-8">
                     <input 
+                        autofocus="autofocus"
                         type="text" 
                         class="form-control" 
                         name="ListName" 

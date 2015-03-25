@@ -4,10 +4,15 @@ class StockWarning extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('product_model');
     }
 
     public function index() {
         $data['json_fetch_link'] = site_url('StockWarning/index_json');
+        $data['total_stockzero_products']  = $this->product_model->get_total_products(array(
+            'stock' => 0,
+            'tag' => 1
+        ));
 
         $this->load->view('template/header',$this->activation_model->get_activation_data());
         $this->load->view('stockwarn/dashboard', $data);
@@ -15,7 +20,7 @@ class StockWarning extends MY_Controller {
     }
 
     public function index_json() {
-        $this->load->model('product_model');
+        
         $this->load->model('shopping_list_model');
         $products = $this->product_model->get_all_entries(array(
             'stock' => 0

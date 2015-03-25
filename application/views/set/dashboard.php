@@ -8,7 +8,7 @@
                 <div class='input-group date' id='datetimepicker1'>
 
                     <input type="text" 
-
+                           autofocus="autfocus"
                            data-date-format="YYYY-MM-DD"
                            class="form-control"
                            name="date" 
@@ -67,9 +67,9 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
 
-                <input type="submit" class="btn btn-success" value="Save"/>
+                <input accesskey="s" type="submit" class="btn btn-success" value="Save"/>
                 <input type="reset" class="btn" value="Clear"/>
-                <a href="<?php echo $back_url; ?>" class="btn btn-primary">Back</a>
+                <a accesskey="c" href="<?php echo $back_url; ?>" class="btn btn-primary">Back</a>
             </div>
         </div>
 

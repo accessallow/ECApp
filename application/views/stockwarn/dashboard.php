@@ -12,7 +12,7 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
     
 </div>
 <div class="row well">
-    <h4>Products whose stock is zero <span class="badge">34</span></h4>
+    <h4>Products whose stock is zero <span class="badge"><?php echo $total_stockzero_products; ?></span></h4>
 </div>
 <div class="row" ng-controller="StockProductController">
     <table class="table table-hover">

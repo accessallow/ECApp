@@ -16,8 +16,8 @@
 
         </p>
         <p>
-            <input type="submit" class="btn btn-danger" value="Delete"/>
-            <a href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Cancel</a>
+            <input accesskey="x" type="submit" class="btn btn-danger" value="Delete - x"/>
+            <a accesskey="c" href="<?php echo URL_X . 'Inventory/'; ?>" class="btn btn-primary">Cancel - c</a>
         </p>
     </form>
 

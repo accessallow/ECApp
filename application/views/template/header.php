@@ -26,11 +26,11 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Product/'; ?>">List all products</a></li>
-                                <li><a href="<?php echo URL_X . 'Product/add_new'; ?>">Add new product</a></li>  
+                                <li><a accesskey="q" href="<?php echo URL_X . 'Product/'; ?>">List all products - q</a></li>
+                                <li><a accesskey="w" href="<?php echo URL_X . 'Product/add_new'; ?>">Add new product - w</a></li>  
                                 <li class="divider"></li>
-                                <li><a href="<?php echo URL_X . 'Product_category/'; ?>">Categories</a></li>
-                                <li><a href="<?php echo URL_X . 'Product_category/add_new'; ?>">Add new category</a></li>
+                                <li><a accesskey="r" href="<?php echo URL_X . 'Product_category/'; ?>">Categories - r</a></li>
+                                <li><a accesskey="t" href="<?php echo URL_X . 'Product_category/add_new'; ?>">Add new category - t</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -39,8 +39,8 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Inventory/'; ?>">Inventory List</a></li>
-                                <li><a href="<?php echo URL_X . 'Inventory/add_new'; ?>">Add new purchase</a></li>  
+                                <li><a accesskey="i" href="<?php echo URL_X . 'Inventory/'; ?>">Inventory List - i</a></li>
+                                <li><a accesskey="o" href="<?php echo URL_X . 'Inventory/add_new'; ?>">Add new purchase - o</a></li>  
 
                             </ul>
                         </li>
@@ -50,8 +50,8 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Seller/'; ?>">List all sellers</a></li>
-                                <li><a href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new</a></li>
+                                <li><a accesskey="k"href="<?php echo URL_X . 'Seller/'; ?>">List all sellers - k</a></li>
+                                <li><a accesskey="l" href="<?php echo URL_X . 'Seller/add_new'; ?>">Add new - l</a></li>
 
 
                             </ul>
@@ -62,8 +62,8 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'ShoppingList/'; ?>">All shopping lists</a></li>
-                                <li><a href="<?php echo URL_X . 'ShoppingList/add_new_shopping_list'; ?>">Add new</a></li>
+                                <li><a accesskey="[" href="<?php echo URL_X . 'ShoppingList/'; ?>">All shopping lists - [</a></li>
+                                <li><a accesskey="]" href="<?php echo URL_X . 'ShoppingList/add_new_shopping_list'; ?>">Add new - ]</a></li>
 
 
                             </ul>
@@ -74,7 +74,7 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'StockWarning/'; ?>">Dashboard</a></li>
+                                <li><a accesskey="0" href="<?php echo URL_X . 'StockWarning/'; ?>">Dashboard - 0</a></li>
 
 
 
@@ -86,9 +86,9 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Form49/'; ?>">Dashboard</a></li>
+                                <li><a accesskey="g" href="<?php echo URL_X . 'Form49/'; ?>">Dashboard - g</a></li>
 
-                                <li><a href="<?php echo URL_X . 'Form49/add_new'; ?>">Add new</a></li>
+                                <li><a accesskey="h" href="<?php echo URL_X . 'Form49/add_new'; ?>">Add new - h</a></li>
 
                             </ul>
                         </li>
@@ -98,7 +98,7 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo URL_X . 'Set/'; ?>">Presets</a></li>
+                                <li><a accesskey="\" href="<?php echo URL_X . 'Set/'; ?>">Presets - \</a></li>
                                 <!--<li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>-->
                                 <!--<li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>-->
 
