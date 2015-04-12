@@ -7,13 +7,37 @@
 ?>
 
 <?php
-$url = "";
-$label = "All inventories";
+//$url = "";
+//$label = "All inventories";
 $get_all = URL_X . 'Inventory/';
 $get_all_link = "<a class=\"badge\" href=\"$get_all\">Get all</a>";
-$should_set_link = NULL;
-
-if (isset($product_id)) {
+//$should_set_link = NULL;
+/*
+if (isset($product_id) && isset($seller_id) && isset($date)) {
+    $url = URL_X . 'Inventory/index_json?product_id=' . $product_id."&seller_id=".$seller_id."&date=".$date;
+    $label = "Inventories for Product : " . $product_name. " for seller: $seller_name for Date : $date";
+    $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?product_id=' . $product_id);
+    $add_new_label = "Attach an inventory to this product";
+} elseif (isset($product_id) && isset($seller_id)) {
+    $url = URL_X . 'Inventory/index_json?product_id=' . $product_id."&seller_id=".$seller_id;
+    $label = "Inventories for Product :  $product_name by Seller : $seller_name";
+    $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?product_id=' . $product_id);
+    $add_new_label = "Attach an inventory to this product";
+}elseif (isset($product_id) && isset($date)) {
+    $url = URL_X . 'Inventory/index_json?product_id=' . $product_id."&date=".$date;
+    $label = "Inventories for Product : $product_name on Date : $date";
+    $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?product_id=' . $product_id);
+    $add_new_label = "Attach an inventory to this product";
+}elseif (isset($seller_id) && isset($date)) {
+    $url = URL_X . 'Inventory/index_json?seller_id=' . $seller_id."&date=".$date;
+    $label = "Inventories for Seller : $seller_name on Date: $date";
+    $should_set_link = 1;
+    $add_new_link = site_url('Inventory/add_new?product_id=' . $product_id);
+    $add_new_label = "Attach an inventory to this product";
+}elseif (isset($product_id)) {
     $url = URL_X . 'Inventory/index_json?product_id=' . $product_id;
     $label = "Inventories for Product : " . $product_name;
     $should_set_link = 1;
@@ -37,6 +61,7 @@ if (isset($product_id)) {
     $add_new_link = site_url('Inventory/add_new');
     $add_new_label = "Add new inventory";
 }
+*/
 ?>
 
 <div class="row noprint">
@@ -110,7 +135,7 @@ if (isset($product_id)) {
                 </td>
                 <td>{{entry.product_brand}}</td>
                 <td>
-                    <a href="<?php echo URL_X . 'Inventory?seller_id='; ?>{{entry.seller_id}}">
+                    <a href="<?php echo $seller_url; ?>{{entry.seller_id}}">
                         {{entry.seller_name}}
                     </a>
                 </td>
@@ -119,7 +144,7 @@ if (isset($product_id)) {
                 <td>{{entry.payment}}</td>
 
                 <td>
-                    <a href="<?php echo URL_X . 'Inventory?date='; ?>{{entry.date}}">
+                    <a href="<?php echo $date_url; ?>{{entry.date}}">
                         {{entry.date}}
                     </a>
                 </td>

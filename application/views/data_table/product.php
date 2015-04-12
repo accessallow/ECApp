@@ -43,3 +43,12 @@
         <option value="Bucky">
     </datalist>
 </div>
+
+<script>
+    var app = angular.module('myapp', []);
+    app.controller('ProductController', ['$scope', '$http', function ($scope, $http) {
+
+           
+
+        }]);
+</script>

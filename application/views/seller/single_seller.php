@@ -70,6 +70,34 @@
                                     >View inventory</a>
                             </td>
                         </tr>
+                        <tr>
+                            <td>Total transaction money</td>
+                            <td>
+                                <?php echo $total_money; ?>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total cash money</td>
+                            <td>
+                                <?php echo $total_cash; ?>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total cheque money</td>
+                            <td>
+                                <?php echo $total_cheque; ?>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total pending money</td>
+                            <td>
+                                <?php echo $total_pending; ?>
+                                
+                            </td>
+                        </tr>
 
 
                     </tbody>

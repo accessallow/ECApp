@@ -82,6 +82,11 @@ $seller_single_url = site_url("Seller/single_seller/");
                            class="badge">
                             +F
                         </a>
+                         <a href="<?php echo URL_X; ?>Bill/add_new?seller_id={{seller.id}}" 
+                           style="background: #E13300;"
+                           class="badge">
+                            +B
+                        </a>
                         <a href="<?php echo URL_X; ?>Inventory?seller_id={{seller.id}}" 
                            class="badge"
                            style="background: #008200;">

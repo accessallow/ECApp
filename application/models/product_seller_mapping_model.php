@@ -41,9 +41,9 @@ class Product_seller_mapping_model extends CI_Model {
     }
 
     function delete($id) {
-        $data = array('tag' => ProductSellerMappingTags::$deleted);
-        $this->db->where('id', $id);
-        $this->db->update('product_seller_mapping', $data);
+        //$data = array('tag' => ProductSellerMappingTags::$deleted);
+        //$this->db->where('id', $id);
+        $this->db->delete('product_seller_mapping',array('id'=>$id));
     }
 
     function get_all_entries($dead = false) {

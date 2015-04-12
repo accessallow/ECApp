@@ -79,8 +79,8 @@ class Seller extends MY_Controller {
 
             $this->seller_model->insert(
                     $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_mail_id"), $this->input->post("seller_tin_number"), $this->input->post("seller_address"));
-           
-            $this->session->set_flashdata('message','Seller saved.');
+
+            $this->session->set_flashdata('message', 'Seller saved.');
             redirect('Seller/add_new');
         } else {
             $this->load->view("template/header", $this->activation_model->get_activation_data());
@@ -133,7 +133,7 @@ class Seller extends MY_Controller {
 
     public function single_seller($seller_id) {
         $data = null;
-        
+
         $seller = $this->seller_model->get_one_seller($seller_id);
         $seller = $seller[0];
 
@@ -142,14 +142,35 @@ class Seller extends MY_Controller {
         $data->seller_delete_link = site_url('Seller/delete/' . $seller->id);
         $data->products_count = $this->seller_model->count_my_products($seller->id);
         $data->view_my_products_link = site_url('Product?seller_id=' . $seller->id);
-        
+
         $data->inventory_count = $this->seller_model->count_my_inventory($seller->id);
         $data->view_my_inventory_link = site_url('Inventory?seller_id=' . $seller->id);
-       
-        $data->upload_new_link = site_url('FileUpload/add_new?attachment_type=2&attachment_id='.$seller->id);
-        $data->uploads_json_fetch_link = site_url('FileUpload/get_uploads/'.$seller->id.'/2');
+
+        $data->upload_new_link = site_url('FileUpload/add_new?attachment_type=2&attachment_id=' . $seller->id);
+        $data->uploads_json_fetch_link = site_url('FileUpload/get_uploads/' . $seller->id . '/2');
         $data->upload_base = base_url('assets/uploads/');
+
+        $this->load->model('bill_model');
+        $data->total_money = $this->bill_model->sum_bills('total', array(
+                    'tag' => 1,
+                    'seller_id' => $seller_id
+                ))->total;
         
+        $data->total_cash = $this->bill_model->sum_bills('cash', array(
+                    'tag' => 1,
+                    'seller_id' => $seller_id
+                ))->cash;
+        
+        $data->total_cheque = $this->bill_model->sum_bills('cheque', array(
+                    'tag' => 1,
+                    'seller_id' => $seller_id
+                ))->cheque;
+        $data->total_pending = $this->bill_model->sum_bills('pending', array(
+                    'tag' => 1,
+                    'seller_id' => $seller_id
+                ))->pending;
+        
+
         $this->load->view("template/header", $this->activation_model->get_activation_data());
         $this->load->view("seller/single_seller", $data);
         $this->load->view("template/footer");

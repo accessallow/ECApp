@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title><?php echo MegaTitle; ?></title>
+        <script src="<?php echo URL; ?>assets/jquery/jquery-2.1.1.min.js"></script>
         <script src="<?php echo URL; ?>assets/angularjs/angular.min.js"></script>
         <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap-theme.min.css" />
+        <!--<link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap-theme.min.css" />-->
         <link rel="stylesheet" href="<?php echo URL; ?>assets/mystyles/style.css" />
         <link rel="stylesheet" href="<?php echo URL; ?>assets/bootstrap3/css/bootstrap-datetimepicker.min.css" />
         <link rel="stylesheet" href="<?php echo URL; ?>assets/mystyles/print.css" media="print"/>
@@ -94,13 +95,25 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Payment Bills
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a accesskey="." href="<?php echo URL_X . 'Bill/dashboard'; ?>">Dashboard - .</a></li>
+
+                                <li><a accesskey="/" href="<?php echo URL_X . 'Bill/add_new'; ?>">Add new - /</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 Settings
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a accesskey="\" href="<?php echo URL_X . 'Set/'; ?>">Presets - \</a></li>
-                                <!--<li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>-->
-                                <!--<li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>-->
+                                <li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>
+                                <li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>
 
 
                             </ul>

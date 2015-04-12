@@ -113,55 +113,42 @@ class Inventory_model extends CI_Model {
         return $query->result();
     }
 
-    function get_all_entries_joined_extended($product_id, $seller_id,$date) {
+    function get_all_entries_joined_extended($product_id, $seller_id, $date) {
 
         // returns with column naming
 
-        $queryString = NULL;
-                     
-        if ($product_id) {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',
+        $queryString = null;
+        $key_part = null;
+
+        $first_part = "select i.id,i.rate,p.id as 'product_id',
                 p.product_brand as 'product_brand',
                 s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
         from inventory i,products p,seller s
         where ( i.tag = " . InventoryTags::$available . " and 
             i.product_id = p.id and 
-            i.seller_id = s.id and
-            i.product_id = $product_id
-        ) order by i.date desc,i.id desc; ";
+            i.seller_id = s.id and ";
+
+        $second_part = ") order by i.date desc,i.id desc; ";
+
+        if ($product_id && $seller_id && $date) {
+            $key_part = "i.product_id = $product_id and i.seller_id = $seller_id and i.date = '$date'";
+        } elseif ($product_id && $seller_id) {
+            $key_part = "i.product_id = $product_id and i.seller_id = $seller_id";
+        } elseif ($product_id && $date) {
+            $key_part = "i.product_id = $product_id and i.date = '$date'";
+        } elseif ($seller_id && $date) {
+            $key_part = "i.seller_id = $seller_id and i.date='$date'";
+        } elseif ($product_id) {
+            $key_part = "i.product_id = $product_id";
         } elseif ($seller_id) {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',
-        p.product_brand as 'product_brand',                
-        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
-        from inventory i,products p,seller s
-        where ( i.tag = " . InventoryTags::$available . " and 
-            i.product_id = p.id and 
-            i.seller_id = s.id and
-            i.seller_id = $seller_id
-        ) order by i.date desc,i.id desc; ";
-        }elseif ($date) {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',
-        p.product_brand as 'product_brand',                
-        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
-        from inventory i,products p,seller s
-        where ( i.tag = " . InventoryTags::$available . " and 
-            i.product_id = p.id and 
-            i.seller_id = s.id and
-            i.date = '$date'
-        ) order by i.date desc,i.id desc; ";
-        }  else {
-            $queryString = "select i.id,i.rate,p.id as 'product_id',
-        p.product_brand as 'product_brand',                
-        s.id as 'seller_id',p.product_name,i.quantity,i.payment,s.seller_name,i.date,i.description
-        from inventory i,products p,seller s
-        where ( i.tag = " . InventoryTags::$available . " and 
-            i.product_id = p.id and 
-            i.seller_id = s.id
-            
-        ) order by i.date desc,i.id desc; ";
+            $key_part = "i.seller_id = $seller_id";
+        } elseif ($date) {
+            $key_part = "i.date = '$date'";
+        } else {
+            $key_part = "1=1";
         }
 
-
+        $queryString = $first_part . $key_part . $second_part;
         // echo $queryString; // ye testing k liye tha...bura mat maan-na bhai
 
         $query = $this->db->query($queryString);

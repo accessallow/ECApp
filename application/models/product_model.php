@@ -199,7 +199,7 @@ class Product_model extends CI_Model {
 
     function my_best_rate($product_id) {
         $mysellers = $this->count_my_sellers($product_id);
-        if ($mysellers == 0) {
+        if ($mysellers == 0 || $mysellers == null) {
             return 0;
         } else {
             $where = array(
@@ -216,6 +216,7 @@ class Product_model extends CI_Model {
     }
 
     function my_best_seller($product_id) {
+//        echo "Product_id = $product_id<br/>";
         $mysellers = $this->count_my_sellers($product_id);
         if ($mysellers == 0) {
             return "Nil";
@@ -233,10 +234,14 @@ class Product_model extends CI_Model {
                 'id' => $q->seller_id,
                 'tag' => ProductTags::$available
             );
-            $q = $this->db->get_where('seller', $where);
-            $q = $q->result();
-            $q = $q[0];
-            return $q->seller_name;
+            $qr = $this->db->get_where('seller', $where);
+//            echo "<pre>";
+//            echo var_dump($qr);
+//            echo "</pre>";
+            
+            $qr = $qr->result();
+            $qr = $qr[0];
+            return $qr->seller_name;
         }
     }
 

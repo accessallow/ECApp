@@ -43,7 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 define('URL','http://localhost/ECApp/');
-define('URL_X','http://localhost/ECApp/index.php/');
+define('URL_X',URL.'index.php/');
 
 define('IMG',URL.'bootstrap/img/');
 define('CSS',URL.'bootstrap/css/');
@@ -61,4 +61,4 @@ define('SHOP_ADDR','125-C, Indrapuri');
 define('PHONE','9584338959');
 
 // Mega Title on the header bar
-define('MegaTitle','Krishna Electronics');
+define('MegaTitle','Sanchaar ERP');

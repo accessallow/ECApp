@@ -137,7 +137,8 @@ class Product_seller_mapping extends MY_Controller {
             $this->product_seller_mapping_model->delete($this->input->post('mapping_id'));
             $_POST['product_id'] = null;
 
-            $this->add_new_seller_to_a_product($product_id);
+            //$this->add_new_seller_to_a_product($product_id);
+            redirect('Product_seller_mapping/add_new_seller_to_a_product/'.$product_id);
         } else {
             $this->load->model("product_seller_mapping_model");
             $this->load->model("product_model");
