@@ -45,15 +45,11 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('URL','http://localhost/ECApp/');
 define('URL_X',URL.'index.php/');
 
-define('IMG',URL.'bootstrap/img/');
-define('CSS',URL.'bootstrap/css/');
-define('JS',URL.'bootstrap/js/');
-define('ICO',URL.'bootstrap/ico/');
-define('PLUGINS',URL.'bootstrap/bootstrap_plugins/');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
 
-define('IMAGE_SERVER','http://localhost/image_server/');
+
 
 //Info to be printed on bill titles
 define('SHOP_NAME','Krishna Electronics');

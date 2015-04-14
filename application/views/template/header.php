@@ -112,8 +112,8 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a accesskey="\" href="<?php echo URL_X . 'Set/'; ?>">Presets - \</a></li>
-                                <li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>
-                                <li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>
+                                <!--<li><a href="<?php echo URL_X . 'Front/password'; ?>">Change password</a></li>-->
+                                <!--<li><a href="<?php echo URL_X . 'Front/logout'; ?>">Logout</a></li>-->
 
 
                             </ul>
