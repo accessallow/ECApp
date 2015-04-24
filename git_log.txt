@@ -1,0 +1,371 @@
+commit 37d7ec3ffb0cc7aede3d15578753b736d734a05f
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Tue Apr 14 21:04:36 2015 +0530
+
+    Shipping
+
+commit 4a4bdeb1a3a6a6ac24b673e87c2e8132b115d9e8
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Mon Apr 13 04:32:40 2015 +0530
+
+    Cleared minor bug produced because of flawed deletion feature in product_seller_mapping_model.
+
+commit 830d93d0562ee4eae6c8d8e9450b74c153194487
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Mar 26 03:47:17 2015 +0530
+
+    Attended Issue 1 and 2 from 21 March Listing
+    1. */add_new  : focus added
+    2. Stock zero bug fixed
+    3. Dead  product count under category bug fixed
+    
+    additional feature introduced
+    -----------------------------------
+    Keyboard shortcuts for all controllers(options)
+    Alt + s : Save
+    Alt + c : Cancel
+    Other shortcuts shown in menus.
+    
+    --------------------------------------------
+    Pending:
+    Nested selection in inventory list
+
+commit 58d15f30a191dafc0bd51f7d08bd4b2912fbd8e5
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Mar 20 03:18:19 2015 +0530
+
+    Delivery 17 march
+    Adress issues slip : 15
+    Cleared : All
+    +1 Seller preset active in Product/add_new
+
+commit 23ddd29beb6966ef71939b13f16a132bd0a2cad9
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Mar 19 20:12:49 2015 +0530
+
+    Delivery 17 march
+    Adress issues slip : 15
+    Cleared : All
+
+commit 4c3004324c770b119bce5bfa40a9ef1eec847724
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Mon Mar 2 10:18:30 2015 +0530
+
+    Delivery
+
+commit 87b0303be75461686051bae5355301062d0718a3
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Mar 1 15:49:02 2015 +0530
+
+    Shopping list :
+    Seller name appended into the list in View+ Print
+
+commit fc448bdd9528bf63e32a8b82fb388479e1760596
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Mar 1 13:50:07 2015 +0530
+
+    Revert "Ready to ship...now obfuscating"
+    
+    This reverts commit bbd5c05d16bed4be40572c6d9da8a7ed378b8b75.
+
+commit bbd5c05d16bed4be40572c6d9da8a7ed378b8b75
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Mar 1 13:37:46 2015 +0530
+
+    Ready to ship...now obfuscating
+
+commit 28861a06054f4dbc935447b18720fc954d9513c7
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Mar 1 13:10:10 2015 +0530
+
+    Now inventory has attachment too....tried some wallpapers to set page background...but vain
+
+commit 567700cd113d7512d8963aee275303c994a1f9b1
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Feb 28 21:43:08 2015 +0530
+
+    Activation and key feature
+
+commit b2f51a117fddd6f3fa20d29b1f92c03249e24643
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Feb 26 08:49:35 2015 +0530
+
+    Introduced a key_value model to save individual values in database
+    Inventory is product choosable now(Product -> +i ---> Inventory)
+    Shopping list is seller wise sorted (Cut the paper ease)
+    Fix Date facility on top of key_value model
+
+commit 97d652c4173b86a2fbc06be564f9fc8469a7d469
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Feb 25 15:56:36 2015 +0530
+
+    Delivery!!!
+    +datatables
+    +/activation
+    +stockZero
+    +image feature to product
+
+commit 0428b26183fef53d51dcd0c97fa6af0a795dc57d
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Feb 19 07:54:55 2015 +0530
+
+    In the process of creating a centralized file/image upload system.
+    New changes are to be made into:
+    	 Product/single
+       	 Form49/single
+    	 Inventory/single (to make)
+    	Seller/single (to make)
+    : to accomodate image upload+attachment facility.
+
+commit 9b715dfb117dd3d175dc512c93a5a666341f673c
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Feb 15 03:08:17 2015 +0530
+
+    Category is now angular based and with added feature of search-box and alphabetical sorting
+
+commit 2bf67ec903da69cac4e4c6b2c8b71d00611ccbdc
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Feb 15 02:50:32 2015 +0530
+
+    Added mail_id and tin_number to seller
+
+commit 93e21b5c40ac2a43d186b69354b3d69052d6143d
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Feb 15 02:09:25 2015 +0530
+
+    I was working on complex logic of Shopping list adding feature. Then suddenly customer says that remove the description from inventory. So after this commit I will remove description from inventory.
+
+commit 57891006fae665c0d95811e96897e57b7c91e28f
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Feb 13 19:21:27 2015 +0530
+
+    Delivery till here...also sending form49 table sql
+
+commit 8d30dea3ef7e638994d8d77ef22cfabb21c6df0c
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Feb 13 16:54:28 2015 +0530
+
+    Form49 is complete. But right now there is no sorting feature there.
+
+commit c8fc44acf4e2aa7c01b7cb6ffe1768c75d3b5411
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Feb 13 06:13:18 2015 +0530
+
+    Form49 Add feature complete. Models are already good. May be some controller stuff  will be changed as we need stuff.
+    Now I am going to add editing abilities in the same add_new page which leads to the fact the I am awesome and I know how to reuse stuff.
+    Code is money,you have to spend it wisely.
+
+commit e373f7e7be474202dde5308f9435132702a0d4ac
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Feb 11 18:24:11 2015 +0530
+
+    Till here customer has...
+
+commit 872f536c8481d4255d27073174de63fea5ab3ee7
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Feb 8 19:52:31 2015 +0530
+
+    ShoppingList Add,Edit,Delete functionalities are complete.
+    Added urls in the header too.
+    Shopping List has a dashboard of its own.
+    When you click on a shopping list you see items under it.
+
+commit 83298002349dd1ae1337bdbd6a51b1d928031505
+Author: pankaj <pankaj@ghostmachine>
+Date:   Mon Feb 2 20:10:34 2015 +0530
+
+    Started writing Shopping List Code
+
+commit 5106730ea7304fca206455165858e728b13d1969
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Jan 24 12:34:06 2015 +0530
+
+    sort order changed to ascending. Product seller feature complete on Product -> seller, reverse in pending.
+
+commit d797194f675536309be35c94f51a670c75ba7d18
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Jan 23 18:43:00 2015 +0530
+
+    Sitting at Siddharth's place. Any changes that break script should be reverted.Take caution.This guy is crazy.
+
+commit 49b0a045fa2bf35841c007b66408bb80ad96cf73
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 22 08:12:26 2015 +0530
+
+    now product page can respond to seller based queries.
+
+commit 3b47318b7822bbf4d93f078e03a0623cef0a2886
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 19:35:55 2015 +0530
+
+    Sellers who sell this product ..that list is now showing price..it was expected earlier...made some conditional changes...
+
+commit 7ed864b06c0a07b6b3f01989f5d915a16a8136ba
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 19:00:28 2015 +0530
+
+    Fixed the link
+    list_all_categories.php : category_id ==> product_category_id
+    and it integrated with already made feature into product.
+
+commit ed9d6b9e076e9ad4e0ba31fdc599b16871b1255d
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 18:57:32 2015 +0530
+
+    Fixed a bug in product count
+    product model was counting bad..
+    introduced link on category list to their underlying products
+
+commit 629f77e6cb6f7b4e29445b6a44e31866de6504f7
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 06:04:42 2015 +0530
+
+    Completed the feature:
+    Product ->Sellers who sell this product
+    Added some functions to seller's model,view and controller
+
+commit c1a7f9264f2c3823cf7e5d282eff981131ec4a4c
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 04:50:09 2015 +0530
+
+    Now each product entry has two links in it.
+    (1) Sellers :  describes all the sellers who sell this product,
+    (2) Inventories : describes all the inventory done under this product
+    It was just linking on top of readymade features.
+
+commit 55cb075ea32d82a326230429d7dab9bd101a04b2
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 03:32:19 2015 +0530
+
+    Product has the inventory-filter feature too..
+    In Products : When you click  on a Product from products list..you see the inventories done under that product.
+    What I did :
+    I destroyed the product_seller_mapping link from product list page and kept the inventory linking-link in place of that.
+    Now I will need to do some more linking in order to show mapping. Lets see.
+
+commit 0b0556468420476e2d59ef96c3907dff2b970f65
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 03:15:46 2015 +0530
+
+    seller has that feature too...
+    (1) In the upper well - number of alive sellers
+    (2) when you click on a seller you see all the inventories did under the name of that seller
+
+commit ae7362727fc99dc6ad97a02ad58493b6f33a82a7
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Wed Jan 21 02:56:07 2015 +0530
+
+    Introduced some cool features into prebuilt things...now I am improving the app
+
+commit 2380b48b7fc99d20c1777062247e2471359b9d97
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Tue Jan 20 03:18:28 2015 +0530
+
+    Now I am going to start with some code reusability logics...this will messup the code..so a commit will save my love for you.
+
+commit 2472860e2aeec390ea2dfbdb73f46ea7a469d644
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Jan 18 07:41:18 2015 +0530
+
+    Done with "dont-mess-my-inventory" business logic...
+
+commit d65314ed8f31329ca61e9fbda665acbfb74d2fcf
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Jan 18 07:27:08 2015 +0530
+
+    Introduced no-matter-what  ghost-spells in every model except product_seller_mapping...that is a little bit complicated and omewhat out of business context too
+
+commit 0d7bd9f9096704f56d19e60a3d1a2788bdb5d907
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sun Jan 18 07:26:40 2015 +0530
+
+    Introduced no-matter-what  ghost-spells in every model except product_seller_mapping...that is a little bit complicated and omewhat out of business context too
+
+commit 2e7afa5a56467b199c913d3891379192f7a02bb7
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Jan 17 04:43:01 2015 +0530
+
+    Inventory was already having tag functionality
+
+commit 5e5c061fe4afde9c4d42bea9e22834a500c277cb
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Jan 17 04:38:58 2015 +0530
+
+    coded Product category with tag functionality
+
+commit eea284bc804cacd2e3e8ba6658974b85cd39f05d
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Jan 17 04:16:46 2015 +0530
+
+    coded Seller with tag functionality
+
+commit 35090ced5ace3c0e839adc2ea37c2d1979deed11
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Sat Jan 17 04:02:04 2015 +0530
+
+    Product coded with tag functionality
+
+commit 499265875bc5f5abf768d92b486774f1f477786e
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Jan 16 21:59:59 2015 +0530
+
+    fixed a bug of same id everytime. in delete fuctionality
+
+commit d961956759979934d591491739325b6d25259633
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Jan 16 21:12:54 2015 +0530
+
+    created delete feature in inventory.
+    Inventory is complete now...
+
+commit 0da057172e7653bfbc7faf6a06a6183dd6aee535
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Fri Jan 16 11:31:02 2015 +0530
+
+    Inventory feature almost complete
+    fixed a space generating bug in product views and inventory views
+    now i'll be working on delete feature in inventory
+    Everything is stable
+
+commit 07d4adc42c365458466b836ee8d32e387003d34f
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 08:31:34 2015 +0530
+
+    introduced the very magical join in inventory model,also fixed a bug..model is ready and firing data in json...I am awesome
+
+commit 8af6ea3786a38dadc32f0ec47a493b5e9cbd49ef
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 07:35:57 2015 +0530
+
+    created inventory mode and inventory tags class
+
+commit a677619e176db589009947dd2bf74f321388474c
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 06:49:29 2015 +0530
+
+    updated form names
+
+commit 8a1a9ea7847d2ac6d7e1a92b98e6584576416930
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 05:32:45 2015 +0530
+
+    Started working on inventory...add new functionality
+
+commit ae7b3338000f00a4ffce969afc4d153ee8cedcfc
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 04:52:53 2015 +0530
+
+    Created search functionality in Seller
+
+commit 0fe51b93577d7a9fcfa2379fcba783c90f70ef49
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 04:31:59 2015 +0530
+
+    Created search functionality in Product
+
+commit 304c7251fd6a11812e25ae91c8e342bfa9e33614
+Author: Pankaj Tiwari <pankajtiwarisagar@gmail.com>
+Date:   Thu Jan 15 04:17:15 2015 +0530
+
+    First Commit
+    Working on catologue

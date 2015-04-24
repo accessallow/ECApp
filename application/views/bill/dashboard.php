@@ -39,11 +39,11 @@
             <td>Cheque</td>
             <td>Pending</td>
             <td>Date</td>
-            <td>Action</td>
+            <td class="noprint">Action</td>
         </tr>
     </thead>
     <tfoot>
-        <tr>
+        <tr class="noprint">
             <td>Bill number</td>
             <td>Seller</td>
             <td>Total</td>
@@ -64,7 +64,7 @@
                 <td><?php echo $b->cheque; ?></td>
                 <td><?php echo $b->pending; ?></td>
                 <td><?php echo $b->date; ?></td>
-                <td>
+                <td class="noprint">
                     <a href="<?php echo site_url('Bill/update/' . $b->id); ?>" class="btn btn-primary btn-xs">Edit</a>
                     <a href="<?php echo site_url('Bill/delete/' . $b->id); ?>" class="btn btn-danger btn-xs">Delete</a>
                 </td>

@@ -35,13 +35,7 @@ $products_fetch_link = site_url('Product/index_json');
                     <textarea 
                         class="form-control" 
                         required 
-                        name="address">
-                            <?php if (isset($edit)) { ?>
-                                <?php echo $form->address; ?>
-                            <?php }elseif (isset($seller)) { ?>
-                            <?php echo trim($seller_data->seller_address,''); ?>
-                        <?php } ?>
-                    </textarea> 
+                        name="address"><?php if (isset($edit)) { ?><?php echo $form->address; ?><?php }elseif (isset($seller)) { ?><?php echo trim($seller_data->seller_address,''); ?><?php } ?></textarea> 
                 </div>
             </div>
             <div class="form-group">

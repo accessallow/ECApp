@@ -65,3 +65,7 @@
         </form>
     </div>
 </div>
+<script>
+ var app = angular.module('myapp', []);
+</script>
+

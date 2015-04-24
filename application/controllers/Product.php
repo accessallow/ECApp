@@ -58,7 +58,7 @@ class Product extends MY_Controller {
         
         
         $this->load->view("template/header",$this->activation_model->get_activation_data());
-        $this->load->view("product/list_all_products", $data);
+        $this->load->view("product/list_all_products_1", $data);
         $this->load->view("template/footer");
     }
 
