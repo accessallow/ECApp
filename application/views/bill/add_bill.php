@@ -59,7 +59,7 @@ if (isset($edit)) {
 
 
                 <input type="number"  
-                       value="{{price}}"
+                       
                        ng-model="mytotal" 
                        name="total"
                        class="form-control" 
@@ -76,7 +76,7 @@ if (isset($edit)) {
 
                 <input type="number"  
 
-                       value="{{price}}"
+                       
                        ng-model="cash" 
                        class="form-control" 
                        required
@@ -91,7 +91,7 @@ if (isset($edit)) {
 
 
                 <input type="number"  
-                       value="{{price}}"
+                       
                        ng-model="cheque" 
                        class="form-control" 
                        required

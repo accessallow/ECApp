@@ -90,6 +90,13 @@ class Product_model extends CI_Model {
         $query = $this->db->query($queryString);
         return $query->result();
     }
+    function get_products_mark_ordered(){
+        $where['tag'] = ProductTags::$available;
+        $this->db->order_by("mark","asc");
+        $this->db->order_by("product_name","asc");
+        $query = $this->db->get_where('products', $where);
+        return $query->result();
+    }
 
     function get_one_product_joined($product_id) {
         $queryString = "SELECT p.id,c.id as 'product_category_id',
@@ -250,6 +257,21 @@ class Product_model extends CI_Model {
         $this->db->update('products',
                 array('stock'=>$count), //this to update
                 array('id'=>$product_id)); //where id=blah
+    }
+    
+    function mark_product($product_id,$mark){
+        $data = array('mark' => $mark);
+        $this->db->where('id', $product_id);
+        $this->db->update('products', $data);
+    }
+    function get_mark($product_id){
+        $product = $this->get_one_product($id);
+        if($product!=null){
+            $product = $product[0];
+            return $product['mark'];
+        }else{
+            return null;
+        }
     }
 
 }

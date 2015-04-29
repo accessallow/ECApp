@@ -1,16 +1,10 @@
 <?php
 
 class Product extends MY_Controller {
-    
 
     public function __construct() {
-
         parent::__construct();
-        
-       
-        
     }
-    
 
     public function index() {
         $this->load->model("product_model");
@@ -40,7 +34,7 @@ class Product extends MY_Controller {
             // you need to set json_fetch_link
             $data['json_fetch_link'] = URL_X . 'Product/get_products_from_this_seller?seller_id=' . $seller_id;
             $data['addButtonLabel'] = "Attach a product to this seller";
-            $data['add_link'] = URL_X . "Product/add_new";
+            $data['add_link'] = URL_X . "Product_seller_mapping/add_new_product_to_a_seller/".$seller_id;
             $data['detach_link'] = URL_X . 'Product_seller_mapping/delete_a_mapping/';
         } else {
             $data['label'] = "All products";
@@ -54,11 +48,11 @@ class Product extends MY_Controller {
 
         // $this->load->model("product_category_model");
         // $data['categories']=$this->product_category_model->get_all_entries();
-        
-        
-        
-        $this->load->view("template/header",$this->activation_model->get_activation_data());
-        $this->load->view("product/list_all_products_1", $data);
+
+
+
+        $this->load->view("template/header", $this->activation_model->get_activation_data());
+        $this->load->view("product/list_all_products", $data);
         $this->load->view("template/footer");
     }
 
@@ -81,22 +75,22 @@ class Product extends MY_Controller {
         $data['sellers_count'] = $this->product_model->count_my_sellers($product_id);
         $data['best_rate'] = $this->product_model->my_best_rate($product_id);
         $data['best_seller'] = $this->product_model->my_best_seller($product_id);
-        $data['stock'] =  $p->stock;
-        $data['do_stock_zero_link'] = site_url('Product/DoStockZero/'.$p->id);
+        $data['stock'] = $p->stock;
+        $data['do_stock_zero_link'] = site_url('Product/DoStockZero/' . $p->id);
         //attachment type = 1 for product
-        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=1&attachment_id='.$p->id);
-        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/'.$p->id.'/1');
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=1&attachment_id=' . $p->id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/' . $p->id . '/1');
         $data['upload_base'] = base_url('assets/uploads/');
-        
-        $this->load->view("template/header",$this->activation_model->get_activation_data());
+
+        $this->load->view("template/header", $this->activation_model->get_activation_data());
         $this->load->view("product/single_product", $data);
         $this->load->view("template/footer");
     }
-    
-    public function DoStockZero($product_id){
+
+    public function DoStockZero($product_id) {
         $this->load->model('product_model');
-        $this->product_model->update_my_stock($product_id,0);
-        redirect('Product/single_product/'.$product_id);
+        $this->product_model->update_my_stock($product_id, 0);
+        redirect('Product/single_product/' . $product_id);
     }
 
     public function index_json() {
@@ -142,12 +136,12 @@ class Product extends MY_Controller {
     public function give_me_price() {
         if ($this->input->get('product_id') &&
                 $this->input->get('seller_id')) {
-            
+
             $product_id = $this->input->get('product_id');
             $seller_id = $this->input->get('seller_id');
             $this->load->model('product_seller_mapping_model');
             $result = $this->product_seller_mapping_model->give_me_price($product_id, $seller_id);
-            
+
             $this->output->set_content_type('application/json')
                     ->set_output(json_encode($result));
         }
@@ -164,18 +158,18 @@ class Product extends MY_Controller {
 
             $this->product_model->insert($this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description")
             );
-            $this->session->set_flashdata('message','Product saved.');
-            
+            $this->session->set_flashdata('message', 'Product saved.');
+
             redirect('Product/add_new');
         } else {
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            
+
             $this->load->model('key_value_model');
             $data['category_id'] = $this->key_value_model->get_value('category_id');
-            
-            
-            $this->load->view("template/header",$this->activation_model->get_activation_data());
+
+
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
             $this->load->view("product/add_new", $data);
             $this->load->view("template/footer");
         }
@@ -190,39 +184,65 @@ class Product extends MY_Controller {
             $this->load->model("product_model");
             $data['product'] = $this->product_model->get_one_product($id);
 
-            $this->load->view("template/header",$this->activation_model->get_activation_data());
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
             $this->load->view("product/delete", $data);
             $this->load->view("template/footer");
         }
     }
 
     public function edit($id = NULL) {
-        if ($id) {
+        
+        if ($this->input->post('product_name')) {
+            
+            $this->load->model("product_model");
+
+            $this->product_model->edit($this->input->post("id"), $this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description"), $this->input->post('stock')
+            );
+            redirect('Product');
+        }elseif ($id) {
+           
             $this->load->model("product_model");
             $data['product'] = $this->product_model->get_one_product($id);
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header",$this->activation_model->get_activation_data());
+            $data['form_submit_url'] = site_url('Product/edit/'.$id);
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
             $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
-        } else if ($this->input->post('product_name')) {
-            $this->load->model("product_model");
-
-            $this->product_model->edit($this->input->post("id"),
-                    $this->input->post("product_name"),
-                    $this->input->post("product_brand"), 
-                    $this->input->post("product_category"), 
-                    $this->input->post("product_description"),
-                    $this->input->post('stock')
-            );
-           redirect('Product');
         } else {
+            
             $this->load->model("product_category_model");
             $data['categories'] = $this->product_category_model->get_all_entries();
-            $this->load->view("template/header",$this->activation_model->get_activation_data());
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
             $this->load->view("product/edit", $data);
             $this->load->view("template/footer");
         }
     }
+    
+    public function save_varient($id = NULL) {
+        if ($this->input->post('product_name')) {
+            $this->load->model("product_model");
+
+            $this->product_model->insert($this->input->post("product_name"), $this->input->post("product_brand"), $this->input->post("product_category"), $this->input->post("product_description")
+            );
+            redirect('Product');
+        } elseif ($id) {
+            $this->load->model("product_model");
+            $data['product'] = $this->product_model->get_one_product($id);
+            $this->load->model("product_category_model");
+            $data['categories'] = $this->product_category_model->get_all_entries();
+            $data['form_submit_url'] = site_url('Product/save_varient/'.$id);
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
+            $this->load->view("product/edit", $data);
+            $this->load->view("template/footer");
+        }else {
+            $this->load->model("product_category_model");
+            $data['categories'] = $this->product_category_model->get_all_entries();
+            $this->load->view("template/header", $this->activation_model->get_activation_data());
+            $this->load->view("product/edit", $data);
+            $this->load->view("template/footer");
+        }
+    }
+    
 
 }

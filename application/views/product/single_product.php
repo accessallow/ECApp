@@ -1,12 +1,16 @@
-<div class="row">
-    <h3 class="well"><?php echo $product_name; ?>
+<div class="row well">
+    <h3 class=""><?php echo $product_name; ?>
         <small><?php echo $category; ?></small>
     </h3>
+    <a href="<?php echo site_url('Product'); ?>" class="btn btn-xs btn-warning">
+        <span class="glyphicon glyphicon-backward"></span> Back
+    </a>
 </div>
 <div class="row">
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
+
                 Details
             </div>
             <div class="panel-body">

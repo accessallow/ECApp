@@ -2,7 +2,9 @@
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input  placeholder="Search..."  type="text" ng-model="m" class="form-control noprint"/>
+                <input  placeholder="Search..."  type="text" ng-model="m" 
+                        autofocus
+                        class="form-control noprint"/>
             </div>
         </form>
     </div>

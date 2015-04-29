@@ -10,7 +10,9 @@
         <div class="col-md-7">
             <form class="form-inline">
                 <div class="form-group">
-                    <input placeholder="Search..." class="form-control noprint" type="text" ng-model="m"/>
+                    <input placeholder="Search..." class="form-control noprint" 
+                           autofocus
+                           type="text" ng-model="m"/>
                 </div>
             </form>
         </div>
@@ -117,6 +119,9 @@
                         <?php if (isset($detach_link)) { ?>
                             <a href="<?php echo $detach_link; ?>{{product.mapping_id}}" class="btn  btn-danger btn-xs">Detach</a>
                         <?php } else { ?>
+                             <a href="<?php echo URL_X . 'Product/save_varient/'; ?>{{product.id}}" class="btn  btn-warning btn-xs">
+                                 <span class="glyphicon glyphicon-random"></span>
+                             </a>
                             <a href="<?php echo URL_X . 'Product/edit/'; ?>{{product.id}}" class="btn  btn-primary btn-xs">Edit</a>
                             <a href="<?php echo URL_X . 'Product/delete/'; ?>{{product.id}}" class="btn  btn-danger btn-xs">Delete</a>
                         <?php } ?>

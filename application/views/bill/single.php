@@ -1,10 +1,10 @@
 <div class="row">
     <div class="panel panel-primary">
         <div class="panel-heading">
-             <a href="<?php echo site_url('Inventory'); ?>" class="btn btn-xs btn-warning">
+            <a href="<?php echo site_url('Bill/dashboard'); ?>" class="btn btn-xs btn-warning">
                 <span class="glyphicon glyphicon-backward"></span> Back
             </a>
-            Files attached with this inventory <?php // echo $product_name; ?>
+            Files attached with this bill <?php // echo $product_name; ?>
             <span class="pull-right">
                 <a href="<?php echo $upload_new_link; ?>" class="btn btn-success btn-xs">Upload file</a>
             </span>

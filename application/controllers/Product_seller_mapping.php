@@ -80,10 +80,15 @@ class Product_seller_mapping extends MY_Controller {
         } else {
 
             $this->load->model('seller_model');
+            $this->load->model('product_category_model');
+            $this->load->model('product_model');
+            
             $data['seller'] = $this->seller_model->get_one_seller($seller_id);
+            $data['categories'] = $this->product_category_model->get_all_entries();
+            $data['products'] = $this->product_model->get_all_entries_joined();
 
-            $data['fetch_non_products_json_link'] = URL_X . 'Product_seller_mapping/sellers_who_dont_sell_this_product/' . $product_id;
-            $data['fetch_products_json_link'] = URL_X . 'Seller/index_json?product_id=' . $product_id;
+            $data['fetch_non_products_json_link'] = URL_X . 'Product_seller_mapping/products_which_this_seller_dont_sell/' . $seller_id;
+            $data['fetch_products_json_link'] = URL_X . 'Product/index_json?seller_id=' . $seller_id;
 
             $this->load->view("template/header",$this->activation_model->get_activation_data());
             $this->load->view("product/sellers/add_new_product_to_seller", $data);

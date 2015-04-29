@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form"  data-parsley-validate action="<?php echo URL_X . 'Product/edit'; ?>" method="POST">
+<form class="form-horizontal" role="form"  data-parsley-validate action="<?php echo $form_submit_url; ?>" method="POST">
     <?php
     if (!isset($product)) {
 

@@ -28,7 +28,7 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
         </thead>
         <tbody>
             <tr ng-repeat="product in products|filter:m"
-                ng-class="{success: is_not_zero(product.item_count)}"
+                ng-class="{success: is_not_zero(product.item_count),danger:is_marked_down(product.mark)}"
                 >
                 <td>{{product.product_name}}</td>
                 <td>{{product.product_brand}}</td>
@@ -38,6 +38,14 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
                     <a href="<?php echo site_url('StockWarning/add_seller_wizard');?>/{{product.id}}" 
                        class="btn btn-success btn-xs">
                         Add to shopping list
+                    </a>
+                    <a href="<?php echo site_url('StockWarning/mark_down');?>/{{product.id}}" 
+                       class="btn btn-danger btn-xs">
+                        Mark
+                    </a>
+                    <a href="<?php echo site_url('StockWarning/mark_up');?>/{{product.id}}" 
+                       class="btn btn-info btn-xs">
+                        Unmark
                     </a>
                 </td>
             </tr>
@@ -70,6 +78,10 @@ $my_seller_link = site_url('Product/get_sellers_for_this_product?product_id=');
             
             $scope.is_not_zero = function (count){
                 if(count>0) return true;
+                else return false;
+            }
+            $scope.is_marked_down = function (mark){
+                if(mark==1) return true;
                 else return false;
             }
             

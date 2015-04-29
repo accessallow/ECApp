@@ -57,12 +57,20 @@
     <tbody>
         <?php foreach ($bills as $b) { ?>
             <tr>
-                <td><?php echo $b->bill_number; ?></td>
-                <td><?php echo $b->seller_name; ?></td>
-                <td><?php echo $b->total; ?></td>
-                <td><?php echo $b->cash; ?></td>
-                <td><?php echo $b->cheque; ?></td>
-                <td><?php echo $b->pending; ?></td>
+                <td><?php echo $b->bill_number; ?>
+                    <a href="<?php echo site_url('Bill/single/'.$b->id); ?>" class="pull-right">
+                        <span class="glyphicon glyphicon-file"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="<?php echo site_url('Seller/single_seller/'.$b->seller_id); ?>">
+                    <?php echo $b->seller_name; ?>
+                    </a>
+                </td>
+                <td><?php echo $b->total/10; ?></td>
+                <td><?php echo $b->cash/10; ?></td>
+                <td><?php echo $b->cheque/10; ?></td>
+                <td><?php echo $b->pending/10; ?></td>
                 <td><?php echo $b->date; ?></td>
                 <td class="noprint">
                     <a href="<?php echo site_url('Bill/update/' . $b->id); ?>" class="btn btn-primary btn-xs">Edit</a>

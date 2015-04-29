@@ -10,8 +10,8 @@ $inventory = $inventory[0];
     <div class="form-group">
         <label class="col-sm-2 control-label">Product Name</label>
         <div class="col-sm-4">
-            <select name="product_id" class="form-control"  required>
-                <option value>Choose a product</option>
+            <select name="product_id"   required>
+                <option value></option>
                 <?php foreach($products as $p) { ?>
                     <option value="<?php echo $p->id ?>" <?php 
                     
@@ -26,8 +26,8 @@ $inventory = $inventory[0];
     <div class="form-group">
         <label class="col-sm-2 control-label">Seller</label>
         <div class="col-sm-4">
-            <select name="seller_id" class="form-control"  required>
-                <option value="" selected>Choose a seller</option>
+            <select name="seller_id"  required>
+                <option value="" selected></option>
                 <?php foreach ($sellers as $s) { ?>
                     <option value="<?php echo $s->id ?>" <?php 
                         if($s->id==$inventory->seller_id){

@@ -90,10 +90,12 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                     <td>Product</td>
                     <td>Brand</td>
                     <td class="">Seller</td>
-                    <td class="noprint">Rate</td>
+                    
                     <td>Quantity</td>
-                    <td class="noprint">Price</td>
+                    
                     <td class="noprint">Description</td>
+                    <td class="">Rate</td>
+                    <td class="">Total</td>
                     <td class="noprint">Action</td>
                 </tr>
             </thead>
@@ -109,10 +111,12 @@ $seller_fetch_url = site_url('Seller/get_one_seller_json');
                             {{item.seller_name}}
                         </a>
                     </td>
-                    <td  class="noprint">{{item.rate}}</td>
+                    
                     <td>{{item.quantity}}</td>
-                    <td  class="noprint">{{item.total_price}}</td>
+                    
                     <td  class="noprint">{{item.description}}</td>
+                    <td  class="">{{item.rate}}</td>
+                    <td  class="">{{item.total_price}}</td>
                     <td class="noprint">
                         <a class="btn btn-xs btn-primary" 
                            href="<?php echo $item_edit_link ?>/{{item.list_id}}/{{item.id}}">

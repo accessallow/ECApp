@@ -98,8 +98,8 @@ class Bill extends MY_Controller {
 
 
             $data['seller_id'] = $this->key_value_model->get_value('seller_id');
-            
-            if($this->input->get('seller_id')){
+
+            if ($this->input->get('seller_id')) {
                 $data['seller_id'] = $this->input->get('seller_id');
             }
 
@@ -164,11 +164,11 @@ class Bill extends MY_Controller {
             'addButtonLabel' => 'Add new payment bill',
             'add_link' => site_url('Bill/add_new'),
             'label' => 'Payment bills',
-            'total_bills' => $this->bill_model->count_bills(array('tag'=> 1)),
-            'total_money' => $this->bill_model->sum_bills('total',array('tag'=> 1))->total,
-            'total_cash' => $this->bill_model->sum_bills('cash',array('tag'=> 1))->cash,
-            'total_cheque' => $this->bill_model->sum_bills('cheque',array('tag'=> 1))->cheque,
-            'total_pending' => $this->bill_model->sum_bills('pending',array('tag'=> 1))->pending
+            'total_bills' => $this->bill_model->count_bills(array('tag' => 1)),
+            'total_money' => $this->bill_model->sum_bills('total', array('tag' => 1))->total,
+            'total_cash' => $this->bill_model->sum_bills('cash', array('tag' => 1))->cash,
+            'total_cheque' => $this->bill_model->sum_bills('cheque', array('tag' => 1))->cheque,
+            'total_pending' => $this->bill_model->sum_bills('pending', array('tag' => 1))->pending
         );
         $this->load_view_embedded("bill/dashboard", $data);
     }
@@ -189,6 +189,16 @@ class Bill extends MY_Controller {
             $this->load->view("common/delete", $data);
             $this->load->view("template/footer");
         }
+    }
+
+    public function single($id) {
+        $data['upload_new_link'] = site_url('FileUpload/add_new?attachment_type=5&attachment_id=' . $id);
+        $data['uploads_json_fetch_link'] = site_url('FileUpload/get_uploads/' . $id . '/5');
+        $data['upload_base'] = base_url('assets/uploads/');
+
+        $this->load->view("template/header", $this->activation_model->get_activation_data());
+        $this->load->view("bill/single", $data);
+        $this->load->view("template/footer");
     }
 
 }

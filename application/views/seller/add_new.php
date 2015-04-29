@@ -3,8 +3,8 @@
 <hr/>
 
 <?php if($this->session->flashdata('message')){?>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok"></span>
+<div class="alert <?php echo $this->session->flashdata('alert_class'); ?>" role="alert">
+    <span class="glyphicon <?php echo $this->session->flashdata('glyphicon_class'); ?>"></span>
     <strong><?php echo $this->session->flashdata('message');?></strong>
 </div>
 <?php } ?>

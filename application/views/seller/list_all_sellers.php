@@ -6,7 +6,9 @@ $seller_single_url = site_url("Seller/single_seller/");
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input  placeholder="Search..." class="form-control" type="text" ng-model="s"/>
+                <input  placeholder="Search..." class="form-control" 
+                        autofocus
+                        type="text" ng-model="s"/>
             </div>
         </form>
     </div>

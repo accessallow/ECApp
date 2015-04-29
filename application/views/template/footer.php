@@ -16,7 +16,10 @@
         $('form').parsley();
 
         $('#datetimepicker1').datetimepicker({pickDate: true, pickTime: false});
-        $('#mytable').DataTable();
+        $('#mytable').DataTable({
+            "lengthMenu": [[10, 25, 50,100,1000, -1], [10, 25, 50,100,1000, "All"]]
+        });
+
 
     });
 

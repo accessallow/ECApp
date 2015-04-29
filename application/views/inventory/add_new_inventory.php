@@ -2,11 +2,11 @@
 <hr/>
 
 
-<?php if($this->session->flashdata('message')){?>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok"></span>
-    <strong><?php echo $this->session->flashdata('message');?></strong>
-</div>
+<?php if ($this->session->flashdata('message')) { ?>
+    <div class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok"></span>
+        <strong><?php echo $this->session->flashdata('message'); ?></strong>
+    </div>
 <?php } ?>
 
 <div ng-controller="RateController">
@@ -15,18 +15,19 @@
             <label class="col-sm-2 control-label">Product Name</label>
             <div class="col-sm-4">
                 <select name="product_id" 
+                        id="myselect"
                         autofocus="autofocus"
                         ng-model="product_id"  
-                        class="form-control"   
+                        
                         required>
                     <option value="" <?php
                     if (!isset($product_id)) {
                         echo " selected ";
                     }
                     ?>
-                            >Choose a product
+                            >
                     </option>
-                        <?php foreach ($products as $p) { ?>
+                    <?php foreach ($products as $p) { ?>
                         <option 
                             value="<?php echo $p->id; ?>"
                             <?php
@@ -39,12 +40,12 @@
                             <?php echo $p->product_name; ?>
 
                             &nbsp - &nbsp
-                        <?php echo $p->product_category; ?> 
+                            <?php echo $p->product_category; ?> 
                             &nbsp - &nbsp
-    <?php echo $p->product_brand; ?> 
+                            <?php echo $p->product_brand; ?> 
 
                         </option>
-<?php } ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -52,11 +53,11 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Seller</label>
             <div class="col-sm-4">
-                <select name="seller_id" ng-model="seller_id" class="form-control"  required>
-                    <option value="" selected>Choose a seller</option>
-<?php foreach ($sellers as $s) { ?>
+                <select name="seller_id" ng-model="seller_id"  required>
+                    <option value="" selected></option>
+                    <?php foreach ($sellers as $s) { ?>
                         <option value="<?php echo $s->id ?>"><?php echo $s->seller_name; ?></option>
-<?php } ?>
+                    <?php } ?>
                 </select>
             </div>
         </div>
@@ -118,7 +119,7 @@
 
         </div>
 
-
+     
 
 
         <div class="form-group">
@@ -135,13 +136,13 @@
     app.controller('RateController', ['$scope', '$http', function ($scope, $http) {
 
             $scope.price = 0;
-            <?php if (isset($product_id)) { ?>
-                            $scope.product_id = <?php echo $product_id; ?>;
-            <?php } ?>
+<?php if (isset($product_id)) { ?>
+                $scope.product_id = <?php echo $product_id; ?>;
+<?php } ?>
 
-            <?php if (isset($seller_id)) { ?>
-                            $scope.seller_id = <?php echo $seller_id; ?>;
-            <?php } ?>
+<?php if (isset($seller_id)) { ?>
+                $scope.seller_id = <?php echo $seller_id; ?>;
+<?php } ?>
             $scope.give_me_price = function (product_id, seller_id) {
                 $http.get('<?php echo URL_X; ?>Product/give_me_price?product_id=' + product_id + '&&seller_id=' + seller_id).success(function (data) {
                     //return data[0].product_price;
@@ -163,10 +164,12 @@
                 });
             };
 
+            
 
 
 
 
         }]);
+
 
 </script>

@@ -113,6 +113,8 @@ class FileUpload extends MY_Controller {
                 break;
             case 4: $controller = 'Form49/get/' . $attachment_id;
                 break;
+            case 5: $controller = 'Bill/single/' . $attachment_id;
+                break;
         }
         return $controller;
     }

@@ -28,10 +28,10 @@
         <div class="col-sm-4">
 
             <select name="product_category" 
-                    class="form-control"  
+                    
                     accesskey="b"
                     required ng-model="category">
-                <option value="" selected>Choose a category</option>
+                <option value="" selected></option>
                 <?php foreach ($categories as $c) { ?>
                     <option value="<?php echo $c->id ?>"><?php echo $c->product_category_name; ?></option>
                 <?php } ?>

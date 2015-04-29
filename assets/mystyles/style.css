@@ -17,10 +17,13 @@ thead,tfoot{
     font-weight: bolder;
 }
 thead tr,tfoot tr{
-    background: #8099E6;
+    background: #337ab7;
     color:white;
 }
 .printonly{
     display:none;
+}
+select{
+    padding-top: -10px;
 }
 

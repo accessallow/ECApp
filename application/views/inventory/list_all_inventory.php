@@ -68,7 +68,9 @@ if (isset($product_id) && isset($seller_id) && isset($date)) {
     <div class="col-md-7">
         <form class="form-inline">
             <div class="form-group">
-                <input  placeholder="Search..." class="form-control" type="text" ng-model="m"/>
+                <input  placeholder="Search..." class="form-control" 
+                        autofocus
+                        type="text" ng-model="m"/>
             </div>
         </form>
     </div>

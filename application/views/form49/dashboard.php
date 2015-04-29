@@ -67,47 +67,62 @@ $view_url = site_url('Form49/get');
 
 
 
-<div ng-controller="Form49Controller" style="width: 119%;margin-left:-80px;font-size: 0.8em;">
+<div ng-controller="Form49Controller" style="width: 135%;margin-left:-80px;font-size: 0.8em;">
 
 
 
     <table class="table table-hover table-striped table-condensed table-bordered">
         <thead>
             <tr>
+                <td class="noprint">Action</td>
                 <td>Shop name</td>
                 <td>TIN no.</td>
                 <td>Address</td>
                 <td>Invoice no.</td>
+                <td>Form no.</td>
+                <td>Form date</td>
+                <td>Product %</td>
+                <td>CST %</td>
                 <td>Date</td>
                 <td>Total value</td>
                 <td>Total quantity</td>
                 <td>Dispatch location</td>
                 <td>Destination</td>
                 <td>Category</td>
-                <td>Product</td>
-                <td>Description</td>
+<!--                <td>Product</td>
+                <td>Description</td>-->
                 <td>Transport value</td>
                 <td>Billty no.</td>
                 <td>Vehicle no.</td>
                 <td>Form "C"</td>
 
-                <td class="noprint">Action</td>
+
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="form in forms|filter:m">
+                <td class="noprint">
+                    <a href="<?php echo $view_url; ?>/{{form.id}}" class="btn  btn-info btn-xs">V</a>
+                    <a href="<?php echo $edit_url; ?>/{{form.id}}" class="btn  btn-primary btn-xs">E</a>
+                    <a href="<?php echo $delete_url; ?>/{{form.id}}" class="btn  btn-danger btn-xs">D</a>
+
+                </td>
                 <td>{{form.shop_name}} </td>
                 <td>{{form.tin_number}}</td>
                 <td>{{form.address}}</td>
                 <td>{{form.invoice_number}}</td>
+                <td>{{form.form_number}}</td>
+                <td>{{form.form_date}}</td>
+                <td>{{form.product_percent}}</td>
+                <td>{{form.cst_percent}}</td>
                 <td>{{form.date}}</td>
                 <td>{{form.total_value}}</td>
                 <td>{{form.total_quantity}}</td>
                 <td>{{form.dispatch_location}}</td>
                 <td>{{form.destination}}</td>
                 <td>{{form.category}}</td>
-                <td>{{form.product}}</td>
-                <td>{{form.description}}</td>
+<!--                <td>{{form.product}}</td>
+                <td>{{form.description}}</td>-->
                 <td>{{form.transport_value}}</td>
                 <td>{{form.billty_number}}</td>
                 <td>{{form.vehicle_number}}</td>
@@ -116,12 +131,7 @@ $view_url = site_url('Form49/get');
 
 
 
-                <td class="noprint">
-                    <a href="<?php echo $view_url; ?>/{{form.id}}" class="btn  btn-info btn-xs">V</a>
-                    <a href="<?php echo $edit_url; ?>/{{form.id}}" class="btn  btn-primary btn-xs">E</a>
-                    <a href="<?php echo $delete_url; ?>/{{form.id}}" class="btn  btn-danger btn-xs">D</a>
 
-                </td>
             </tr>
         </tbody>
     </table>

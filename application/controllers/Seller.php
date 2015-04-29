@@ -73,19 +73,42 @@ class Seller extends MY_Controller {
     }
 
     public function add_new() {
+        $isget = true;
         if ($this->input->post('seller_name')) {
 
+            $this->load->library('form_validation');
+            $this->load->helper(array('form', 'url'));
 
 
-            $this->seller_model->insert(
-                    $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_mail_id"), $this->input->post("seller_tin_number"), $this->input->post("seller_address"));
+            $this->form_validation->set_rules('seller_name', 'Seller name', 'callback_sellername_check');
 
-            $this->session->set_flashdata('message', 'Seller saved.');
-            redirect('Seller/add_new');
-        } else {
+            if ($this->form_validation->run() == FALSE) {
+                
+                $this->set_error_flash("Seller already in database.");
+                redirect('Seller/add_new');
+                $isget = false;
+            } else {
+                $this->seller_model->insert(
+                        $this->input->post("seller_name"), $this->input->post("seller_phone_number"), $this->input->post("seller_mail_id"), $this->input->post("seller_tin_number"), $this->input->post("seller_address"));
+
+                $this->set_success_flash("Seller saved.");
+                $isget = false;
+                redirect('Seller/add_new');
+            }
+        } 
+        if($isget){
             $this->load->view("template/header", $this->activation_model->get_activation_data());
             $this->load->view("seller/add_new");
             $this->load->view("template/footer");
+        }
+    }
+
+    public function sellername_check($seller) {
+        if ($this->seller_model->isAlreadyExist($seller)) {
+            $this->form_validation->set_message('sellername_check', 'The %s seller is already in database');
+            return FALSE;
+        } else {
+            return TRUE;
         }
     }
 
@@ -155,12 +178,12 @@ class Seller extends MY_Controller {
                     'tag' => 1,
                     'seller_id' => $seller_id
                 ))->total;
-        
+
         $data->total_cash = $this->bill_model->sum_bills('cash', array(
                     'tag' => 1,
                     'seller_id' => $seller_id
                 ))->cash;
-        
+
         $data->total_cheque = $this->bill_model->sum_bills('cheque', array(
                     'tag' => 1,
                     'seller_id' => $seller_id
@@ -169,7 +192,7 @@ class Seller extends MY_Controller {
                     'tag' => 1,
                     'seller_id' => $seller_id
                 ))->pending;
-        
+
 
         $this->load->view("template/header", $this->activation_model->get_activation_data());
         $this->load->view("seller/single_seller", $data);

@@ -79,45 +79,50 @@ class Form49 extends MY_Controller {
     public function add_new() {
         if ($this->input->post('shop_name')) {
 
+//                 These two lines where removed from the code below
+//                'product' => $this->input->post('product'),
+//                'description' => $this->input->post('description'),
 
 
             $f = array(
-                'shop_name' => $this->input->post('shop_name'),
-                'address' => $this->input->post('address'),
-                'tin_number' => $this->input->post('tin_number'),
-                'invoice_number' => $this->input->post('invoice_number'),
-                'date' => $this->input->post('date'),
-                'total_value' => $this->input->post('total_value'),
-                'total_quantity' => $this->input->post('total_quantity'),
-                'dispatch_location' => $this->input->post('dispatch_location'),
-                'destination' => $this->input->post('destination'),
-                'category' => $this->input->post('category'),
-                'product' => $this->input->post('product'),
-                'description' => $this->input->post('description'),
-                'transport_value' => $this->input->post('transport_value'),
-                'billty_number' => $this->input->post('billty_number'),
-                'vehicle_number' => $this->input->post('vehicle_number'),
-                'form_c' => $this->input->post('form_c')
+            'shop_name' => $this->input->post('shop_name'),
+            'address' => $this->input->post('address'),
+            'tin_number' => $this->input->post('tin_number'),
+            'invoice_number' => $this->input->post('invoice_number'),
+            'form_number' => $this->input->post('form_number'),
+            'form_date' => $this->input->post('form_date'),
+            'date' => $this->input->post('date'),
+            'total_value' => $this->input->post('total_value'),
+            'total_quantity' => $this->input->post('total_quantity'),
+            'dispatch_location' => $this->input->post('dispatch_location'),
+            'destination' => $this->input->post('destination'),
+            'category' => $this->input->post('category'),
+            'transport_value' => $this->input->post('transport_value'),
+            'billty_number' => $this->input->post('billty_number'),
+            'vehicle_number' => $this->input->post('vehicle_number'),
+            'form_c' => $this->input->post('form_c'),
+            'product_percent' => $this->input->post('product_percent'),
+            'cst_percent' => $this->input->post('cst_percent')
             );
 
             $this->form49_model->insert($f);
-            
+
             $this->session->set_flashdata('message', 'Form saved.');
 
             redirect('Form49/add_new');
         } else {
-             $this->load->model('key_value_model');
-            
-            if($this->key_value_model->get_value('seller_id')!=null){
-                $data['seller']=true;
-                $this->load->model('seller_model','sm');
+            $this->load->model('key_value_model');
+
+            if ($this->key_value_model->get_value('seller_id') != null) {
+                $data['seller'] = true;
+                $this->load->model('seller_model', 'sm');
                 $seller = $this->sm->get_one_seller($this->key_value_model->get_value('seller_id'));
                 $seller = $seller[0];
                 $data['seller_data'] = $seller;
             }
-            if($this->input->get('seller_id')){
-                $data['seller']=true;
-                $this->load->model('seller_model','sm');
+            if ($this->input->get('seller_id')) {
+                $data['seller'] = true;
+                $this->load->model('seller_model', 'sm');
                 $seller = $this->sm->get_one_seller($this->input->get('seller_id'));
                 $seller = $seller[0];
                 $data['seller_data'] = $seller;
@@ -131,7 +136,7 @@ class Form49 extends MY_Controller {
             $data['form_submit_url'] = site_url('Form49/add_new');
             $data['back_url'] = site_url('Form49');
 
-           
+
             $data['set_date'] = $this->key_value_model->get_value('date');
 
             $this->load->view("template/header", $this->activation_model->get_activation_data());
@@ -169,18 +174,20 @@ class Form49 extends MY_Controller {
                 'address' => $this->input->post('address'),
                 'tin_number' => $this->input->post('tin_number'),
                 'invoice_number' => $this->input->post('invoice_number'),
+                'form_number' => $this->input->post('form_number'),
+                'form_date' => $this->input->post('form_date'),
                 'date' => $this->input->post('date'),
                 'total_value' => $this->input->post('total_value'),
                 'total_quantity' => $this->input->post('total_quantity'),
                 'dispatch_location' => $this->input->post('dispatch_location'),
                 'destination' => $this->input->post('destination'),
                 'category' => $this->input->post('category'),
-                'product' => $this->input->post('product'),
-                'description' => $this->input->post('description'),
                 'transport_value' => $this->input->post('transport_value'),
                 'billty_number' => $this->input->post('billty_number'),
                 'vehicle_number' => $this->input->post('vehicle_number'),
-                'form_c' => $this->input->post('form_c')
+                'form_c' => $this->input->post('form_c'),
+                'product_percent' => $this->input->post('product_percent'),
+                'cst_percent' => $this->input->post('cst_percent')
             );
             $this->form49_model->edit($id, $f);
 

@@ -190,5 +190,15 @@ class Seller_model extends CI_Model {
         $a = $this->db->count_all_results();
         return $a;
     }
+    function isAlreadyExist($seller_name){
+        $q = $this->db->get_where('seller',array(
+            'seller_name' => $seller_name
+        ));
+        if(count($q->result())>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
